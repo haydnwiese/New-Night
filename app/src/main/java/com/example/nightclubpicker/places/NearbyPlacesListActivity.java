@@ -1,9 +1,12 @@
 package com.example.nightclubpicker.places;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,6 +15,7 @@ import com.example.nightclubpicker.places.models.PlaceType;
 import com.example.nightclubpicker.places.models.SearchResult;
 import com.example.nightclubpicker.places.service.PlacesService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,15 +26,33 @@ import static com.example.nightclubpicker.MainActivity.BUNDLE_LNG;
 
 public class NearbyPlacesListActivity extends AppCompatActivity {
 
-    @BindView(R.id.latView) TextView latView;
+    @BindView(R.id.resultsRecyclerView)
+    RecyclerView recyclerView;
+
+    ResultsViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearby_places_list);
         ButterKnife.bind(this);
+
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setDisplayShowHomeEnabled(true);
+        this.getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new ResultsViewAdapter(new ArrayList<>());
+        recyclerView.setAdapter(adapter);
+
         Intent intent = getIntent();
         fetchPlaces(intent.getDoubleExtra(BUNDLE_LAT, 0), intent.getDoubleExtra(BUNDLE_LNG, 0));
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
     }
 
     private void fetchPlaces(double lat, double lng) {
@@ -43,7 +65,10 @@ public class NearbyPlacesListActivity extends AppCompatActivity {
                 new PlacesService.NearbySearchCallback() {
                     @Override
                     public void onSuccess(List<SearchResult> searchResults) {
-                        setLatView(searchResults.get(0).getName());
+                        Toast.makeText(NearbyPlacesListActivity.this, "Success", Toast.LENGTH_SHORT)
+                                .show();
+                        adapter.setListItems(searchResults);
+                        adapter.notifyDataSetChanged();
                     }
 
                     @Override
@@ -52,9 +77,5 @@ public class NearbyPlacesListActivity extends AppCompatActivity {
                                 .show();
                     }
                 });
-    }
-
-    private void setLatView(String text) {
-        latView.setText(text);
     }
 }
