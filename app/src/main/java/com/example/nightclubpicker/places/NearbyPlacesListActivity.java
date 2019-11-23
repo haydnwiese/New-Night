@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nightclubpicker.R;
+import com.example.nightclubpicker.common.adapters.CommonListItemAdapter;
+import com.example.nightclubpicker.common.list_items.ListItem;
+import com.example.nightclubpicker.common.list_items.ResultListItem;
 import com.example.nightclubpicker.places.models.PlaceType;
 import com.example.nightclubpicker.places.models.SearchResult;
 import com.example.nightclubpicker.places.service.PlacesService;
@@ -29,7 +30,7 @@ public class NearbyPlacesListActivity extends AppCompatActivity {
     @BindView(R.id.resultsRecyclerView)
     RecyclerView recyclerView;
 
-    ResultsViewAdapter adapter;
+    CommonListItemAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class NearbyPlacesListActivity extends AppCompatActivity {
         this.getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ResultsViewAdapter(new ArrayList<>());
+        adapter = new CommonListItemAdapter(new ArrayList<>());
         recyclerView.setAdapter(adapter);
 
         Intent intent = getIntent();
@@ -65,9 +66,17 @@ public class NearbyPlacesListActivity extends AppCompatActivity {
                 new PlacesService.NearbySearchCallback() {
                     @Override
                     public void onSuccess(List<SearchResult> searchResults) {
+                        List<ListItem> listItems = new ArrayList<>();
+                        for (SearchResult result : searchResults) {
+                            listItems.add(new ResultListItem.Builder().setImageId(R.drawable.ic_launcher_background)
+                                    .setName(result.getName())
+                                    .build());
+                        }
+
                         Toast.makeText(NearbyPlacesListActivity.this, "Success", Toast.LENGTH_SHORT)
                                 .show();
-                        adapter.setListItems(searchResults);
+
+                        adapter.setListItems(listItems);
                         adapter.notifyDataSetChanged();
                     }
 

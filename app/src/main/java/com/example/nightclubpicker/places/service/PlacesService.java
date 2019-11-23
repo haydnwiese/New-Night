@@ -8,7 +8,7 @@ import com.example.nightclubpicker.retrofit.RetrofitInstance;
 
 import java.util.List;
 
-import com.example.nightclubpicker.ResourceSingleton;
+import com.example.nightclubpicker.common.ResourceSingleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

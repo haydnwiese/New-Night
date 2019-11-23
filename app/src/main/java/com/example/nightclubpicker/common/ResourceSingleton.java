@@ -1,4 +1,4 @@
-package com.example.nightclubpicker;
+package com.example.nightclubpicker.common;
 
 import android.app.Application;
 import android.content.Context;

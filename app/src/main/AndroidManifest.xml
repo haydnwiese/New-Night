@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".ResourceSingleton">
+        android:name=".common.ResourceSingleton">
         <activity android:name=".places.NearbyPlacesListActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
