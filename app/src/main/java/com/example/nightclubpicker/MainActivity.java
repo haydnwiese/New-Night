@@ -13,9 +13,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.nightclubpicker.common.BaseActivity;
 import com.example.nightclubpicker.places.NearbyPlacesListActivity;
 
-public class MainActivity extends AppCompatActivity implements LocationListener {
+public class MainActivity extends BaseActivity implements LocationListener {
 
     public static final String BUNDLE_LAT = "bundleLatitude";
     public static final String BUNDLE_LNG = "bundleLongitude";
@@ -51,6 +52,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         intent.putExtra(BUNDLE_LAT, location.getLatitude());
         intent.putExtra(BUNDLE_LNG, location.getLongitude());
         startActivity(intent);
+    }
+
+    @Override
+    protected void setAdditionalActionBarProperties() {
+        this.getSupportActionBar().hide();
     }
 
     @Override

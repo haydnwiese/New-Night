@@ -7,6 +7,7 @@ public class ResultListItem implements ListItem {
     private int imageId;
     private String name;
     private String description;
+    private
 
     public int getImageId() {
         return imageId;

@@ -9,7 +9,11 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.nightclubpicker.R;
+import com.example.nightclubpicker.common.BaseActivity;
+import com.example.nightclubpicker.common.ResourceSingleton;
 import com.example.nightclubpicker.common.adapters.CommonListItemAdapter;
+import com.example.nightclubpicker.common.adapters.DividerItemDecoration;
+import com.example.nightclubpicker.common.list_items.HeaderListItem;
 import com.example.nightclubpicker.common.list_items.ListItem;
 import com.example.nightclubpicker.common.list_items.ResultListItem;
 import com.example.nightclubpicker.places.models.PlaceType;
@@ -25,7 +29,7 @@ import butterknife.ButterKnife;
 import static com.example.nightclubpicker.MainActivity.BUNDLE_LAT;
 import static com.example.nightclubpicker.MainActivity.BUNDLE_LNG;
 
-public class NearbyPlacesListActivity extends AppCompatActivity {
+public class NearbyPlacesListActivity extends BaseActivity {
 
     @BindView(R.id.resultsRecyclerView)
     RecyclerView recyclerView;
@@ -38,11 +42,8 @@ public class NearbyPlacesListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nearby_places_list);
         ButterKnife.bind(this);
 
-        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        this.getSupportActionBar().setDisplayShowHomeEnabled(true);
-        this.getSupportActionBar().setDisplayShowTitleEnabled(false);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(ResourceSingleton.getResourcesInstance().getDrawable(R.drawable.divider)));
         adapter = new CommonListItemAdapter(new ArrayList<>());
         recyclerView.setAdapter(adapter);
 
@@ -67,6 +68,11 @@ public class NearbyPlacesListActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(List<SearchResult> searchResults) {
                         List<ListItem> listItems = new ArrayList<>();
+
+                        listItems.add(new HeaderListItem.Builder()
+                                .setTitle(ResourceSingleton.getResourcesInstance().getString(R.string.results))
+                                .build());
+
                         for (SearchResult result : searchResults) {
                             listItems.add(new ResultListItem.Builder().setImageId(R.drawable.ic_launcher_background)
                                     .setName(result.getName())

@@ -8,6 +8,7 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nightclubpicker.common.list_items.HeaderListItem;
 import com.example.nightclubpicker.common.list_items.ListItem;
 import com.example.nightclubpicker.common.list_items.ResultListItem;
 import com.example.nightclubpicker.common.view_holders.HeaderListItemViewHolder;
@@ -47,7 +48,7 @@ public class CommonListItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         switch(type) {
             case HEADER_LIST_ITEM:
-                ((HeaderListItemViewHolder) holder).setItems();
+                ((HeaderListItemViewHolder) holder).setItems((HeaderListItem) listItem);
                 break;
             case RESULT_LIST_ITEM:
                 ((ResultItemViewHolder) holder).setItems((ResultListItem) listItem);

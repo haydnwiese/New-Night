@@ -4,11 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".places.NearbyPlacesListActivity">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/resultsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    tools:context=".places.place_details.PlaceDetailsActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
