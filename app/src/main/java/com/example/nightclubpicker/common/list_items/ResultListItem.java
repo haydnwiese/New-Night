@@ -3,14 +3,13 @@ package com.example.nightclubpicker.common.list_items;
 import com.example.nightclubpicker.common.adapters.Type;
 
 public class ResultListItem implements ListItem {
-    // TODO: Change to URL string
-    private int imageId;
+    private String imageUrl;
     private String name;
     private String description;
-    private
+    private OnItemClickListener clickListener;
 
-    public int getImageId() {
-        return imageId;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     public String getName() {
@@ -21,13 +20,18 @@ public class ResultListItem implements ListItem {
         return description;
     }
 
+    public OnItemClickListener getClickListener() {
+        return clickListener;
+    }
+
     public static class Builder {
-        private int imageId;
+        private String imageUrl;
         private String name;
         private String description;
+        private OnItemClickListener clickListener;
 
-        public Builder setImageId(int imageId) {
-            this.imageId = imageId;
+        public Builder setImageUrl(String imageUrl) {
+            this.imageUrl = imageUrl;
             return this;
         }
 
@@ -41,11 +45,17 @@ public class ResultListItem implements ListItem {
             return this;
         }
 
+        public Builder setClickListener(OnItemClickListener clickListener) {
+            this.clickListener = clickListener;
+            return this;
+        }
+
         public ResultListItem build() {
             ResultListItem listItem = new ResultListItem();
-            listItem.imageId = imageId;
+            listItem.imageUrl = imageUrl;
             listItem.name = name;
             listItem.description = description;
+            listItem.clickListener = clickListener;
             return listItem;
         }
     }

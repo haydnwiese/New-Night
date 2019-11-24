@@ -5,8 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.nightclubpicker.R;
+import com.example.nightclubpicker.common.BaseActivity;
 
-public class PlaceDetailsActivity extends AppCompatActivity {
+public class PlaceDetailsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

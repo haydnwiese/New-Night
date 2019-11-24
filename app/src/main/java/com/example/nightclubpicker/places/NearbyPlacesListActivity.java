@@ -1,6 +1,5 @@
 package com.example.nightclubpicker.places;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +17,7 @@ import com.example.nightclubpicker.common.list_items.ListItem;
 import com.example.nightclubpicker.common.list_items.ResultListItem;
 import com.example.nightclubpicker.places.models.PlaceType;
 import com.example.nightclubpicker.places.models.SearchResult;
+import com.example.nightclubpicker.places.place_details.PlaceDetailsActivity;
 import com.example.nightclubpicker.places.service.PlacesService;
 
 import java.util.ArrayList;
@@ -51,10 +51,9 @@ public class NearbyPlacesListActivity extends BaseActivity {
         fetchPlaces(intent.getDoubleExtra(BUNDLE_LAT, 0), intent.getDoubleExtra(BUNDLE_LNG, 0));
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return super.onSupportNavigateUp();
+    private void navigateToPlaceDetails(SearchResult result) {
+        Intent intent = new Intent(this, PlaceDetailsActivity.class);
+        startActivity(intent);
     }
 
     private void fetchPlaces(double lat, double lng) {
@@ -74,8 +73,10 @@ public class NearbyPlacesListActivity extends BaseActivity {
                                 .build());
 
                         for (SearchResult result : searchResults) {
-                            listItems.add(new ResultListItem.Builder().setImageId(R.drawable.ic_launcher_background)
+                            listItems.add(new ResultListItem.Builder()
+                                    .setImageUrl(result.getIconUrl())
                                     .setName(result.getName())
+                                    .setClickListener(() -> navigateToPlaceDetails(result))
                                     .build());
                         }
 
