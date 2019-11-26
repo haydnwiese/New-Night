@@ -11,6 +11,7 @@ public class SearchResult implements Serializable {
     private String iconUrl;
     private String id;
     private String name;
+    private List<Photo> photos;
     @SerializedName("permanently_closed")
     private boolean permanentlyClosed;
     @SerializedName("place_id")
@@ -35,6 +36,10 @@ public class SearchResult implements Serializable {
 
     public String getName() {
         return name;
+    }
+
+    public List<Photo> getPhotos() {
+        return photos;
     }
 
     public boolean isPermanentlyClosed() {

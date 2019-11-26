@@ -27,7 +27,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:fontFamily="@font/roboto_light"
-        android:text="TextView"
+        android:text="A lot of text in the text view"
+        android:textSize="18sp"
+        android:singleLine="true"
+        android:ellipsize="end"
         app:layout_constraintStart_toEndOf="@+id/resultImage"
         app:layout_constraintTop_toTopOf="@+id/resultImage" />
 </androidx.constraintlayout.widget.ConstraintLayout>

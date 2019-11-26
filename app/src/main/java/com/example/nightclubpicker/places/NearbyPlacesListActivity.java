@@ -43,7 +43,7 @@ public class NearbyPlacesListActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(ResourceSingleton.getResourcesInstance().getDrawable(R.drawable.divider)));
+        recyclerView.addItemDecoration(new DividerItemDecoration(ResourceSingleton.getInstance().getDrawable(R.drawable.divider)));
         adapter = new CommonListItemAdapter(new ArrayList<>());
         recyclerView.setAdapter(adapter);
 
@@ -69,12 +69,12 @@ public class NearbyPlacesListActivity extends BaseActivity {
                         List<ListItem> listItems = new ArrayList<>();
 
                         listItems.add(new HeaderListItem.Builder()
-                                .setTitle(ResourceSingleton.getResourcesInstance().getString(R.string.results))
+                                .setTitle(ResourceSingleton.getInstance().getString(R.string.results))
                                 .build());
 
                         for (SearchResult result : searchResults) {
                             listItems.add(new ResultListItem.Builder()
-                                    .setImageUrl(result.getIconUrl())
+                                    .setImageUrl(result.getPhotos().get(0).getPhotoReference())
                                     .setName(result.getName())
                                     .setClickListener(() -> navigateToPlaceDetails(result))
                                     .build());

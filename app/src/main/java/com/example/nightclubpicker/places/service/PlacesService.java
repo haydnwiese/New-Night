@@ -14,7 +14,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PlacesService {
-    private final String API_KEY = ResourceSingleton.getResourcesInstance().getString(R.string.places_api_key);
+    private final String API_KEY = ResourceSingleton.getInstance().getString(R.string.places_api_key);
 
     private PlacesAPI api = RetrofitInstance.getRetrofitInstance().create(PlacesAPI.class);
 
