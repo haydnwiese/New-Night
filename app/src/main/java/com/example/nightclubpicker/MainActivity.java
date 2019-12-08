@@ -54,10 +54,10 @@ public class MainActivity extends BaseActivity implements LocationListener {
         startActivity(intent);
     }
 
-    @Override
-    protected void setAdditionalActionBarProperties() {
-        this.getSupportActionBar().hide();
-    }
+//    @Override
+//    protected void setAdditionalActionBarProperties() {
+//        this.getSupportActionBar().hide();
+//    }
 
     @Override
     public void onLocationChanged(Location location) {

@@ -1,27 +1,45 @@
 package com.example.nightclubpicker.common;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.StringRes;
 
-import butterknife.ButterKnife;
-
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.getSupportActionBar().setDisplayShowTitleEnabled(false);
+        this.getActionBar().hide();
         setAdditionalActionBarProperties();
     }
 
     protected void setAdditionalActionBarProperties() {
-        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        this.getSupportActionBar().setDisplayShowHomeEnabled(true);
+        this.getActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getActionBar().setDisplayShowHomeEnabled(true);
+        this.getActionBar().setDisplayUseLogoEnabled(false);
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return super.onSupportNavigateUp();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        onNavigateUp();
+        super.onBackPressed();
+    }
+
+    @Override
+    public void setTitle(@StringRes int title) {
+        this.getActionBar().show();
+        this.getActionBar().setTitle(title);
     }
 }

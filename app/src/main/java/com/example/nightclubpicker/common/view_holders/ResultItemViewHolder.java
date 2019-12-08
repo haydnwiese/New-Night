@@ -2,6 +2,7 @@ package com.example.nightclubpicker.common.view_holders;
 
 import android.net.Uri;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
