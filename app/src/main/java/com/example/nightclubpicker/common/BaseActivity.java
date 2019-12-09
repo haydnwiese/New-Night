@@ -6,18 +6,22 @@ import android.view.MenuItem;
 
 import androidx.annotation.StringRes;
 
-public class BaseActivity extends Activity {
+import com.example.nightclubpicker.MainActivity;
+
+public abstract class BaseActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.getActionBar().hide();
-        setAdditionalActionBarProperties();
+        this.getActionBar().setDisplayUseLogoEnabled(false);
+
+        if (!(this instanceof MainActivity)) {
+            setAdditionalActionBarProperties();
+        }
     }
 
     protected void setAdditionalActionBarProperties() {
         this.getActionBar().setDisplayHomeAsUpEnabled(true);
         this.getActionBar().setDisplayShowHomeEnabled(true);
-        this.getActionBar().setDisplayUseLogoEnabled(false);
     }
 
     @Override
@@ -39,7 +43,6 @@ public class BaseActivity extends Activity {
 
     @Override
     public void setTitle(@StringRes int title) {
-        this.getActionBar().show();
         this.getActionBar().setTitle(title);
     }
 }

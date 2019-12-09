@@ -1,11 +1,19 @@
 package com.example.nightclubpicker.places;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.Toast;
 
 import com.example.nightclubpicker.R;
 import com.example.nightclubpicker.common.BaseActivity;
@@ -26,15 +34,17 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.nightclubpicker.MainActivity.BUNDLE_LAT;
-import static com.example.nightclubpicker.MainActivity.BUNDLE_LNG;
+public class NearbyPlacesListActivity extends BaseActivity implements LocationListener {
+    private static final String BUNDLE_KEY_LATITUDE = "bundleKeyLatitude";
+    private static final String BUNDLE_KEY_LONGITUDE = "bundleKeyLongitude";
 
-public class NearbyPlacesListActivity extends BaseActivity {
-
+    @BindView(R.id.loadingSpinner)
+    ProgressBar loadingSpinner;
     @BindView(R.id.resultsRecyclerView)
     RecyclerView recyclerView;
 
-    CommonListItemAdapter adapter;
+    private CommonListItemAdapter adapter;
+    private LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +58,27 @@ public class NearbyPlacesListActivity extends BaseActivity {
         adapter = new CommonListItemAdapter(new ArrayList<>());
         recyclerView.setAdapter(adapter);
 
-        Intent intent = getIntent();
-        fetchPlaces(intent.getDoubleExtra(BUNDLE_LAT, 0), intent.getDoubleExtra(BUNDLE_LNG, 0));
+        getLocation();
     }
 
     private void navigateToPlaceDetails(SearchResult result) {
         Intent intent = new Intent(this, PlaceDetailsActivity.class);
         startActivity(intent);
+    }
+
+    private void getLocation() {
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    Activity#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for Activity#requestPermissions for more details.
+            return;
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
     }
 
     private void fetchPlaces(double lat, double lng) {
@@ -67,25 +91,10 @@ public class NearbyPlacesListActivity extends BaseActivity {
                 new PlacesService.NearbySearchCallback() {
                     @Override
                     public void onSuccess(List<SearchResult> searchResults) {
-                        List<ListItem> listItems = new ArrayList<>();
-
-                        listItems.add(new HeaderListItem.Builder()
-                                .setTitle(ResourceSingleton.getInstance().getString(R.string.results))
-                                .build());
-
-                        for (SearchResult result : searchResults) {
-                            listItems.add(new ResultListItem.Builder()
-                                    .setImageUrl(result.getPhotos().get(0).getPhotoReference())
-                                    .setName(result.getName())
-                                    .setClickListener(() -> navigateToPlaceDetails(result))
-                                    .build());
+                        if (searchResults != null) {
+                            loadingSpinner.setVisibility(View.GONE);
+                            createSearchResultListItems(searchResults);
                         }
-
-                        Toast.makeText(NearbyPlacesListActivity.this, "Success", Toast.LENGTH_SHORT)
-                                .show();
-
-                        adapter.setListItems(listItems);
-                        adapter.notifyDataSetChanged();
                     }
 
                     @Override
@@ -94,5 +103,45 @@ public class NearbyPlacesListActivity extends BaseActivity {
                                 .show();
                     }
                 });
+    }
+
+    private void createSearchResultListItems(List<SearchResult> searchResults) {
+        List<ListItem> listItems = new ArrayList<>();
+
+        for (SearchResult result : searchResults) {
+            listItems.add(new ResultListItem.Builder()
+                    .setImageUrl(result.getPhotos().get(0).getPhotoReference())
+                    .setName(result.getName())
+                    .setClickListener(() -> navigateToPlaceDetails(result))
+                    .build());
+        }
+
+        Toast.makeText(NearbyPlacesListActivity.this, "Success", Toast.LENGTH_SHORT)
+                .show();
+
+        adapter.setListItems(listItems);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        locationManager.removeUpdates(this);
+        Toast.makeText(this, "Location Updated", Toast.LENGTH_SHORT).show();
+        fetchPlaces(location.getLatitude(), location.getLongitude());
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 }

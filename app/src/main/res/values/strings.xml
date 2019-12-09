@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Night Club Picker</string>
     <string name="results">Results</string>
+    <string name="select_filters">Select Filters</string>
 </resources>

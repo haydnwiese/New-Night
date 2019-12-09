@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,7 @@ import com.example.nightclubpicker.R;
 import com.example.nightclubpicker.common.picasso.RoundedRectTransform;
 import com.example.nightclubpicker.common.ResourceSingleton;
 import com.example.nightclubpicker.common.list_items.ResultListItem;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 public class ResultItemViewHolder extends RecyclerView.ViewHolder {
@@ -24,6 +26,7 @@ public class ResultItemViewHolder extends RecyclerView.ViewHolder {
 
     private ImageView placeImageView;
     private TextView nameTextView;
+    private ProgressBar loadingSpinner;
     private View containerView;
 
     public ResultItemViewHolder(View itemView) {
@@ -32,6 +35,7 @@ public class ResultItemViewHolder extends RecyclerView.ViewHolder {
         containerView = itemView;
         placeImageView = (ImageView) itemView.findViewById(R.id.resultImage);
         nameTextView = (TextView) itemView.findViewById(R.id.resultName);
+        loadingSpinner = (ProgressBar) itemView.findViewById(R.id.loadingSpinner);
     }
 
     public void setItems(ResultListItem listItem) {
@@ -48,8 +52,17 @@ public class ResultItemViewHolder extends RecyclerView.ViewHolder {
                 .load(url)
                 .centerCrop()
                 .resize(placeImageView.getLayoutParams().width - 5, placeImageView.getLayoutParams().height)
-                .transform(new RoundedRectTransform())
-                .into(placeImageView);
+                .into(placeImageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        loadingSpinner.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
 
         nameTextView.setText(listItem.getName());
         containerView.setOnClickListener(v -> listItem.getClickListener().onItemClick());
