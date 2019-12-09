@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nightclubpicker.common.list_items.HeaderListItem;
 import com.example.nightclubpicker.common.list_items.ListItem;
 import com.example.nightclubpicker.common.list_items.ResultListItem;
+import com.example.nightclubpicker.common.list_items.SubHeaderListItem;
 import com.example.nightclubpicker.common.view_holders.HeaderListItemViewHolder;
 import com.example.nightclubpicker.common.view_holders.ResultItemViewHolder;
 
@@ -34,6 +35,7 @@ public class CommonListItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         Type type = Type.values()[viewType];
         switch(type) {
             case HEADER_LIST_ITEM:
+            case SUB_HEADER_LIST_ITEM:
                 return new HeaderListItemViewHolder(inflate(parent, type.getLayout()));
             case RESULT_LIST_ITEM:
                 return new ResultItemViewHolder(inflate(parent, type.getLayout()));
@@ -52,6 +54,9 @@ public class CommonListItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 break;
             case RESULT_LIST_ITEM:
                 ((ResultItemViewHolder) holder).setItems((ResultListItem) listItem);
+                break;
+            case SUB_HEADER_LIST_ITEM:
+                ((HeaderListItemViewHolder) holder).setItems((SubHeaderListItem) listItem);
                 break;
         }
     }

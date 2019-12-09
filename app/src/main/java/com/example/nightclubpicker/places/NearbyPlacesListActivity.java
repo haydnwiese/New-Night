@@ -23,6 +23,7 @@ import com.example.nightclubpicker.common.adapters.DividerItemDecoration;
 import com.example.nightclubpicker.common.list_items.HeaderListItem;
 import com.example.nightclubpicker.common.list_items.ListItem;
 import com.example.nightclubpicker.common.list_items.ResultListItem;
+import com.example.nightclubpicker.common.list_items.SubHeaderListItem;
 import com.example.nightclubpicker.places.models.PlaceType;
 import com.example.nightclubpicker.places.models.SearchResult;
 import com.example.nightclubpicker.places.place_details.PlaceDetailsActivity;
@@ -53,7 +54,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
         ButterKnife.bind(this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(ResourceSingleton.getInstance().getDrawable(R.drawable.divider)));
+//        recyclerView.addItemDecoration(new DividerItemDecoration(ResourceSingleton.getInstance().getDrawable(R.drawable.divider)));
         adapter = new CommonListItemAdapter(new ArrayList<>());
         recyclerView.setAdapter(adapter);
 
@@ -107,6 +108,10 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
 
     private void createSearchResultListItems(List<SearchResult> searchResults) {
         List<ListItem> listItems = new ArrayList<>();
+
+        listItems.add(new SubHeaderListItem.Builder()
+                .setSubHeader(ResourceSingleton.getInstance().getString(R.string.top_results))
+                .build());
 
         for (SearchResult result : searchResults) {
             listItems.add(new ResultListItem.Builder()
