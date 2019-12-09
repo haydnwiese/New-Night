@@ -20,8 +20,8 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         super.onDraw(c, parent, state);
 
         // The divider stop and start points
-        int dividerLeft = 50;
-        int dividerRight = parent.getWidth() - 50;
+        int dividerLeft = 60;
+        int dividerRight = parent.getWidth() - 60;
 
         for (int i = 0; i < parent.getChildCount(); i++) {
             if (i != parent.getChildCount() - 1) {

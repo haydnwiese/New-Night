@@ -35,8 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class NearbyPlacesListActivity extends BaseActivity implements LocationListener {
-    private static final String BUNDLE_KEY_LATITUDE = "bundleKeyLatitude";
-    private static final String BUNDLE_KEY_LONGITUDE = "bundleKeyLongitude";
+    public static final String BUNDLE_KEY_SEARCH_RESULT = "bundleKeySearchResult";
 
     @BindView(R.id.loadingSpinner)
     ProgressBar loadingSpinner;
@@ -63,6 +62,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
 
     private void navigateToPlaceDetails(SearchResult result) {
         Intent intent = new Intent(this, PlaceDetailsActivity.class);
+        intent.putExtra(BUNDLE_KEY_SEARCH_RESULT, result);
         startActivity(intent);
     }
 
