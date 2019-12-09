@@ -20,10 +20,12 @@ import com.example.nightclubpicker.common.BaseActivity;
 import com.example.nightclubpicker.common.ResourceSingleton;
 import com.example.nightclubpicker.common.adapters.CommonListItemAdapter;
 import com.example.nightclubpicker.common.adapters.DividerItemDecoration;
+import com.example.nightclubpicker.common.list_items.ExtraResultListItem;
 import com.example.nightclubpicker.common.list_items.HeaderListItem;
 import com.example.nightclubpicker.common.list_items.ListItem;
 import com.example.nightclubpicker.common.list_items.ResultListItem;
 import com.example.nightclubpicker.common.list_items.SubHeaderListItem;
+import com.example.nightclubpicker.common.list_items.TopResultListItem;
 import com.example.nightclubpicker.places.models.PlaceType;
 import com.example.nightclubpicker.places.models.SearchResult;
 import com.example.nightclubpicker.places.place_details.PlaceDetailsActivity;
@@ -37,6 +39,7 @@ import butterknife.ButterKnife;
 
 public class NearbyPlacesListActivity extends BaseActivity implements LocationListener {
     public static final String BUNDLE_KEY_SEARCH_RESULT = "bundleKeySearchResult";
+    private static final int MAX_TOP_RESULTS = 3;
 
     @BindView(R.id.loadingSpinner)
     ProgressBar loadingSpinner;
@@ -113,13 +116,26 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
                 .setSubHeader(ResourceSingleton.getInstance().getString(R.string.top_results))
                 .build());
 
-        for (SearchResult result : searchResults) {
-            listItems.add(new ResultListItem.Builder()
-                    .setImageUrl(result.getPhotos().get(0).getPhotoReference())
-                    .setName(result.getName())
-                    .setClickListener(() -> navigateToPlaceDetails(result))
-                    .build());
+        for (int i = 0; i < searchResults.size(); i++) {
+            SearchResult result = searchResults.get(i);
+            if (i < MAX_TOP_RESULTS) {
+                listItems.add(new TopResultListItem.Builder()
+                        .setImageUrl(result.getPhotos().get(0).getPhotoReference())
+                        .setName(result.getName())
+                        .setClickListener(() -> navigateToPlaceDetails(result))
+                        .build());
+            } else {
+                listItems.add(new ExtraResultListItem.Builder()
+                        .setImageUrl(result.getPhotos().get(0).getPhotoReference())
+                        .setName(result.getName())
+                        .setClickListener(() -> navigateToPlaceDetails(result))
+                        .build());
+            }
         }
+
+        listItems.add(MAX_TOP_RESULTS + 1, new SubHeaderListItem.Builder()
+                .setSubHeader(ResourceSingleton.getInstance().getString(R.string.more_results))
+                .build());
 
         Toast.makeText(NearbyPlacesListActivity.this, "Success", Toast.LENGTH_SHORT)
                 .show();

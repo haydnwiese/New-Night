@@ -12,6 +12,7 @@ import com.example.nightclubpicker.common.list_items.HeaderListItem;
 import com.example.nightclubpicker.common.list_items.ListItem;
 import com.example.nightclubpicker.common.list_items.ResultListItem;
 import com.example.nightclubpicker.common.list_items.SubHeaderListItem;
+import com.example.nightclubpicker.common.list_items.TopResultListItem;
 import com.example.nightclubpicker.common.view_holders.HeaderListItemViewHolder;
 import com.example.nightclubpicker.common.view_holders.ResultItemViewHolder;
 
@@ -37,7 +38,8 @@ public class CommonListItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             case HEADER_LIST_ITEM:
             case SUB_HEADER_LIST_ITEM:
                 return new HeaderListItemViewHolder(inflate(parent, type.getLayout()));
-            case RESULT_LIST_ITEM:
+            case EXTRA_RESULT_LIST_ITEM:
+            case TOP_RESULT_LIST_ITEM:
                 return new ResultItemViewHolder(inflate(parent, type.getLayout()));
         }
         return null;
@@ -52,12 +54,14 @@ public class CommonListItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             case HEADER_LIST_ITEM:
                 ((HeaderListItemViewHolder) holder).setItems((HeaderListItem) listItem);
                 break;
-            case RESULT_LIST_ITEM:
-                ((ResultItemViewHolder) holder).setItems((ResultListItem) listItem);
-                break;
             case SUB_HEADER_LIST_ITEM:
                 ((HeaderListItemViewHolder) holder).setItems((SubHeaderListItem) listItem);
                 break;
+            case EXTRA_RESULT_LIST_ITEM:
+                ((ResultItemViewHolder) holder).setItems((ResultListItem) listItem);
+                break;
+            case TOP_RESULT_LIST_ITEM:
+                ((ResultItemViewHolder) holder).setItems((TopResultListItem) listItem);
         }
     }
 
