@@ -19,7 +19,7 @@ public class PlacesService {
     private PlacesAPI api = RetrofitInstance.getRetrofitInstance().create(PlacesAPI.class);
 
     public interface NearbySearchCallback {
-        void onSuccess(List<SearchResult> searchResults);
+        void onSuccess(NearbySearchResponse response);
 
         void onFailure();
     }
@@ -39,8 +39,8 @@ public class PlacesService {
         call.enqueue(new Callback<NearbySearchResponse>() {
             @Override
             public void onResponse(Call<NearbySearchResponse> call, Response<NearbySearchResponse> response) {
-                if (response.body() != null && response.body().getResults() != null) {
-                    callback.onSuccess(response.body().getResults());
+                if (response.body() != null) {
+                    callback.onSuccess(response.body());
                 } else {
                     callback.onFailure();
                 }
@@ -58,8 +58,8 @@ public class PlacesService {
         call.enqueue(new Callback<NearbySearchResponse>() {
             @Override
             public void onResponse(Call<NearbySearchResponse> call, Response<NearbySearchResponse> response) {
-                if (response.body() != null && response.body().getResults() != null) {
-                    callback.onSuccess(response.body().getResults());
+                if (response.body() != null) {
+                    callback.onSuccess(response.body());
                 } else {
                     callback.onFailure();
                 }

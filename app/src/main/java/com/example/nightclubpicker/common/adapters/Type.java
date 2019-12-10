@@ -8,7 +8,8 @@ public enum Type {
     HEADER_LIST_ITEM(R.layout.header_list_item),
     EXTRA_RESULT_LIST_ITEM(R.layout.result_list_item),
     TOP_RESULT_LIST_ITEM(R.layout.top_result_list_item),
-    SUB_HEADER_LIST_ITEM(R.layout.sub_header_list_item);
+    SUB_HEADER_LIST_ITEM(R.layout.sub_header_list_item),
+    SPINNER_LIST_ITEM(R.layout.spinner_list_item);
 
     private int layout;
 

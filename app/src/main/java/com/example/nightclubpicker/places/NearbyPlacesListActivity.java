@@ -8,10 +8,12 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,13 +21,12 @@ import com.example.nightclubpicker.R;
 import com.example.nightclubpicker.common.BaseActivity;
 import com.example.nightclubpicker.common.ResourceSingleton;
 import com.example.nightclubpicker.common.adapters.CommonListItemAdapter;
-import com.example.nightclubpicker.common.adapters.DividerItemDecoration;
 import com.example.nightclubpicker.common.list_items.ExtraResultListItem;
-import com.example.nightclubpicker.common.list_items.HeaderListItem;
 import com.example.nightclubpicker.common.list_items.ListItem;
-import com.example.nightclubpicker.common.list_items.ResultListItem;
+import com.example.nightclubpicker.common.list_items.SpinnerListItem;
 import com.example.nightclubpicker.common.list_items.SubHeaderListItem;
 import com.example.nightclubpicker.common.list_items.TopResultListItem;
+import com.example.nightclubpicker.places.models.NearbySearchResponse;
 import com.example.nightclubpicker.places.models.PlaceType;
 import com.example.nightclubpicker.places.models.SearchResult;
 import com.example.nightclubpicker.places.place_details.PlaceDetailsActivity;
@@ -46,8 +47,14 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
     @BindView(R.id.resultsRecyclerView)
     RecyclerView recyclerView;
 
+    private List<ListItem> listItems = new ArrayList<>();
     private CommonListItemAdapter adapter;
     private LocationManager locationManager;
+    private String nextPageToken;
+
+    private PlacesService placesService = new PlacesService();
+
+    private boolean isLoading = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +68,56 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
         adapter = new CommonListItemAdapter(new ArrayList<>());
         recyclerView.setAdapter(adapter);
 
+        initScrollListener();
+
         getLocation();
+    }
+
+    private void initScrollListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (!isLoading && linearLayoutManager != null && linearLayoutManager.findLastVisibleItemPosition() == listItems.size() - 1) {
+                    isLoading = true;
+                    loadMoreResults();
+                }
+            }
+        });
+    }
+
+    private void loadMoreResults() {
+        listItems.add(new SpinnerListItem());
+        adapter.notifyItemInserted(listItems.size() - 1);
+
+        if (nextPageToken != null) {
+            placesService.fetchAdditionalNearbyPlaces(nextPageToken, new PlacesService.NearbySearchCallback() {
+                @Override
+                public void onSuccess(NearbySearchResponse response) {
+                    nextPageToken = response.getNextPageToken();
+                    if (response.getResults() != null) {
+                        addResultsToList(response.getResults());
+                        isLoading = false;
+                    } else {
+                        removeSpinnerListItem();
+                    }
+                }
+
+                @Override
+                public void onFailure() {
+                    removeSpinnerListItem();
+                }
+            });
+        } else {
+            removeSpinnerListItem();
+        }
     }
 
     private void navigateToPlaceDetails(SearchResult result) {
@@ -86,7 +142,6 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
     }
 
     private void fetchPlaces(double lat, double lng) {
-        PlacesService placesService = new PlacesService();
         placesService.fetchNearbyPlaces(lat,
                 lng,
                 50000,
@@ -94,10 +149,11 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
                 PlaceType.night_club,
                 new PlacesService.NearbySearchCallback() {
                     @Override
-                    public void onSuccess(List<SearchResult> searchResults) {
-                        if (searchResults != null) {
+                    public void onSuccess(NearbySearchResponse response) {
+                        if (response.getResults() != null) {
                             loadingSpinner.setVisibility(View.GONE);
-                            createSearchResultListItems(searchResults);
+                            nextPageToken = response.getNextPageToken();
+                            createSearchResultListItems(response.getResults());
                         }
                     }
 
@@ -110,7 +166,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
     }
 
     private void createSearchResultListItems(List<SearchResult> searchResults) {
-        List<ListItem> listItems = new ArrayList<>();
+        listItems = new ArrayList<>();
 
         listItems.add(new SubHeaderListItem.Builder()
                 .setSubHeader(ResourceSingleton.getInstance().getString(R.string.top_results))
@@ -125,11 +181,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
                         .setClickListener(() -> navigateToPlaceDetails(result))
                         .build());
             } else {
-                listItems.add(new ExtraResultListItem.Builder()
-                        .setImageUrl(result.getPhotos().get(0).getPhotoReference())
-                        .setName(result.getName())
-                        .setClickListener(() -> navigateToPlaceDetails(result))
-                        .build());
+                listItems.add(generateExtraResultListItem(result));
             }
         }
 
@@ -142,6 +194,29 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
 
         adapter.setListItems(listItems);
         adapter.notifyDataSetChanged();
+    }
+
+    private void addResultsToList(List<SearchResult> results) {
+        if (listItems != null && !results.isEmpty()) {
+            listItems.set(listItems.size() - 1, generateExtraResultListItem(results.get(0)));
+            for (int i = 1; i < results.size(); i++) {
+                SearchResult result = results.get(i);
+                listItems.add(generateExtraResultListItem(result));
+            }
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    private ListItem generateExtraResultListItem(SearchResult result) {
+        return new ExtraResultListItem.Builder()
+                .setImageUrl(result.getPhotos().get(0).getPhotoReference())
+                .setName(result.getName())
+                .setClickListener(() -> navigateToPlaceDetails(result))
+                .build();
+    }
+
+    private void removeSpinnerListItem() {
+        listItems.remove(listItems.size() - 1);
     }
 
     @Override
