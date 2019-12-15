@@ -12,6 +12,7 @@ public class TopResultListItem extends ResultListItem {
         private String imageUrl;
         private String name;
         private String description;
+        private double rating;
         private OnItemClickListener clickListener;
 
         public Builder setImageUrl(String imageUrl) {
@@ -29,6 +30,11 @@ public class TopResultListItem extends ResultListItem {
             return this;
         }
 
+        public Builder setRating(double rating) {
+            this.rating = rating;
+            return this;
+        }
+
         public Builder setClickListener(OnItemClickListener clickListener) {
             this.clickListener = clickListener;
             return this;
@@ -39,6 +45,7 @@ public class TopResultListItem extends ResultListItem {
             listItem.imageUrl = imageUrl;
             listItem.name = name;
             listItem.description = description;
+            listItem.rating = rating;
             listItem.clickListener = clickListener;
             return listItem;
         }

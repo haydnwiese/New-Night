@@ -6,6 +6,7 @@ public abstract class ResultListItem implements ListItem {
     String imageUrl;
     String name;
     String description;
+    double rating;
     OnItemClickListener clickListener;
 
     public String getImageUrl() {
@@ -18,6 +19,10 @@ public abstract class ResultListItem implements ListItem {
 
     public String getDescription() {
         return description;
+    }
+
+    public double getRating() {
+        return rating;
     }
 
     public OnItemClickListener getClickListener() {

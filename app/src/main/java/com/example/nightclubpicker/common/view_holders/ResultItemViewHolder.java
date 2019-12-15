@@ -10,9 +10,11 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nightclubpicker.R;
+import com.example.nightclubpicker.common.list_items.TopResultListItem;
 import com.example.nightclubpicker.common.picasso.RoundedRectTransform;
 import com.example.nightclubpicker.common.ResourceSingleton;
 import com.example.nightclubpicker.common.list_items.ResultListItem;
+import com.example.nightclubpicker.common.views.StarRatingView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -27,15 +29,15 @@ public class ResultItemViewHolder extends RecyclerView.ViewHolder {
     private ImageView placeImageView;
     private TextView nameTextView;
     private ProgressBar loadingSpinner;
-    private View containerView;
+    private StarRatingView starRatingView;
 
     public ResultItemViewHolder(View itemView) {
         super(itemView);
 
-        containerView = itemView;
         placeImageView = (ImageView) itemView.findViewById(R.id.resultImage);
         nameTextView = (TextView) itemView.findViewById(R.id.resultName);
         loadingSpinner = (ProgressBar) itemView.findViewById(R.id.loadingSpinner);
+        starRatingView = (StarRatingView) itemView.findViewById(R.id.starRatingView);
     }
 
     public void setItems(ResultListItem listItem) {
@@ -64,8 +66,9 @@ public class ResultItemViewHolder extends RecyclerView.ViewHolder {
                     }
                 });
 
+        starRatingView.setRating((int) Math.round(listItem.getRating()));
         nameTextView.setText(listItem.getName());
-        containerView.setOnClickListener(v -> listItem.getClickListener().onItemClick());
+        itemView.setOnClickListener(v -> listItem.getClickListener().onItemClick());
     }
 
 

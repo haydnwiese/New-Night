@@ -51,4 +51,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/resultImage"
         app:layout_constraintTop_toTopOf="@+id/resultImage" />
+
+    <com.example.nightclubpicker.common.views.StarRatingView
+        android:id="@+id/starRatingView"
+        android:layout_width="73dp"
+        android:layout_height="12dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@+id/resultName"
+        app:layout_constraintTop_toBottomOf="@+id/resultName" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

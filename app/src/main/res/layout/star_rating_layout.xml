@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/star1"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:src="@drawable/ic_outline_star" />
+
+    <ImageView
+        android:id="@+id/star2"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_toEndOf="@id/star1"
+        android:layout_marginStart="5dp"
+        android:src="@drawable/ic_outline_star" />
+
+    <ImageView
+        android:id="@+id/star3"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_toEndOf="@id/star2"
+        android:layout_marginStart="5dp"
+        android:src="@drawable/ic_outline_star" />
+
+    <ImageView
+        android:id="@+id/star4"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_toEndOf="@id/star3"
+        android:layout_marginStart="5dp"
+        android:src="@drawable/ic_outline_star" />
+
+    <ImageView
+        android:id="@+id/star5"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@id/star4"
+        android:src="@drawable/ic_outline_star" />
+
+</RelativeLayout>

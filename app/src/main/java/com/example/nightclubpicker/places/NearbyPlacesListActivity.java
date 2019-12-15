@@ -8,7 +8,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -178,6 +177,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
                 listItems.add(new TopResultListItem.Builder()
                         .setImageUrl(result.getPhotos().get(0).getPhotoReference())
                         .setName(result.getName())
+                        .setRating(result.getRating())
                         .setClickListener(() -> navigateToPlaceDetails(result))
                         .build());
             } else {
@@ -211,6 +211,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
         return new ExtraResultListItem.Builder()
                 .setImageUrl(result.getPhotos().get(0).getPhotoReference())
                 .setName(result.getName())
+                .setRating(result.getRating())
                 .setClickListener(() -> navigateToPlaceDetails(result))
                 .build();
     }
