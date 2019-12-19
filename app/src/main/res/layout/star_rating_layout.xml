@@ -7,39 +7,39 @@
 
     <ImageView
         android:id="@+id/star1"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         android:src="@drawable/ic_outline_star" />
 
     <ImageView
         android:id="@+id/star2"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         android:layout_toEndOf="@id/star1"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="2dp"
         android:src="@drawable/ic_outline_star" />
 
     <ImageView
         android:id="@+id/star3"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         android:layout_toEndOf="@id/star2"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="2dp"
         android:src="@drawable/ic_outline_star" />
 
     <ImageView
         android:id="@+id/star4"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         android:layout_toEndOf="@id/star3"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="2dp"
         android:src="@drawable/ic_outline_star" />
 
     <ImageView
         android:id="@+id/star5"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:layout_marginStart="5dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginStart="2dp"
         android:layout_toEndOf="@id/star4"
         android:src="@drawable/ic_outline_star" />
 
