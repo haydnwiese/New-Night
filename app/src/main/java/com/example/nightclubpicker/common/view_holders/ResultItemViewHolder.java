@@ -75,7 +75,7 @@ public class ResultItemViewHolder extends RecyclerView.ViewHolder {
                     }
                 });
 
-        starRatingView.setRating((int) Math.round(listItem.getRating()));
+        starRatingView.setRating(listItem.getRating());
         nameTextView.setText(listItem.getName());
         exactRatingView.setText(Double.toString(listItem.getRating()));
         reviewCountView.setText(ResourceSingleton.getInstance().getString(R.string.review_count, listItem.getReviewCount()));

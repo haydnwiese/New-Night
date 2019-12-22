@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import com.example.nightclubpicker.R;
 
 public class StarRatingView extends RelativeLayout {
-    private int rating;
+    private double rating;
     private ViewSize size;
     private View itemView;
     private ImageView[] stars = new ImageView[5];
@@ -63,12 +63,19 @@ public class StarRatingView extends RelativeLayout {
     }
 
     private void updateStars() {
-        for (int i = 0; i < rating; i++) {
-            stars[i].setImageResource(R.drawable.ic_filled_in_star);
+        rating = Math.round(rating * 2) / 2.0;
+        for (int i = 0; i < stars.length; i++) {
+            if (i < (int) rating) {
+                stars[i].setImageResource(R.drawable.ic_filled_in_star);
+            } else if (i == (int) rating && rating % 1.0 == 0.5) {
+                stars[i].setImageResource(R.drawable.ic_half_star);
+            } else {
+                stars[i].setImageResource(R.drawable.ic_outline_star);
+            }
         }
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
@@ -76,7 +83,7 @@ public class StarRatingView extends RelativeLayout {
         return size;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
         updateStars();
     }
