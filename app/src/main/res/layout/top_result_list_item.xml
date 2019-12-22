@@ -8,9 +8,8 @@
 
     <ImageView
         android:id="@+id/resultImage"
-        android:layout_width="130dp"
-        android:layout_height="85dp"
-        android:layout_marginStart="20dp"
+        android:layout_width="166dp"
+        android:layout_height="93dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,9 +18,8 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <RelativeLayout
-        android:layout_width="130dp"
-        android:layout_height="85dp"
-        android:layout_marginStart="20dp"
+        android:layout_width="166dp"
+        android:layout_height="93dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -59,5 +57,64 @@
         android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="@+id/resultName"
         app:layout_constraintTop_toBottomOf="@+id/resultName" />
+
+    <TextView
+        android:id="@+id/exactStarRating"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_light"
+        android:includeFontPadding="false"
+        android:text="3.0"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/starRatingView"
+        app:layout_constraintStart_toEndOf="@+id/starRatingView"
+        app:layout_constraintTop_toTopOf="@+id/starRatingView"
+        tools:text="3.0" />
+
+    <TextView
+        android:id="@+id/numberOfReviews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/roboto_light"
+        android:includeFontPadding="false"
+        android:text="(39)"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/starRatingView"
+        app:layout_constraintStart_toEndOf="@+id/exactStarRating"
+        app:layout_constraintTop_toTopOf="@+id/starRatingView" />
+
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="99 km away"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/starRatingView"
+        app:layout_constraintTop_toBottomOf="@+id/starRatingView" />
+
+    <TextView
+        android:id="@+id/dot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="•"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/distance"
+        app:layout_constraintTop_toTopOf="@+id/distance" />
+
+    <TextView
+        android:id="@+id/priceIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="$$"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/dot"
+        app:layout_constraintTop_toTopOf="@+id/distance" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

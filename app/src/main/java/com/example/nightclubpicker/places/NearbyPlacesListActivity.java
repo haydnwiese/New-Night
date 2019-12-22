@@ -50,6 +50,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
     private CommonListItemAdapter adapter;
     private LocationManager locationManager;
     private String nextPageToken;
+    private Location currentLocation;
 
     private PlacesService placesService = new PlacesService();
 
@@ -140,9 +141,9 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
     }
 
-    private void fetchPlaces(double lat, double lng) {
-        placesService.fetchNearbyPlaces(lat,
-                lng,
+    private void fetchPlaces() {
+        placesService.fetchNearbyPlaces(currentLocation.getLatitude(),
+                currentLocation.getLongitude(),
                 50000,
                 null,
                 PlaceType.night_club,
@@ -173,15 +174,20 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
 
         for (int i = 0; i < searchResults.size(); i++) {
             SearchResult result = searchResults.get(i);
-            if (i < MAX_TOP_RESULTS) {
-                listItems.add(new TopResultListItem.Builder()
-                        .setImageUrl(result.getPhotos().get(0).getPhotoReference())
-                        .setName(result.getName())
-                        .setRating(result.getRating())
-                        .setClickListener(() -> navigateToPlaceDetails(result))
-                        .build());
-            } else {
-                listItems.add(generateExtraResultListItem(result));
+            if (!result.isPermanentlyClosed()) {
+                if (i < MAX_TOP_RESULTS) {
+                    listItems.add(new TopResultListItem.Builder()
+                            .setImageUrl(result.getPhotos().get(0).getPhotoReference())
+                            .setName(result.getName())
+                            .setRating(result.getRating())
+                            .setReviewCount(result.getUserRatingsTotal())
+                            .setPriceLevel(result.getPriceLevel())
+                            .setDistance(getDistanceToTarget(result))
+                            .setClickListener(() -> navigateToPlaceDetails(result))
+                            .build());
+                } else {
+                    listItems.add(generateExtraResultListItem(result));
+                }
             }
         }
 
@@ -196,12 +202,21 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
         adapter.notifyDataSetChanged();
     }
 
+    private float getDistanceToTarget(SearchResult result) {
+        Location targetLocation = new Location("");
+        targetLocation.setLatitude(result.getGeometry().getLocation().getLatitude());
+        targetLocation.setLongitude(result.getGeometry().getLocation().getLongitude());
+        return currentLocation.distanceTo(targetLocation) / 1000f;
+    }
+
     private void addResultsToList(List<SearchResult> results) {
         if (listItems != null && !results.isEmpty()) {
             listItems.set(listItems.size() - 1, generateExtraResultListItem(results.get(0)));
             for (int i = 1; i < results.size(); i++) {
                 SearchResult result = results.get(i);
-                listItems.add(generateExtraResultListItem(result));
+                if (!result.isPermanentlyClosed()) {
+                    listItems.add(generateExtraResultListItem(result));
+                }
             }
             adapter.notifyDataSetChanged();
         }
@@ -212,6 +227,9 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
                 .setImageUrl(result.getPhotos().get(0).getPhotoReference())
                 .setName(result.getName())
                 .setRating(result.getRating())
+                .setReviewCount(result.getUserRatingsTotal())
+                .setPriceLevel(result.getPriceLevel())
+                .setDistance(getDistanceToTarget(result))
                 .setClickListener(() -> navigateToPlaceDetails(result))
                 .build();
     }
@@ -224,7 +242,8 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
     public void onLocationChanged(Location location) {
         locationManager.removeUpdates(this);
         Toast.makeText(this, "Location Updated", Toast.LENGTH_SHORT).show();
-        fetchPlaces(location.getLatitude(), location.getLongitude());
+        currentLocation = location;
+        fetchPlaces();
     }
 
     @Override

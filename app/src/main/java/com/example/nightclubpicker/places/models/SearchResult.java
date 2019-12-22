@@ -15,7 +15,7 @@ public class SearchResult implements Parcelable {
     private String name;
     private List<Photo> photos;
     @SerializedName("permanently_closed")
-    private boolean permanentlyClosed;
+    private boolean isPermanentlyClosed;
     @SerializedName("place_id")
     private String placeId;
     private double rating;
@@ -23,16 +23,19 @@ public class SearchResult implements Parcelable {
     @SerializedName("user_ratings_total")
     private int userRatingsTotal;
     private String vicinity;
+    @SerializedName("price_level")
+    private int priceLevel;
 
     protected SearchResult(Parcel in) {
         iconUrl = in.readString();
         id = in.readString();
         name = in.readString();
-        permanentlyClosed = in.readByte() != 0;
+        isPermanentlyClosed = in.readByte() != 0;
         placeId = in.readString();
         rating = in.readDouble();
         userRatingsTotal = in.readInt();
         vicinity = in.readString();
+        priceLevel = in.readInt();
     }
 
     public static final Creator<SearchResult> CREATOR = new Creator<SearchResult>() {
@@ -68,7 +71,7 @@ public class SearchResult implements Parcelable {
     }
 
     public boolean isPermanentlyClosed() {
-        return permanentlyClosed;
+        return isPermanentlyClosed;
     }
 
     public String getPlaceId() {
@@ -91,6 +94,10 @@ public class SearchResult implements Parcelable {
         return vicinity;
     }
 
+    public int getPriceLevel() {
+        return priceLevel;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -101,10 +108,11 @@ public class SearchResult implements Parcelable {
         dest.writeString(iconUrl);
         dest.writeString(id);
         dest.writeString(name);
-        dest.writeByte((byte) (permanentlyClosed ? 1 : 0));
+        dest.writeByte((byte) (isPermanentlyClosed ? 1 : 0));
         dest.writeString(placeId);
         dest.writeDouble(rating);
         dest.writeInt(userRatingsTotal);
         dest.writeString(vicinity);
+        dest.writeInt(priceLevel);
     }
 }

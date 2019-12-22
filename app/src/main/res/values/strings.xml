@@ -4,4 +4,6 @@
     <string name="select_filters">Select Filters</string>
     <string name="top_results">Top Results</string>
     <string name="more_results">More Results</string>
+    <string name="review_count">(%d)</string>
+    <string name="distance_from_user">%s km away</string>
 </resources>

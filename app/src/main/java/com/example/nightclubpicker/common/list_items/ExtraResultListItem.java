@@ -13,6 +13,9 @@ public class ExtraResultListItem extends ResultListItem {
         private String name;
         private String description;
         private double rating;
+        private int reviewCount;
+        private float distance;
+        private int priceLevel;
         private OnItemClickListener clickListener;
 
         public Builder setImageUrl(String imageUrl) {
@@ -35,6 +38,21 @@ public class ExtraResultListItem extends ResultListItem {
             return this;
         }
 
+        public Builder setReviewCount(int reviewCount) {
+            this.reviewCount = reviewCount;
+            return this;
+        }
+
+        public Builder setDistance(float distance) {
+            this.distance = distance;
+            return this;
+        }
+
+        public Builder setPriceLevel(int priceLevel) {
+            this.priceLevel = priceLevel;
+            return this;
+        }
+
         public Builder setClickListener(OnItemClickListener clickListener) {
             this.clickListener = clickListener;
             return this;
@@ -46,6 +64,9 @@ public class ExtraResultListItem extends ResultListItem {
             listItem.name = name;
             listItem.description = description;
             listItem.rating = rating;
+            listItem.reviewCount = reviewCount;
+            listItem.distance = distance;
+            listItem.priceLevel = priceLevel;
             listItem.clickListener = clickListener;
             return listItem;
         }

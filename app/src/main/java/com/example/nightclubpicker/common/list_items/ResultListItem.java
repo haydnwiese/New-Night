@@ -7,6 +7,9 @@ public abstract class ResultListItem implements ListItem {
     String name;
     String description;
     double rating;
+    int reviewCount;
+    float distance;
+    int priceLevel;
     OnItemClickListener clickListener;
 
     public String getImageUrl() {
@@ -23,6 +26,18 @@ public abstract class ResultListItem implements ListItem {
 
     public double getRating() {
         return rating;
+    }
+
+    public int getReviewCount() {
+        return reviewCount;
+    }
+
+    public float getDistance() {
+        return distance;
+    }
+
+    public int getPriceLevel() {
+        return priceLevel;
     }
 
     public OnItemClickListener getClickListener() {
