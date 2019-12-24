@@ -103,6 +103,8 @@ public class ResultItemViewHolder extends RecyclerView.ViewHolder {
                 return "$$";
             case 3:
                 return "$$$";
+            case 4:
+                return "$$$$";
             default:
                 return null;
         }
