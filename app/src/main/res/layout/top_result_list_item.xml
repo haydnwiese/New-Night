@@ -54,34 +54,34 @@
         android:id="@+id/starRatingView"
         android:layout_width="73dp"
         android:layout_height="12dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="@+id/resultName"
-        app:layout_constraintTop_toBottomOf="@+id/resultName" />
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/exactStarRating"
+        app:layout_constraintStart_toEndOf="@+id/exactStarRating"
+        app:layout_constraintTop_toTopOf="@+id/exactStarRating" />
 
     <TextView
         android:id="@+id/exactStarRating"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto_light"
         android:includeFontPadding="false"
         android:text="3.0"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/starRatingView"
-        app:layout_constraintStart_toEndOf="@+id/starRatingView"
-        app:layout_constraintTop_toTopOf="@+id/starRatingView"
+        app:layout_constraintStart_toStartOf="@+id/resultName"
+        app:layout_constraintTop_toBottomOf="@+id/resultName"
         tools:text="3.0" />
 
     <TextView
         android:id="@+id/numberOfReviews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:fontFamily="@font/roboto_light"
         android:includeFontPadding="false"
         android:text="(39)"
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/starRatingView"
-        app:layout_constraintStart_toEndOf="@+id/exactStarRating"
+        app:layout_constraintStart_toEndOf="@+id/starRatingView"
         app:layout_constraintTop_toTopOf="@+id/starRatingView" />
 
     <TextView
@@ -92,8 +92,8 @@
         android:fontFamily="@font/roboto_light"
         android:text="99 km away"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/starRatingView"
-        app:layout_constraintTop_toBottomOf="@+id/starRatingView" />
+        app:layout_constraintStart_toStartOf="@+id/exactStarRating"
+        app:layout_constraintTop_toBottomOf="@+id/exactStarRating" />
 
     <TextView
         android:id="@+id/dot"
