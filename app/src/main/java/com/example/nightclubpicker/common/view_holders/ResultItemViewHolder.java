@@ -59,6 +59,7 @@ public class ResultItemViewHolder extends RecyclerView.ViewHolder {
                 .appendQueryParameter(QUERY_PARAM_HEIGHT, MAX_IMAGE_HEIGHT)
                 .build();
 
+        loadingSpinner.setVisibility(View.VISIBLE);
         Picasso.get()
                 .load(url)
                 .centerCrop()
