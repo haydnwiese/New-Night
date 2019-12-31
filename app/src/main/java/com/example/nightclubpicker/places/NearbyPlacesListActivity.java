@@ -145,7 +145,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
     private void fetchPlaces() {
         placesService.fetchNearbyPlaces(currentLocation.getLatitude(),
                 currentLocation.getLongitude(),
-                1000,
+                3000,
                 null,
                 PlaceType.night_club,
                 new PlacesService.NearbySearchCallback() {
@@ -177,8 +177,12 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
             SearchResult result = searchResults.get(i);
             if (!result.isPermanentlyClosed() && result.getRating() != 0) {
                 if (i < MAX_TOP_RESULTS) {
+                    String photoReference = null;
+                    if (result.getPhotos() != null && result.getPhotos().get(0) != null) {
+                        photoReference = result.getPhotos().get(0).getPhotoReference();
+                    }
                     listItems.add(new TopResultListItem.Builder()
-                            .setImageUrl(result.getPhotos().get(0).getPhotoReference())
+                            .setImageUrl(photoReference)
                             .setName(result.getName())
                             .setRating(result.getRating())
                             .setReviewCount(result.getUserRatingsTotal())
@@ -217,7 +221,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
             listItems.set(listItems.size() - 1, generateExtraResultListItem(results.get(0)));
             for (int i = 1; i < results.size(); i++) {
                 SearchResult result = results.get(i);
-                if (!result.isPermanentlyClosed() && result.getRating() != 0) {
+                if (!result.isPermanentlyClosed() && result.getRating() != 0.0) {
                     listItems.add(generateExtraResultListItem(result));
                 }
             }
@@ -227,8 +231,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
 
     private ListItem generateExtraResultListItem(SearchResult result) {
         String photoReference = null;
-        if (result.getPhotos() != null
-                && result.getPhotos().get(0) != null) {
+        if (result.getPhotos() != null && result.getPhotos().get(0) != null) {
             photoReference = result.getPhotos().get(0).getPhotoReference();
         }
         return new ExtraResultListItem.Builder()
