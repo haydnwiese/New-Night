@@ -5,6 +5,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.nightclubpicker.R;
 import com.example.nightclubpicker.common.BaseActivity;
@@ -49,9 +50,15 @@ public class PlaceDetailsActivity extends BaseActivity {
         new PlacesService().fetchPlaceDetails(placeId, new PlacesService.PlaceDetailsCallback() {
             @Override
             public void onSuccess(DetailsResult response) {
-                photos = response.getPhotos();
-                viewPagerAdapter = new ImageViewPagerAdapter(PlaceDetailsActivity.this, photos);
-                viewPager.setAdapter(viewPagerAdapter);
+                if (response.getPhotos() != null) {
+                    photos = response.getPhotos().subList(0, Math.min(response.getPhotos().size(), 4));
+                    viewPagerAdapter = new ImageViewPagerAdapter(PlaceDetailsActivity.this, photos);
+                    viewPager.setAdapter(viewPagerAdapter);
+                } else {
+                    viewPager.setVisibility(View.GONE);
+                }
+
+                
             }
 
             @Override

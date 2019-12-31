@@ -2,7 +2,6 @@ package com.example.nightclubpicker.places.place_details;
 
 import android.content.Context;
 import android.net.Uri;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.nightclubpicker.R;
-import com.example.nightclubpicker.common.ResourceSingleton;
 import com.example.nightclubpicker.places.PlaceHelper;
 import com.example.nightclubpicker.places.models.Photo;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -40,10 +37,10 @@ public class ImageViewPagerAdapter extends PagerAdapter {
         ImageView imageView = view.findViewById(R.id.pagerImageView);
         Picasso.get()
                 .load(url)
-//                .centerCrop()
-//                .resize(imageView.getLayoutParams().width, imageView.getLayoutParams().height)
+                .fit()
+                .centerCrop()
                 .into(imageView);
-        imageView.setImageDrawable(ResourceSingleton.getInstance().getDrawable(R.drawable.ic_filled_in_star));
+
         container.addView(view);
         return view;
     }

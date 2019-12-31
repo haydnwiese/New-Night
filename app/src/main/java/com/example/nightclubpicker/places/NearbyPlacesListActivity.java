@@ -112,6 +112,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
 
                 @Override
                 public void onFailure() {
+                    // TODO: Fix this
                     removeSpinnerListItem();
                 }
             });
@@ -144,7 +145,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
     private void fetchPlaces() {
         placesService.fetchNearbyPlaces(currentLocation.getLatitude(),
                 currentLocation.getLongitude(),
-                50000,
+                1000,
                 null,
                 PlaceType.night_club,
                 new PlacesService.NearbySearchCallback() {
@@ -174,7 +175,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
 
         for (int i = 0; i < searchResults.size(); i++) {
             SearchResult result = searchResults.get(i);
-            if (!result.isPermanentlyClosed()) {
+            if (!result.isPermanentlyClosed() && result.getRating() != 0) {
                 if (i < MAX_TOP_RESULTS) {
                     listItems.add(new TopResultListItem.Builder()
                             .setImageUrl(result.getPhotos().get(0).getPhotoReference())
@@ -191,9 +192,11 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
             }
         }
 
-        listItems.add(MAX_TOP_RESULTS + 1, new SubHeaderListItem.Builder()
-                .setSubHeader(ResourceSingleton.getInstance().getString(R.string.more_results))
-                .build());
+        if (listItems.size() > MAX_TOP_RESULTS) {
+            listItems.add(MAX_TOP_RESULTS + 1, new SubHeaderListItem.Builder()
+                    .setSubHeader(ResourceSingleton.getInstance().getString(R.string.more_results))
+                    .build());
+        }
 
         Toast.makeText(NearbyPlacesListActivity.this, "Success", Toast.LENGTH_SHORT)
                 .show();
@@ -214,7 +217,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
             listItems.set(listItems.size() - 1, generateExtraResultListItem(results.get(0)));
             for (int i = 1; i < results.size(); i++) {
                 SearchResult result = results.get(i);
-                if (!result.isPermanentlyClosed()) {
+                if (!result.isPermanentlyClosed() && result.getRating() != 0) {
                     listItems.add(generateExtraResultListItem(result));
                 }
             }
@@ -223,8 +226,13 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
     }
 
     private ListItem generateExtraResultListItem(SearchResult result) {
+        String photoReference = null;
+        if (result.getPhotos() != null
+                && result.getPhotos().get(0) != null) {
+            photoReference = result.getPhotos().get(0).getPhotoReference();
+        }
         return new ExtraResultListItem.Builder()
-                .setImageUrl(result.getPhotos().get(0).getPhotoReference())
+                .setImageUrl(photoReference)
                 .setName(result.getName())
                 .setRating(result.getRating())
                 .setReviewCount(result.getUserRatingsTotal())

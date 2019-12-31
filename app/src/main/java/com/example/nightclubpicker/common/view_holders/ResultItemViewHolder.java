@@ -59,7 +59,7 @@ public class ResultItemViewHolder extends RecyclerView.ViewHolder {
 
                     @Override
                     public void onError(Exception e) {
-
+                        // TODO: Handle this
                     }
                 });
 
