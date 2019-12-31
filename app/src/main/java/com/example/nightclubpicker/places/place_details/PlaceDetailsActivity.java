@@ -63,6 +63,8 @@ public class PlaceDetailsActivity extends BaseActivity {
                 }
 
                 headerWrapperView.setItems(new HeaderListItem(response.getName()));
+
+
             }
 
             @Override

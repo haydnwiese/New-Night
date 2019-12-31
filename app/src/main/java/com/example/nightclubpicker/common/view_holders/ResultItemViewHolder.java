@@ -17,6 +17,8 @@ import com.example.nightclubpicker.places.PlaceHelper;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import com.example.nightclubpicker.places.PlaceHelper;
+
 public class ResultItemViewHolder extends RecyclerView.ViewHolder {
     private ImageView placeImageView;
     private TextView nameTextView;
@@ -67,34 +69,9 @@ public class ResultItemViewHolder extends RecyclerView.ViewHolder {
         nameTextView.setText(listItem.getName());
         exactRatingView.setText(Double.toString(listItem.getRating()));
         reviewCountView.setText(ResourceSingleton.getInstance().getString(R.string.review_count, listItem.getReviewCount()));
-        distanceView.setText(getDistanceDisplay(listItem.getDistance()));
-        priceIndicatorView.setText(generatePriceLevelString(listItem.getPriceLevel()));
+        distanceView.setText(PlaceHelper.getDistanceDisplay(listItem.getDistance()));
+        priceIndicatorView.setText(PlaceHelper.generatePriceLevelString(listItem.getPriceLevel()));
         dotSeparator.setVisibility(listItem.getPriceLevel() == 0 ? View.GONE : View.VISIBLE);
         itemView.setOnClickListener(v -> listItem.getClickListener().onItemClick());
-    }
-
-    private String getDistanceDisplay(float distance) {
-        String distanceAsString;
-        if (distance > 1) {
-            distanceAsString = String.valueOf(Math.round(distance));
-        } else {
-            distanceAsString = "<1";
-        }
-        return ResourceSingleton.getInstance().getString(R.string.distance_from_user, distanceAsString);
-    }
-
-    private String generatePriceLevelString(int priceLevel) {
-        switch(priceLevel) {
-            case 1:
-                return "$";
-            case 2:
-                return "$$";
-            case 3:
-                return "$$$";
-            case 4:
-                return "$$$$";
-            default:
-                return null;
-        }
     }
 }
