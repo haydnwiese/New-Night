@@ -7,7 +7,9 @@ import android.os.Bundle;
 
 import com.example.nightclubpicker.R;
 import com.example.nightclubpicker.common.BaseActivity;
+import com.example.nightclubpicker.places.models.DetailsResult;
 import com.example.nightclubpicker.places.models.SearchResult;
+import com.example.nightclubpicker.places.service.PlacesService;
 
 import static com.example.nightclubpicker.places.NearbyPlacesListActivity.BUNDLE_KEY_SEARCH_RESULT;
 

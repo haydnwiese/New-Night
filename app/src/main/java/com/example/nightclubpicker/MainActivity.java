@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.nightclubpicker.common.BaseActivity;
 import com.example.nightclubpicker.places.NearbyPlacesListActivity;
+import com.example.nightclubpicker.places.service.PlacesService;
 
 public class MainActivity extends BaseActivity {
 

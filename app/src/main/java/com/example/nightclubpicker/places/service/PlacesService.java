@@ -1,7 +1,9 @@
 package com.example.nightclubpicker.places.service;
 
 import com.example.nightclubpicker.R;
+import com.example.nightclubpicker.places.models.DetailsResult;
 import com.example.nightclubpicker.places.models.NearbySearchResponse;
+import com.example.nightclubpicker.places.models.PlaceDetailsResponse;
 import com.example.nightclubpicker.places.models.PlaceType;
 import com.example.nightclubpicker.places.models.SearchResult;
 import com.example.nightclubpicker.retrofit.RetrofitInstance;
@@ -20,6 +22,12 @@ public class PlacesService {
 
     public interface NearbySearchCallback {
         void onSuccess(NearbySearchResponse response);
+
+        void onFailure();
+    }
+
+    public interface PlaceDetailsCallback {
+        void onSuccess(DetailsResult response);
 
         void onFailure();
     }
@@ -67,6 +75,38 @@ public class PlacesService {
 
             @Override
             public void onFailure(Call<NearbySearchResponse> call, Throwable t) {
+                callback.onFailure();
+            }
+        });
+    }
+
+    public void fetchPlaceDetails(String placeId, PlaceDetailsCallback callback) {
+        StringBuilder fields = new StringBuilder();
+        fields.append("name,")
+                .append("rating,")
+                .append("formatted_phone_number,")
+                .append("formatted_address,")
+                .append("photo,")
+                .append("price_level,")
+                .append("review,")
+                .append("user_ratings_total,")
+                .append("website,")
+                .append("opening_hours");
+
+        Call<PlaceDetailsResponse> call = api.fetchPlaceDetails(API_KEY, placeId, fields.toString());
+        call.enqueue(new Callback<PlaceDetailsResponse>() {
+            @Override
+            public void onResponse(Call<PlaceDetailsResponse> call, Response<PlaceDetailsResponse> response) {
+                if (response.body() != null
+                        && response.body().getResult() != null) {
+                    callback.onSuccess(response.body().getResult());
+                } else {
+                    callback.onFailure();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PlaceDetailsResponse> call, Throwable t) {
                 callback.onFailure();
             }
         });
