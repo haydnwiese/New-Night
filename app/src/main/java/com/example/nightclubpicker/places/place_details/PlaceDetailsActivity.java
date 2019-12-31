@@ -9,6 +9,8 @@ import android.view.View;
 
 import com.example.nightclubpicker.R;
 import com.example.nightclubpicker.common.BaseActivity;
+import com.example.nightclubpicker.common.list_items.HeaderListItem;
+import com.example.nightclubpicker.common.views.HeaderListItemWrapperView;
 import com.example.nightclubpicker.places.models.DetailsResult;
 import com.example.nightclubpicker.places.models.Photo;
 import com.example.nightclubpicker.places.models.SearchResult;
@@ -26,6 +28,8 @@ public class PlaceDetailsActivity extends BaseActivity {
 
     @BindView(R.id.viewPager)
     ViewPager viewPager;
+    @BindView(R.id.header)
+    HeaderListItemWrapperView headerWrapperView;
 
     private DetailsResult placeDetails;
     private List<Photo> photos = new ArrayList<>();
@@ -58,7 +62,7 @@ public class PlaceDetailsActivity extends BaseActivity {
                     viewPager.setVisibility(View.GONE);
                 }
 
-                
+                headerWrapperView.setItems(new HeaderListItem(response.getName()));
             }
 
             @Override

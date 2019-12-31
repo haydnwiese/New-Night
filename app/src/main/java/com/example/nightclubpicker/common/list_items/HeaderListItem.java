@@ -14,6 +14,12 @@ public class HeaderListItem implements ListItem{
         return Type.HEADER_LIST_ITEM;
     }
 
+    private HeaderListItem() { }
+
+    public HeaderListItem(String title) {
+        this.title = title;
+    }
+
     public static class Builder {
         private String title;
 
