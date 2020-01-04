@@ -20,6 +20,8 @@ public class DetailsResult implements Serializable {
     private int userRatingsTotal;
     @SerializedName("website")
     private String websiteUrl;
+    @SerializedName("price_level")
+    private int priceLevel;
 
     public String getFormattedAddress() {
         return formattedAddress;
@@ -55,5 +57,9 @@ public class DetailsResult implements Serializable {
 
     public String getWebsiteUrl() {
         return websiteUrl;
+    }
+
+    public int getPriceLevel() {
+        return priceLevel;
     }
 }

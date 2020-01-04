@@ -14,6 +14,7 @@ import com.example.nightclubpicker.common.ResourceSingleton;
 import com.example.nightclubpicker.common.list_items.HeaderListItem;
 import com.example.nightclubpicker.common.views.HeaderListItemWrapperView;
 import com.example.nightclubpicker.common.views.StarRatingView;
+import com.example.nightclubpicker.places.PlaceHelper;
 import com.example.nightclubpicker.places.models.DetailsResult;
 import com.example.nightclubpicker.places.models.Photo;
 import com.example.nightclubpicker.places.models.SearchResult;
@@ -39,6 +40,10 @@ public class PlaceDetailsActivity extends BaseActivity {
     TextView exactRatingView;
     @BindView(R.id.numberOfReviews)
     TextView reviewCountView;
+    @BindView(R.id.dot)
+    TextView dotSeparatorView;
+    @BindView(R.id.priceIndicator)
+    TextView priceLevelView;
 
     private DetailsResult placeDetails;
     private List<Photo> photos = new ArrayList<>();
@@ -73,6 +78,7 @@ public class PlaceDetailsActivity extends BaseActivity {
                         viewPager.setVisibility(View.GONE);
                     }
                     updateRating();
+                    updatePriceLevel();
                     headerWrapperView.setItems(new HeaderListItem(response.getName()));
                 }
             }
@@ -85,8 +91,13 @@ public class PlaceDetailsActivity extends BaseActivity {
     }
 
     private void updateRating() {
-        reviewCountView.setText(ResourceSingleton.getInstance().getString(R.string.review_count, placeDetails.getUserRatingsTotal()));
+        reviewCountView.setText(getString(R.string.review_count, placeDetails.getUserRatingsTotal()));
         starRatingView.setRating(placeDetails.getRating());
         exactRatingView.setText(Double.toString(placeDetails.getRating()));
+    }
+
+    private void updatePriceLevel() {
+        dotSeparatorView.setVisibility(placeDetails.getPriceLevel() == 0 ? View.GONE : View.VISIBLE);
+        priceLevelView.setText(PlaceHelper.generatePriceLevelString(placeDetails.getPriceLevel()));
     }
 }

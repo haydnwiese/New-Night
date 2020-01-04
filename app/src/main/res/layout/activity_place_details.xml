@@ -68,7 +68,63 @@
                     app:layout_constraintBottom_toBottomOf="@+id/starRatingView"
                     app:layout_constraintStart_toEndOf="@+id/starRatingView"
                     app:layout_constraintTop_toTopOf="@+id/starRatingView" />
+
+                <TextView
+                    android:id="@+id/dot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="•"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@id/numberOfReviews"
+                    app:layout_constraintTop_toTopOf="@id/numberOfReviews"
+                    app:layout_constraintBottom_toBottomOf="@id/numberOfReviews"/>
+
+                <TextView
+                    android:id="@+id/priceIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="$$"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@+id/dot"
+                    app:layout_constraintTop_toTopOf="@id/numberOfReviews"
+                    app:layout_constraintBottom_toBottomOf="@id/numberOfReviews"/>
+
+                <TextView
+                    android:id="@+id/venueSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="14sp"
+                    android:text="Small Venue"
+                    app:layout_constraintTop_toBottomOf="@id/exactStarRating"/>
+
+                <TextView
+                    android:id="@+id/dot2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="•"
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toTopOf="@id/venueSize"
+                    app:layout_constraintStart_toEndOf="@id/venueSize"/>
+
+                <TextView
+                    android:id="@+id/dressCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:textSize="14sp"
+                    android:text="Semi-Formal"
+                    app:layout_constraintTop_toTopOf="@id/venueSize"
+                    app:layout_constraintStart_toEndOf="@id/dot2"/>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
     </LinearLayout>
 
