@@ -31,7 +31,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <com.example.nightclubpicker.common.views.StarRatingView
                     android:id="@+id/starRatingView"
@@ -125,72 +125,68 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="20dp"
-                android:background="#20FFFFFF"
-                />
+            <include
+                layout="@layout/divider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
 
             <com.example.nightclubpicker.common.views.PlaceAttributeView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:imageSrc="@drawable/ic_music_note"
-                app:description="Dance"/>
+                app:description="Dance"
+                app:imageSrc="@drawable/ic_music_note">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#20FFFFFF"
-                />
+            </com.example.nightclubpicker.common.views.PlaceAttributeView>
 
-            <com.example.nightclubpicker.common.views.PlaceAttributeView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:imageSrc="@drawable/ic_map_pin"
-                app:description="228 Albert St Waterloo"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#20FFFFFF"
-                />
+            <include
+                layout="@layout/divider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <com.example.nightclubpicker.common.views.PlaceAttributeView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:imageSrc="@drawable/ic_clock"
-                app:description="Open"/>
+                app:description="228 Albert St Waterloo"
+                app:imageSrc="@drawable/ic_map_pin" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#20FFFFFF"
-                />
-
-            <com.example.nightclubpicker.common.views.PlaceAttributeView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:imageSrc="@drawable/ic_phone"
-                app:description="(416) 123-3423"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#20FFFFFF"
-                />
+            <include
+                layout="@layout/divider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <com.example.nightclubpicker.common.views.PlaceAttributeView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:imageSrc="@drawable/ic_map_pin"
-                app:description="www.websitename.com"/>
+                app:description="Open"
+                app:imageSrc="@drawable/ic_clock" />
 
-            <View
+            <include
+                layout="@layout/divider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.example.nightclubpicker.common.views.PlaceAttributeView
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#20FFFFFF"
-                />
+                android:layout_height="wrap_content"
+                app:description="(416) 123-3423"
+                app:imageSrc="@drawable/ic_phone" />
+
+            <include
+                layout="@layout/divider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.example.nightclubpicker.common.views.PlaceAttributeView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:description="www.websitename.com"
+                app:imageSrc="@drawable/ic_map_pin" />
+
+            <include
+                layout="@layout/divider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </LinearLayout>
