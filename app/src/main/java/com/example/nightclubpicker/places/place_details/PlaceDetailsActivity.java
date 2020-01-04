@@ -12,8 +12,11 @@ import com.example.nightclubpicker.R;
 import com.example.nightclubpicker.common.BaseActivity;
 import com.example.nightclubpicker.common.ResourceSingleton;
 import com.example.nightclubpicker.common.list_items.HeaderListItem;
+import com.example.nightclubpicker.common.list_items.SubHeaderListItem;
 import com.example.nightclubpicker.common.views.HeaderListItemWrapperView;
+import com.example.nightclubpicker.common.views.PlaceAttributeView;
 import com.example.nightclubpicker.common.views.StarRatingView;
+import com.example.nightclubpicker.common.views.SubHeaderListItemWrapperView;
 import com.example.nightclubpicker.places.PlaceHelper;
 import com.example.nightclubpicker.places.models.DetailsResult;
 import com.example.nightclubpicker.places.models.Photo;
@@ -44,6 +47,18 @@ public class PlaceDetailsActivity extends BaseActivity {
     TextView dotSeparatorView;
     @BindView(R.id.priceIndicator)
     TextView priceLevelView;
+    @BindView(R.id.musicGenre)
+    PlaceAttributeView musicGenreView;
+    @BindView(R.id.address)
+    PlaceAttributeView addressView;
+    @BindView(R.id.openHours)
+    PlaceAttributeView openHoursView;
+    @BindView(R.id.phoneNumber)
+    PlaceAttributeView phoneNumberView;
+    @BindView(R.id.website)
+    PlaceAttributeView websiteView;
+    @BindView(R.id.recentReviewsHeader)
+    SubHeaderListItemWrapperView recentReviewsHeaderView;
 
     private DetailsResult placeDetails;
     private List<Photo> photos = new ArrayList<>();
@@ -77,9 +92,12 @@ public class PlaceDetailsActivity extends BaseActivity {
                     } else {
                         viewPager.setVisibility(View.GONE);
                     }
+
+                    headerWrapperView.setItems(new HeaderListItem(response.getName()));
+                    recentReviewsHeaderView.setItems(new SubHeaderListItem(getString(R.string.recentReviewsHeader)));
                     updateRating();
                     updatePriceLevel();
-                    headerWrapperView.setItems(new HeaderListItem(response.getName()));
+                    updateAttributes();
                 }
             }
 
@@ -99,5 +117,16 @@ public class PlaceDetailsActivity extends BaseActivity {
     private void updatePriceLevel() {
         dotSeparatorView.setVisibility(placeDetails.getPriceLevel() == 0 ? View.GONE : View.VISIBLE);
         priceLevelView.setText(PlaceHelper.generatePriceLevelString(placeDetails.getPriceLevel()));
+    }
+
+    private void updateAttributes() {
+        // TODO: Update with real values
+        musicGenreView.setDescription("Hip-Hop/Rap");
+        // TODO: Add map image
+        addressView.setDescription(placeDetails.getFormattedAddress());
+        // TODO: Update with formatted value
+        openHoursView.setDescription(Boolean.toString(placeDetails.getOpeningHours().isOpenNow()));
+        phoneNumberView.setDescription(placeDetails.getFormattedPhoneNumber());
+        websiteView.setDescription(placeDetails.getWebsiteUrl());
     }
 }

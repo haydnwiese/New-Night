@@ -132,6 +132,7 @@
                 android:layout_marginTop="20dp" />
 
             <com.example.nightclubpicker.common.views.PlaceAttributeView
+                android:id="@+id/musicGenre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:description="Dance"
@@ -145,6 +146,7 @@
                 android:layout_height="wrap_content" />
 
             <com.example.nightclubpicker.common.views.PlaceAttributeView
+                android:id="@+id/address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:description="228 Albert St Waterloo"
@@ -156,6 +158,7 @@
                 android:layout_height="wrap_content" />
 
             <com.example.nightclubpicker.common.views.PlaceAttributeView
+                android:id="@+id/openHours"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:description="Open"
@@ -167,6 +170,7 @@
                 android:layout_height="wrap_content" />
 
             <com.example.nightclubpicker.common.views.PlaceAttributeView
+                android:id="@+id/phoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:description="(416) 123-3423"
@@ -178,15 +182,22 @@
                 android:layout_height="wrap_content" />
 
             <com.example.nightclubpicker.common.views.PlaceAttributeView
+                android:id="@+id/website"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:description="www.websitename.com"
-                app:imageSrc="@drawable/ic_map_pin" />
+                app:imageSrc="@drawable/ic_web" />
 
             <include
                 layout="@layout/divider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <com.example.nightclubpicker.common.views.SubHeaderListItemWrapperView
+                android:id="@+id/recentReviewsHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-16dp"/>
 
         </LinearLayout>
     </LinearLayout>

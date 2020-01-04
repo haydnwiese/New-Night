@@ -9,33 +9,31 @@ import android.widget.RelativeLayout;
 import androidx.annotation.Nullable;
 
 import com.example.nightclubpicker.common.adapters.Type;
-import com.example.nightclubpicker.common.list_items.HeaderListItem;
 import com.example.nightclubpicker.common.list_items.SubHeaderListItem;
 import com.example.nightclubpicker.common.view_holders.HeaderListItemViewHolder;
 
-public class HeaderListItemWrapperView extends RelativeLayout {
-
+public class SubHeaderListItemWrapperView extends RelativeLayout {
     HeaderListItemViewHolder viewHolder;
 
-    public HeaderListItemWrapperView(Context context) {
+    public SubHeaderListItemWrapperView(Context context) {
         super(context);
 
-        View itemView = LayoutInflater.from(context).inflate(Type.HEADER_LIST_ITEM.getLayout(), this);
+        View itemView = LayoutInflater.from(context).inflate(Type.SUB_HEADER_LIST_ITEM.getLayout(), this);
         viewHolder = new HeaderListItemViewHolder(itemView);
     }
 
-    public HeaderListItemWrapperView(Context context, @Nullable AttributeSet attrs) {
+    public SubHeaderListItemWrapperView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
-        View itemView = LayoutInflater.from(context).inflate(Type.HEADER_LIST_ITEM.getLayout(), this);
+        View itemView = LayoutInflater.from(context).inflate(Type.SUB_HEADER_LIST_ITEM.getLayout(), this);
         viewHolder = new HeaderListItemViewHolder(itemView);
     }
 
-    public HeaderListItemWrapperView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public SubHeaderListItemWrapperView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    public void setItems(HeaderListItem listItem) {
+    public void setItems(SubHeaderListItem listItem) {
         viewHolder.setItems(listItem);
     }
 }

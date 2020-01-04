@@ -70,5 +70,6 @@ public class PlaceAttributeView extends ConstraintLayout {
 
     public void setDescription(String description) {
         this.description = description;
+        descriptionView.setText(description);
     }
 }

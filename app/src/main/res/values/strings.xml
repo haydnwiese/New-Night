@@ -7,4 +7,5 @@
     <string name="review_count">(%d)</string>
     <string name="distance_from_user">%s km</string>
     <string name="details">Details</string>
+    <string name="recentReviewsHeader">Recent Reviews</string>
 </resources>

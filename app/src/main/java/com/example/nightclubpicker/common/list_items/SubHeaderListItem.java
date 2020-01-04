@@ -5,6 +5,12 @@ import com.example.nightclubpicker.common.adapters.Type;
 public class SubHeaderListItem implements ListItem {
     private String subHeader;
 
+    public SubHeaderListItem() {}
+
+    public SubHeaderListItem(String subHeader) {
+        this.subHeader = subHeader;
+    }
+
     public String getSubHeader() {
         return subHeader;
     }
