@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import androidx.annotation.Nullable;
 
 import com.example.nightclubpicker.R;
+import com.example.nightclubpicker.common.ResourceSingleton;
 
 public class StarRatingView extends RelativeLayout {
     private double rating;
@@ -22,6 +23,12 @@ public class StarRatingView extends RelativeLayout {
     private enum ViewSize {
         SMALL,
         LARGE
+    }
+
+    private enum StarType {
+        FILLED,
+        HALF,
+        OUTLINE
     }
 
     public StarRatingView(Context context) {
@@ -59,10 +66,23 @@ public class StarRatingView extends RelativeLayout {
         stars[3] = itemView.findViewById(R.id.star4);
         stars[4] = itemView.findViewById(R.id.star5);
 
-        updateStars();
+        updateSizing();
+        updateRating();
     }
 
-    private void updateStars() {
+    private void updateSizing() {
+        for (ImageView star : stars) {
+            if (size == ViewSize.SMALL) {
+                star.getLayoutParams().height = (int) ResourceSingleton.getInstance().getDimension(R.dimen.smallStar);
+                star.getLayoutParams().width = (int) ResourceSingleton.getInstance().getDimension(R.dimen.smallStar);
+            } else if (size == ViewSize.LARGE) {
+                star.getLayoutParams().height = (int) ResourceSingleton.getInstance().getDimension(R.dimen.largeStar);
+                star.getLayoutParams().width = (int) ResourceSingleton.getInstance().getDimension(R.dimen.largeStar);
+            }
+        }
+    }
+
+    private void updateRating() {
         rating = Math.round(rating * 2) / 2.0;
         for (int i = 0; i < stars.length; i++) {
             if (i < (int) rating) {
@@ -85,7 +105,7 @@ public class StarRatingView extends RelativeLayout {
 
     public void setRating(double rating) {
         this.rating = rating;
-        updateStars();
+        updateRating();
     }
 
     public void setSize(ViewSize size) {

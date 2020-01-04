@@ -55,6 +55,7 @@
         android:layout_width="73dp"
         android:layout_height="12dp"
         android:layout_marginStart="4dp"
+        app:size="small"
         app:layout_constraintBottom_toBottomOf="@+id/exactStarRating"
         app:layout_constraintStart_toEndOf="@+id/exactStarRating"
         app:layout_constraintTop_toTopOf="@+id/exactStarRating" />

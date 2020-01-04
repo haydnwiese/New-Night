@@ -28,6 +28,47 @@
                 android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <com.example.nightclubpicker.common.views.StarRatingView
+                    android:id="@+id/starRatingView"
+                    android:layout_width="114dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="6dp"
+                    app:layout_constraintStart_toEndOf="@+id/exactStarRating"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:size="large" />
+
+                <TextView
+                    android:id="@+id/exactStarRating"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:includeFontPadding="false"
+                    android:text="3.0"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/starRatingView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/starRatingView"
+                    tools:text="3.0" />
+
+                <TextView
+                    android:id="@+id/numberOfReviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:includeFontPadding="false"
+                    android:text="(39)"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/starRatingView"
+                    app:layout_constraintStart_toEndOf="@+id/starRatingView"
+                    app:layout_constraintTop_toTopOf="@+id/starRatingView" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </LinearLayout>
 
