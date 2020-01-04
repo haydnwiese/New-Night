@@ -50,7 +50,7 @@
                     android:fontFamily="@font/roboto_light"
                     android:includeFontPadding="false"
                     android:text="3.0"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/starRatingView"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/starRatingView"
@@ -64,7 +64,7 @@
                     android:fontFamily="@font/roboto_light"
                     android:includeFontPadding="false"
                     android:text="(39)"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/starRatingView"
                     app:layout_constraintStart_toEndOf="@+id/starRatingView"
                     app:layout_constraintTop_toTopOf="@+id/starRatingView" />
@@ -76,10 +76,10 @@
                     android:layout_marginStart="6dp"
                     android:fontFamily="@font/roboto_light"
                     android:text="•"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/numberOfReviews"
                     app:layout_constraintStart_toEndOf="@id/numberOfReviews"
-                    app:layout_constraintTop_toTopOf="@id/numberOfReviews"
-                    app:layout_constraintBottom_toBottomOf="@id/numberOfReviews"/>
+                    app:layout_constraintTop_toTopOf="@id/numberOfReviews" />
 
                 <TextView
                     android:id="@+id/priceIndicator"
@@ -88,19 +88,19 @@
                     android:layout_marginStart="6dp"
                     android:fontFamily="@font/roboto_light"
                     android:text="$$"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/numberOfReviews"
                     app:layout_constraintStart_toEndOf="@+id/dot"
-                    app:layout_constraintTop_toTopOf="@id/numberOfReviews"
-                    app:layout_constraintBottom_toBottomOf="@id/numberOfReviews"/>
+                    app:layout_constraintTop_toTopOf="@id/numberOfReviews" />
 
                 <TextView
                     android:id="@+id/venueSize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textSize="14sp"
                     android:text="Small Venue"
-                    app:layout_constraintTop_toBottomOf="@id/exactStarRating"/>
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@id/exactStarRating" />
 
                 <TextView
                     android:id="@+id/dot2"
@@ -109,21 +109,88 @@
                     android:layout_marginStart="6dp"
                     android:fontFamily="@font/roboto_light"
                     android:text="•"
-                    android:textSize="14sp"
-                    app:layout_constraintTop_toTopOf="@id/venueSize"
-                    app:layout_constraintStart_toEndOf="@id/venueSize"/>
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@id/venueSize"
+                    app:layout_constraintTop_toTopOf="@id/venueSize" />
 
                 <TextView
                     android:id="@+id/dressCode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:textSize="14sp"
                     android:text="Semi-Formal"
-                    app:layout_constraintTop_toTopOf="@id/venueSize"
-                    app:layout_constraintStart_toEndOf="@id/dot2"/>
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@id/dot2"
+                    app:layout_constraintTop_toTopOf="@id/venueSize" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="#20FFFFFF"
+                />
+
+            <com.example.nightclubpicker.common.views.PlaceAttributeView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:imageSrc="@drawable/ic_music_note"
+                app:description="Dance"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20FFFFFF"
+                />
+
+            <com.example.nightclubpicker.common.views.PlaceAttributeView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:imageSrc="@drawable/ic_map_pin"
+                app:description="228 Albert St Waterloo"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20FFFFFF"
+                />
+
+            <com.example.nightclubpicker.common.views.PlaceAttributeView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:imageSrc="@drawable/ic_clock"
+                app:description="Open"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20FFFFFF"
+                />
+
+            <com.example.nightclubpicker.common.views.PlaceAttributeView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:imageSrc="@drawable/ic_phone"
+                app:description="(416) 123-3423"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20FFFFFF"
+                />
+
+            <com.example.nightclubpicker.common.views.PlaceAttributeView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:imageSrc="@drawable/ic_map_pin"
+                app:description="www.websitename.com"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20FFFFFF"
+                />
 
         </LinearLayout>
     </LinearLayout>

@@ -13,4 +13,9 @@
             <enum name="five" value="5"/>
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="PlaceAttributeView">
+        <attr name="imageSrc" format="reference"/>
+        <attr name="description" format="string"/>
+    </declare-styleable>
 </resources>

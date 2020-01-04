@@ -40,17 +40,17 @@ public class StarRatingView extends RelativeLayout {
 
         itemView = LayoutInflater.from(context).inflate(R.layout.star_rating_layout, this);
 
-        TypedArray setAttributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.StarRatingView, 0, 0);
+        TypedArray attributeSet = context.getTheme().obtainStyledAttributes(attrs, R.styleable.StarRatingView, 0, 0);
 
-        if (setAttributes.hasValue(R.styleable.StarRatingView_rating)) {
-            rating = setAttributes.getInt(R.styleable.StarRatingView_rating, 0);
+        if (attributeSet.hasValue(R.styleable.StarRatingView_rating)) {
+            rating = attributeSet.getInt(R.styleable.StarRatingView_rating, 0);
         }
 
-        if (setAttributes.hasValue(R.styleable.StarRatingView_size)) {
-            size = ViewSize.values()[setAttributes.getInt(R.styleable.StarRatingView_size, 0)];
+        if (attributeSet.hasValue(R.styleable.StarRatingView_size)) {
+            size = ViewSize.values()[attributeSet.getInt(R.styleable.StarRatingView_size, 0)];
         }
 
-        setAttributes.recycle();
+        attributeSet.recycle();
 
         init();
     }
