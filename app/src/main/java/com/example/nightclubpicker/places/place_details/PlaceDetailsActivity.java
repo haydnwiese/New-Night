@@ -125,8 +125,20 @@ public class PlaceDetailsActivity extends BaseActivity {
         // TODO: Add map image
         addressView.setDescription(placeDetails.getFormattedAddress());
         // TODO: Update with formatted value
-        openHoursView.setDescription(Boolean.toString(placeDetails.getOpeningHours().isOpenNow()));
-        phoneNumberView.setDescription(placeDetails.getFormattedPhoneNumber());
-        websiteView.setDescription(placeDetails.getWebsiteUrl());
+        if (placeDetails.getOpeningHours() != null) {
+            openHoursView.setDescription(Boolean.toString(placeDetails.getOpeningHours().isOpenNow()));
+        } else {
+            openHoursView.setVisibility(View.GONE);
+        }
+        if (placeDetails.getFormattedPhoneNumber() != null) {
+            phoneNumberView.setDescription(placeDetails.getFormattedPhoneNumber());
+        } else {
+            phoneNumberView.setVisibility(View.GONE);
+        }
+        if (placeDetails.getWebsiteUrl() != null) {
+            websiteView.setDescription(placeDetails.getWebsiteUrl());
+        } else {
+            websiteView.setVisibility(View.GONE);
+        }
     }
 }

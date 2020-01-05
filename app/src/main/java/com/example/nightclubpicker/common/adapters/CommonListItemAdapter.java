@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nightclubpicker.common.list_items.HeaderListItem;
 import com.example.nightclubpicker.common.list_items.ListItem;
 import com.example.nightclubpicker.common.list_items.ResultListItem;
+import com.example.nightclubpicker.common.list_items.ReviewListItem;
 import com.example.nightclubpicker.common.list_items.SubHeaderListItem;
 import com.example.nightclubpicker.common.list_items.TopResultListItem;
 import com.example.nightclubpicker.common.view_holders.HeaderListItemViewHolder;
 import com.example.nightclubpicker.common.view_holders.ResultItemViewHolder;
+import com.example.nightclubpicker.common.view_holders.ReviewListItemViewHolder;
 import com.example.nightclubpicker.common.view_holders.SpinnerListItemViewHolder;
 
 import java.util.List;
@@ -42,6 +44,8 @@ public class CommonListItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             case EXTRA_RESULT_LIST_ITEM:
             case TOP_RESULT_LIST_ITEM:
                 return new ResultItemViewHolder(inflate(parent, type.getLayout()));
+            case REVIEW_LIST_ITEM:
+                return new ReviewListItemViewHolder(inflate(parent, type.getLayout()));
             case SPINNER_LIST_ITEM:
                 return new SpinnerListItemViewHolder(inflate(parent, type.getLayout()));
         }
@@ -65,6 +69,10 @@ public class CommonListItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 break;
             case TOP_RESULT_LIST_ITEM:
                 ((ResultItemViewHolder) holder).setItems((TopResultListItem) listItem);
+                break;
+            case REVIEW_LIST_ITEM:
+                ((ReviewListItemViewHolder) holder).setItems((ReviewListItem) listItem);
+                break;
             case SPINNER_LIST_ITEM:
                 break;
         }
