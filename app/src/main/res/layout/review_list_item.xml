@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="10dp">
 
     <ImageView
         android:id="@+id/profilePicture"
@@ -21,7 +22,7 @@
         android:layout_marginStart="20dp"
         android:text="Name"
         app:layout_constraintStart_toEndOf="@+id/profilePicture"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/profilePicture" />
 
     <com.example.nightclubpicker.common.views.StarRatingView
         android:id="@+id/reviewStarRating"

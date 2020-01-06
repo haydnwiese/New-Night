@@ -1,6 +1,5 @@
 package com.example.nightclubpicker.common.view_holders;
 
-import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,10 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nightclubpicker.R;
 import com.example.nightclubpicker.common.list_items.ReviewListItem;
-import com.example.nightclubpicker.common.picasso.RoundedRectTransform;
 import com.example.nightclubpicker.common.views.StarRatingView;
-import com.example.nightclubpicker.places.PlaceHelper;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 public class ReviewListItemViewHolder extends RecyclerView.ViewHolder {
@@ -34,12 +30,8 @@ public class ReviewListItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setItems(ReviewListItem listItem) {
-        Uri url = PlaceHelper.createUrlForPlaceImage(listItem.getProfilePictureUrl());
-
         Picasso.get()
-                .load(url)
-                .centerCrop()
-                .transform(new RoundedRectTransform())
+                .load(listItem.getProfilePictureUrl())
                 .into(profilePictureView);
 
         nameView.setText(listItem.getName());

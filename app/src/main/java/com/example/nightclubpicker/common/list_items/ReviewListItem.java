@@ -35,7 +35,7 @@ public class ReviewListItem implements ListItem {
         return content;
     }
 
-    public class Builder {
+    public static class Builder {
         private String profilePictureUrl;
         private String name;
         private int rating;

@@ -1,6 +1,8 @@
 package com.example.nightclubpicker.places.place_details;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -11,7 +13,10 @@ import android.widget.TextView;
 import com.example.nightclubpicker.R;
 import com.example.nightclubpicker.common.BaseActivity;
 import com.example.nightclubpicker.common.ResourceSingleton;
+import com.example.nightclubpicker.common.adapters.CommonListItemAdapter;
 import com.example.nightclubpicker.common.list_items.HeaderListItem;
+import com.example.nightclubpicker.common.list_items.ListItem;
+import com.example.nightclubpicker.common.list_items.ReviewListItem;
 import com.example.nightclubpicker.common.list_items.SubHeaderListItem;
 import com.example.nightclubpicker.common.views.HeaderListItemWrapperView;
 import com.example.nightclubpicker.common.views.PlaceAttributeView;
@@ -20,6 +25,7 @@ import com.example.nightclubpicker.common.views.SubHeaderListItemWrapperView;
 import com.example.nightclubpicker.places.PlaceHelper;
 import com.example.nightclubpicker.places.models.DetailsResult;
 import com.example.nightclubpicker.places.models.Photo;
+import com.example.nightclubpicker.places.models.PlaceReview;
 import com.example.nightclubpicker.places.models.SearchResult;
 import com.example.nightclubpicker.places.service.PlacesService;
 
@@ -59,11 +65,17 @@ public class PlaceDetailsActivity extends BaseActivity {
     PlaceAttributeView websiteView;
     @BindView(R.id.recentReviewsHeader)
     SubHeaderListItemWrapperView recentReviewsHeaderView;
+    @BindView(R.id.reviewsRecyclerView)
+    RecyclerView reviewsRecyclerView;
+
+    private static final int MAX_REVIEWS = 3;
 
     private DetailsResult placeDetails;
     private List<Photo> photos = new ArrayList<>();
+    private List<ListItem> reviewItems;
 
     ImageViewPagerAdapter viewPagerAdapter;
+    CommonListItemAdapter recyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +83,10 @@ public class PlaceDetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_place_details);
         setTitle(R.string.details);
         ButterKnife.bind(this);
+
+        reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewAdapter = new CommonListItemAdapter(new ArrayList<>());
+        reviewsRecyclerView.setAdapter(recyclerViewAdapter);
 
         Intent intent = getIntent();
         if (intent.getParcelableExtra(BUNDLE_KEY_SEARCH_RESULT) != null) {
@@ -98,6 +114,7 @@ public class PlaceDetailsActivity extends BaseActivity {
                     updateRating();
                     updatePriceLevel();
                     updateAttributes();
+                    generateReviewsSection();
                 }
             }
 
@@ -140,5 +157,30 @@ public class PlaceDetailsActivity extends BaseActivity {
         } else {
             websiteView.setVisibility(View.GONE);
         }
+    }
+
+    private void generateReviewsSection() {
+        if (placeDetails.getReviews() == null) {
+            return;
+        }
+
+        reviewItems = new ArrayList<>();
+        ReviewListItem.Builder builder = new ReviewListItem.Builder();
+
+        int reviewNum = Math.min(MAX_REVIEWS, placeDetails.getReviews().size());
+        for (int i = 0; i < reviewNum; i++) {
+            PlaceReview placeReview = placeDetails.getReviews().get(i);
+            if (placeReview != null) {
+                reviewItems.add(builder.setProfilePictureUrl(placeReview.getProfilePhotoUrl())
+                        .setName(placeReview.getAuthorName())
+                        .setRating(placeReview.getRating())
+                        .setRelativeTime(placeReview.getRelativeTimeDescription())
+                        .setContent(placeReview.getText())
+                        .build());
+            }
+        }
+
+        recyclerViewAdapter.setListItems(reviewItems);
+        recyclerViewAdapter.notifyDataSetChanged();
     }
 }
