@@ -151,7 +151,7 @@ public class PlaceDetailsActivity extends BaseActivity {
         loadStaticMap();
         // TODO: Update with formatted value
         if (placeDetails.getOpeningHours() != null) {
-            openHoursView.setDescription(Boolean.toString(placeDetails.getOpeningHours().isOpenNow()));
+            openHoursView.setDescription(placeDetails.getOpeningHours().isOpenNow() ? ResourceSingleton.getInstance().getString(R.string.open) : ResourceSingleton.getInstance().getString(R.string.closed));
         } else {
             openHoursView.setVisibility(View.GONE);
         }
