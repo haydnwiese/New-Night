@@ -1,6 +1,5 @@
 package com.example.nightclubpicker.places.place_details;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -8,9 +7,10 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.nightclubpicker.R;
@@ -31,7 +31,6 @@ import com.example.nightclubpicker.places.models.Photo;
 import com.example.nightclubpicker.places.models.PlaceReview;
 import com.example.nightclubpicker.places.models.SearchResult;
 import com.example.nightclubpicker.places.service.PlacesService;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -46,6 +45,8 @@ public class PlaceDetailsActivity extends BaseActivity {
 
     @BindView(R.id.viewPager)
     ViewPager viewPager;
+    @BindView(R.id.dotsView)
+    LinearLayout dotsLayout;
     @BindView(R.id.header)
     HeaderListItemWrapperView headerWrapperView;
     @BindView(R.id.starRatingView)
@@ -112,6 +113,21 @@ public class PlaceDetailsActivity extends BaseActivity {
                         photos = response.getPhotos().subList(0, Math.min(response.getPhotos().size(), 4));
                         viewPagerAdapter = new ImageViewPagerAdapter(PlaceDetailsActivity.this, photos);
                         viewPager.setAdapter(viewPagerAdapter);
+                        addViewPagerDots(viewPagerAdapter.getCount(), 0);
+                        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                            @Override
+                            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                            }
+
+                            @Override
+                            public void onPageSelected(int position) {
+                                addViewPagerDots(viewPagerAdapter.getCount(), position);
+                            }
+
+                            @Override
+                            public void onPageScrollStateChanged(int state) {
+                            }
+                        });
                     } else {
                         viewPager.setVisibility(View.GONE);
                     }
@@ -130,6 +146,25 @@ public class PlaceDetailsActivity extends BaseActivity {
 
             }
         });
+    }
+
+    private void addViewPagerDots(int size, int current) {
+        if (size <= 1) {
+            return;
+        }
+
+        ImageView[] dots  = new ImageView[size];
+        dotsLayout.removeAllViews();
+        for (int i = 0; i < dots.length; i++) {
+            dots[i] = new ImageView(this);
+            int width_height = 20;
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(width_height, width_height));
+            params.setMargins(10, 10, 10, 10);
+            dots[i].setLayoutParams(params);
+            dots[i].setImageResource(R.drawable.indicator_dot_dark);
+            dotsLayout.addView(dots[i]);
+        }
+        dots[current].setImageResource(R.drawable.indicator_dot_light);
     }
 
     private void updateRating() {
