@@ -8,4 +8,5 @@
     <string name="distance_from_user">%s km</string>
     <string name="details">Details</string>
     <string name="recentReviewsHeader">Recent Reviews</string>
+    <string name="markers_parameter">color:%s|%f,%f</string>
 </resources>

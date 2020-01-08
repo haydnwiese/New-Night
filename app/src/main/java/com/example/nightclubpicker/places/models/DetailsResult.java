@@ -10,6 +10,7 @@ public class DetailsResult implements Serializable {
     private String formattedAddress;
     @SerializedName("formatted_phone_number")
     private String formattedPhoneNumber;
+    private Geometry geometry;
     private String name;
     @SerializedName("opening_hours")
     private OpeningHours openingHours;
@@ -29,6 +30,10 @@ public class DetailsResult implements Serializable {
 
     public String getFormattedPhoneNumber() {
         return formattedPhoneNumber;
+    }
+
+    public Geometry getGeometry() {
+        return geometry;
     }
 
     public String getName() {

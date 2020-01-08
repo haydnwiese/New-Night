@@ -6,8 +6,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nightclubpicker.R;
@@ -28,6 +31,8 @@ import com.example.nightclubpicker.places.models.Photo;
 import com.example.nightclubpicker.places.models.PlaceReview;
 import com.example.nightclubpicker.places.models.SearchResult;
 import com.example.nightclubpicker.places.service.PlacesService;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +62,8 @@ public class PlaceDetailsActivity extends BaseActivity {
     PlaceAttributeView musicGenreView;
     @BindView(R.id.address)
     PlaceAttributeView addressView;
+    @BindView(R.id.staticMap)
+    ImageView staticMapView;
     @BindView(R.id.openHours)
     PlaceAttributeView openHoursView;
     @BindView(R.id.phoneNumber)
@@ -141,6 +148,7 @@ public class PlaceDetailsActivity extends BaseActivity {
         musicGenreView.setDescription("Hip-Hop/Rap");
         // TODO: Add map image
         addressView.setDescription(placeDetails.getFormattedAddress());
+        loadStaticMap();
         // TODO: Update with formatted value
         if (placeDetails.getOpeningHours() != null) {
             openHoursView.setDescription(Boolean.toString(placeDetails.getOpeningHours().isOpenNow()));
@@ -157,6 +165,14 @@ public class PlaceDetailsActivity extends BaseActivity {
         } else {
             websiteView.setVisibility(View.GONE);
         }
+    }
+
+    private void loadStaticMap() {
+        Uri url = PlaceHelper.createUrlForStaticMap(placeDetails.getGeometry().getLocation().getLatitude(), placeDetails.getGeometry().getLocation().getLongitude());
+        Picasso.get()
+                .load(url)
+                .fit()
+                .into(staticMapView);
     }
 
     private void generateReviewsSection() {

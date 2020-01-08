@@ -85,6 +85,7 @@ public class PlacesService {
         fields.append("name,")
                 .append("rating,")
                 .append("formatted_phone_number,")
+                .append("geometry,")
                 .append("formatted_address,")
                 .append("photo,")
                 .append("price_level,")

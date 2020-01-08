@@ -154,6 +154,13 @@
                 app:description="228 Albert St Waterloo"
                 app:imageSrc="@drawable/ic_map_pin" />
 
+            <ImageView
+                android:id="@+id/staticMap"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginBottom="10dp"
+                tools:src="@tools:sample/backgrounds/scenic" />
+
             <include
                 layout="@layout/divider"
                 android:layout_width="wrap_content"
