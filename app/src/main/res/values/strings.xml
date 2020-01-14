@@ -37,6 +37,7 @@
     <!-- Filter Headers -->
     <string name="place_type">Place Type</string>
     <string name="music_type">Music Type</string>
+    <string name="distance">Distance</string>
     <string name="venue_size">Venue Size</string>
     <string name="dress_code">Dress Code</string>
 </resources>

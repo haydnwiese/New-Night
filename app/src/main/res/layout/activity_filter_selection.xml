@@ -61,6 +61,41 @@
             android:layout_marginHorizontal="-20dp"/>
 
         <com.example.nightclubpicker.common.views.SubHeaderListItemWrapperView
+            android:id="@+id/distanceHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-10dp" />
+
+        <TextView
+            android:id="@+id/distanceValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:text="0 km"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <SeekBar
+            android:id="@+id/distanceSlider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="-8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:thumbTint="@color/light_purple"
+            android:progressTint="@color/light_purple"
+            android:progressBackgroundTint="@color/faded_purple"
+            android:max="50" />
+
+        <include
+            layout="@layout/divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="-20dp"/>
+
+        <com.example.nightclubpicker.common.views.SubHeaderListItemWrapperView
             android:id="@+id/venueSizeHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.nightclubpicker.R;
@@ -33,6 +34,12 @@ public class FilterSelectionActivity extends BaseActivity {
     SubHeaderListItemWrapperView musicTypeHeaderView;
     @BindView(R.id.musicTypeFilterGroup)
     RadioGroup musicTypeRadioGroup;
+    @BindView(R.id.distanceHeader)
+    SubHeaderListItemWrapperView distanceHeaderView;
+    @BindView(R.id.distanceValue)
+    TextView distanceValueView;
+    @BindView(R.id.distanceSlider)
+    SeekBar distanceSlider;
     @BindView(R.id.venueSizeHeader)
     SubHeaderListItemWrapperView venueSizeHeaderView;
     @BindView(R.id.venueSizeFilterGroup)
@@ -55,6 +62,23 @@ public class FilterSelectionActivity extends BaseActivity {
         setContentView(R.layout.activity_filter_selection);
         setTitle(R.string.select_filters);
         ButterKnife.bind(this);
+
+        distanceSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                distanceValueView.setText(getString(R.string.distance_from_user, String.valueOf(i)));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         generateSectionHeaders();
         createButtonGroups();
@@ -95,6 +119,7 @@ public class FilterSelectionActivity extends BaseActivity {
     private void generateSectionHeaders() {
         placeTypeHeaderView.setItems(new SubHeaderListItem(getString(R.string.place_type)));
         musicTypeHeaderView.setItems(new SubHeaderListItem(getString(R.string.music_type)));
+        distanceHeaderView.setItems(new SubHeaderListItem(getString(R.string.distance)));
         venueSizeHeaderView.setItems(new SubHeaderListItem(getString(R.string.venue_size)));
         dressCodeHeaderView.setItems(new SubHeaderListItem(getString(R.string.dress_code)));
     }
