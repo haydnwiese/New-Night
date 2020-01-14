@@ -9,6 +9,28 @@
     <string name="details">Details</string>
     <string name="recentReviewsHeader">Recent Reviews</string>
     <string name="markers_parameter">color:%s|%f,%f</string>
+
+    <!-- Venue Open Status -->
     <string name="open">Open</string>
     <string name="closed">Closed</string>
+
+    <!-- Venue Types -->
+    <string name="night_club">Night Club</string>
+    <string name="bar">Bar</string>
+
+    <!-- Music Genres -->
+    <string name="country">Country</string>
+    <string name="dance">Dance/EDM</string>
+    <string name="hip_hop">Hip-hop/Rap</string>
+    <string name="rock">Rock</string>
+
+    <!-- Venue Sizes -->
+    <string name="small">Small</string>
+    <string name="medium">Medium</string>
+    <string name="large">Large</string>
+
+    <!-- Dress Codes -->
+    <string name="casual">Casual</string>
+    <string name="semi_formal">Semi-formal</string>
+    <string name="formal">Formal</string>
 </resources>
