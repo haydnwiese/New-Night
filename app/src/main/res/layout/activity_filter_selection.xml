@@ -15,21 +15,20 @@
         android:paddingBottom="40dp"
         android:clipToPadding="false">
 
-        <Button
-            android:id="@+id/navigateButton"
-            android:layout_width="88dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="162dp"
-            android:layout_marginTop="72dp"
-            android:layout_marginEnd="162dp"
-            android:onClick="navigateToResults"
-            android:text="Button" />
-
         <com.example.nightclubpicker.common.views.SubHeaderListItemWrapperView
             android:id="@+id/placeTypeHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="-10dp" />
+
+        <RadioGroup
+            android:id="@+id/placeTypeFilterGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/first"
+            android:orientation="vertical">
+
+        </RadioGroup>
 
         <include
             layout="@layout/divider"
@@ -129,6 +128,12 @@
             android:layout_height="wrap_content"
             android:checkedButton="@+id/first"
             android:orientation="vertical" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="navigateToResults"
+            android:text="Next" />
 
     </LinearLayout>
 

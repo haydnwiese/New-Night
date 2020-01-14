@@ -18,6 +18,7 @@ import com.example.nightclubpicker.common.list_items.SubHeaderListItem;
 import com.example.nightclubpicker.common.views.SubHeaderListItemWrapperView;
 import com.example.nightclubpicker.onboarding_flow.models.DressCode;
 import com.example.nightclubpicker.onboarding_flow.models.MusicGenre;
+import com.example.nightclubpicker.onboarding_flow.models.PlaceType;
 import com.example.nightclubpicker.onboarding_flow.models.VenueSize;
 import com.example.nightclubpicker.places.NearbyPlacesListActivity;
 
@@ -30,6 +31,8 @@ public class FilterSelectionActivity extends BaseActivity {
 
     @BindView(R.id.placeTypeHeader)
     SubHeaderListItemWrapperView placeTypeHeaderView;
+    @BindView(R.id.placeTypeFilterGroup)
+    RadioGroup placeTypeRadioGroup;
     @BindView(R.id.musicTypeHeader)
     SubHeaderListItemWrapperView musicTypeHeaderView;
     @BindView(R.id.musicTypeFilterGroup)
@@ -85,7 +88,9 @@ public class FilterSelectionActivity extends BaseActivity {
     }
 
     private void createButtonGroups() {
-        List<String> groupOptions = MusicGenre.getAllDisplayStrings();
+        List<String> groupOptions = PlaceType.getAllDisplayStrings();
+        createIndividualRadioGroup(groupOptions, placeTypeRadioGroup);
+        groupOptions = MusicGenre.getAllDisplayStrings();
         createIndividualRadioGroup(groupOptions, musicTypeRadioGroup);
         groupOptions = VenueSize.getAllDisplayStrings();
         createIndividualRadioGroup(groupOptions, venueSizeRadioGroup);
