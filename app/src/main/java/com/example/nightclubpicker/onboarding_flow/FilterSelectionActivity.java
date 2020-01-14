@@ -1,23 +1,17 @@
-package com.example.nightclubpicker;
+package com.example.nightclubpicker.onboarding_flow;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.nightclubpicker.R;
 import com.example.nightclubpicker.common.BaseActivity;
 import com.example.nightclubpicker.places.NearbyPlacesListActivity;
-import com.example.nightclubpicker.places.service.PlacesService;
 
-public class MainActivity extends BaseActivity {
+public class FilterSelectionActivity extends BaseActivity {
 
     public static final String BUNDLE_LAT = "bundleLatitude";
     public static final String BUNDLE_LNG = "bundleLongitude";
@@ -29,7 +23,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_filter_selection);
         setTitle(R.string.select_filters);
     }
 

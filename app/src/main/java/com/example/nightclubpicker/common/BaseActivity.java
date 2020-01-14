@@ -3,11 +3,10 @@ package com.example.nightclubpicker.common;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.StringRes;
 
-import com.example.nightclubpicker.MainActivity;
+import com.example.nightclubpicker.onboarding_flow.FilterSelectionActivity;
 import com.example.nightclubpicker.R;
 
 public abstract class BaseActivity extends Activity {
@@ -17,7 +16,7 @@ public abstract class BaseActivity extends Activity {
         getActionBar().setDisplayUseLogoEnabled(false);
         getActionBar().setIcon(R.color.transparent);
 
-        if (!(this instanceof MainActivity)) {
+        if (!(this instanceof FilterSelectionActivity)) {
             setAdditionalActionBarProperties();
         }
     }
