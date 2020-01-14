@@ -5,4 +5,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="darker_grey">#a9a9a9</color>
     <color name="transparent">#00ffffff</color>
+
+    <color name="light_purple">#BB86FC</color>
 </resources>

@@ -1,51 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".onboarding_flow.FilterSelectionActivity">
 
-    <Button
-        android:id="@+id/navigateButton"
-        android:layout_width="88dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="162dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="162dp"
-        android:onClick="navigateToResults"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingBottom="40dp"
+        android:clipToPadding="false">
 
-    <TextView
-        android:id="@+id/locationTextView"
-        android:layout_width="313dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="104dp"
-        android:layout_marginEnd="49dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/navigateButton" />
-
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checkedButton="@+id/first"
-        android:orientation="vertical">
-        <RadioButton
-            android:id="@+id/first"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/navigateButton"
+            android:layout_width="88dp"
             android:layout_height="wrap_content"
-            android:text="Label 1"/>
-        <RadioButton
-            android:id="@+id/second"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Label 2"/>
-    </RadioGroup>
+            android:layout_marginStart="162dp"
+            android:layout_marginTop="72dp"
+            android:layout_marginEnd="162dp"
+            android:onClick="navigateToResults"
+            android:text="Button" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.example.nightclubpicker.common.views.SubHeaderListItemWrapperView
+            android:id="@+id/placeTypeHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-10dp" />
+
+        <include
+            layout="@layout/divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="-20dp"/>
+
+        <com.example.nightclubpicker.common.views.SubHeaderListItemWrapperView
+            android:id="@+id/musicTypeHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-10dp" />
+
+        <RadioGroup
+            android:id="@+id/musicTypeFilterGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/first"
+            android:orientation="vertical">
+
+        </RadioGroup>
+
+        <include
+            layout="@layout/divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="-20dp"/>
+
+        <com.example.nightclubpicker.common.views.SubHeaderListItemWrapperView
+            android:id="@+id/venueSizeHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-10dp" />
+
+        <RadioGroup
+            android:id="@+id/venueSizeFilterGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/first"
+            android:orientation="vertical">
+
+        </RadioGroup>
+
+        <include
+            layout="@layout/divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="-20dp"/>
+
+        <com.example.nightclubpicker.common.views.SubHeaderListItemWrapperView
+            android:id="@+id/dressCodeHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-10dp" />
+
+        <RadioGroup
+            android:id="@+id/dressCodeFilterGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/first"
+            android:orientation="vertical" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

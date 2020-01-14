@@ -33,4 +33,10 @@
     <string name="casual">Casual</string>
     <string name="semi_formal">Semi-formal</string>
     <string name="formal">Formal</string>
+
+    <!-- Filter Headers -->
+    <string name="place_type">Place Type</string>
+    <string name="music_type">Music Type</string>
+    <string name="venue_size">Venue Size</string>
+    <string name="dress_code">Dress Code</string>
 </resources>
