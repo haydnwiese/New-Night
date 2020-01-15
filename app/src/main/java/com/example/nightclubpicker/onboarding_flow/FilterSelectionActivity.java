@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
@@ -26,6 +27,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class FilterSelectionActivity extends BaseActivity {
 
@@ -51,6 +53,8 @@ public class FilterSelectionActivity extends BaseActivity {
     SubHeaderListItemWrapperView dressCodeHeaderView;
     @BindView(R.id.dressCodeFilterGroup)
     RadioGroup dressCodeRadioGroup;
+    @BindView(R.id.seeResultsButton)
+    ImageView seeResultsImageButton;
 
     public static final String BUNDLE_LAT = "bundleLatitude";
     public static final String BUNDLE_LNG = "bundleLongitude";
@@ -129,6 +133,7 @@ public class FilterSelectionActivity extends BaseActivity {
         dressCodeHeaderView.setItems(new SubHeaderListItem(getString(R.string.dress_code)));
     }
 
+    @OnClick(R.id.seeResultsButton)
     public void navigateToResults(View view) {
         Intent intent = new Intent(this, NearbyPlacesListActivity.class);
         startActivity(intent);

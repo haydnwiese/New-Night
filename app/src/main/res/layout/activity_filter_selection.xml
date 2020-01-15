@@ -129,11 +129,33 @@
             android:checkedButton="@+id/first"
             android:orientation="vertical" />
 
-        <Button
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="navigateToResults"
-            android:text="Next" />
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/seeResultsButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_seeresultsbutton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/see_results"
+                android:textColor="@color/light_purple"
+                android:textSize="18sp"
+                android:layout_marginTop="13dp"
+                android:layout_marginLeft="-25dp"
+                android:gravity="center_horizontal|center_vertical"
+                app:layout_constraintTop_toTopOf="@id/seeResultsButton"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 

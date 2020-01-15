@@ -9,6 +9,7 @@
     <string name="details">Details</string>
     <string name="recentReviewsHeader">Recent Reviews</string>
     <string name="markers_parameter">color:%s|%f,%f</string>
+    <string name="see_results">SEE RESULTS</string>
 
     <!-- Venue Open Status -->
     <string name="open">Open</string>
