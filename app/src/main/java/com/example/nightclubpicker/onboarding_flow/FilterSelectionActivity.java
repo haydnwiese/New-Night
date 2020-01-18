@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.nightclubpicker.R;
 import com.example.nightclubpicker.common.BaseActivity;
+import com.example.nightclubpicker.common.ResourceSingleton;
 import com.example.nightclubpicker.common.list_items.SubHeaderListItem;
 import com.example.nightclubpicker.common.views.SubHeaderListItemWrapperView;
 import com.example.nightclubpicker.onboarding_flow.models.DressCode;
@@ -24,6 +25,7 @@ import com.example.nightclubpicker.onboarding_flow.models.VenueSize;
 import com.example.nightclubpicker.places.NearbyPlacesListActivity;
 
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,12 +58,26 @@ public class FilterSelectionActivity extends BaseActivity {
     @BindView(R.id.seeResultsButton)
     ImageView seeResultsImageButton;
 
-    public static final String BUNDLE_LAT = "bundleLatitude";
-    public static final String BUNDLE_LNG = "bundleLongitude";
+    private static ColorStateList colourStateList = new ColorStateList(
+            new int[][]{
+                    new int[]{-android.R.attr.state_checked}, //disabled
+                    new int[]{android.R.attr.state_checked} //enabled
+            },
+            new int[] {
+                    ResourceSingleton.getInstance().getColor(R.color.darker_grey), //disabled
+                    ResourceSingleton.getInstance().getColor(R.color.light_purple) //enabled
+            }
+    );
+    private static final String DRESS_CODE_GROUP = "dressCodeGroup";
+    private static final String MUSIC_GENRE_GROUP = "musicGenreGroup";
+    private static final String PLACE_TYPE_GROUP = "placeTypeGroup";
+    private static final String VENUE_SIZE_GROUP = "venueSizeGroup";
 
-    private Location location;
-    private LocationManager locationManager;
-    private TextView locationTextView;
+    private int radius;
+    private DressCode dressCode;
+    private MusicGenre musicGenre;
+    private PlaceType placeType;
+    private VenueSize venueSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +99,7 @@ public class FilterSelectionActivity extends BaseActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                radius = seekBar.getProgress();
             }
         });
 
@@ -93,27 +109,16 @@ public class FilterSelectionActivity extends BaseActivity {
 
     private void createButtonGroups() {
         List<String> groupOptions = PlaceType.getAllDisplayStrings();
-        createIndividualRadioGroup(groupOptions, placeTypeRadioGroup);
+        createIndividualRadioGroup(groupOptions, placeTypeRadioGroup, PLACE_TYPE_GROUP);
         groupOptions = MusicGenre.getAllDisplayStrings();
-        createIndividualRadioGroup(groupOptions, musicTypeRadioGroup);
+        createIndividualRadioGroup(groupOptions, musicTypeRadioGroup, MUSIC_GENRE_GROUP);
         groupOptions = VenueSize.getAllDisplayStrings();
-        createIndividualRadioGroup(groupOptions, venueSizeRadioGroup);
+        createIndividualRadioGroup(groupOptions, venueSizeRadioGroup, VENUE_SIZE_GROUP);
         groupOptions = DressCode.getAllDisplayStrings();
-        createIndividualRadioGroup(groupOptions, dressCodeRadioGroup);
+        createIndividualRadioGroup(groupOptions, dressCodeRadioGroup, DRESS_CODE_GROUP);
     }
 
-    private void createIndividualRadioGroup(List<String> options, RadioGroup radioGroup) {
-        ColorStateList colourStateList = new ColorStateList(
-                new int[][]{
-                        new int[]{-android.R.attr.state_checked}, //disabled
-                        new int[]{android.R.attr.state_checked} //enabled
-                },
-                new int[] {
-                        getColor(R.color.darker_grey), //disabled
-                        getColor(R.color.light_purple) //enabled
-                }
-        );
-
+    private void createIndividualRadioGroup(List<String> options, RadioGroup radioGroup, String groupId) {
         for (int i = 0; i < options.size(); i++) {
             RadioButton radioButton = new RadioButton(this);
             radioButton.setText(options.get(i));
@@ -122,7 +127,23 @@ public class FilterSelectionActivity extends BaseActivity {
             radioButton.setPadding(50, 40, 0, 40);
             radioGroup.addView(radioButton);
         }
+        radioGroup.setOnCheckedChangeListener(getCheckedChangeListener(groupId));
         radioGroup.check(0);
+    }
+
+    private RadioGroup.OnCheckedChangeListener getCheckedChangeListener(String groupId) {
+        switch(groupId) {
+            case PLACE_TYPE_GROUP:
+                return ((radioGroup, i) -> placeType = PlaceType.values()[i]);
+            case MUSIC_GENRE_GROUP:
+                return ((radioGroup, i) -> musicGenre = MusicGenre.values()[i]);
+            case VENUE_SIZE_GROUP:
+                return ((radioGroup, i) -> venueSize = VenueSize.values()[i]);
+            case DRESS_CODE_GROUP:
+                return ((radioGroup, i) -> dressCode = DressCode.values()[i]);
+            default:
+                return null;
+        }
     }
 
     private void generateSectionHeaders() {
@@ -136,6 +157,7 @@ public class FilterSelectionActivity extends BaseActivity {
     @OnClick(R.id.seeResultsButton)
     public void navigateToResults(View view) {
         Intent intent = new Intent(this, NearbyPlacesListActivity.class);
+        intent.putExtras(NearbyPlacesListActivity.getNavBundle(radius, dressCode, musicGenre, placeType, venueSize));
         startActivity(intent);
     }
 }

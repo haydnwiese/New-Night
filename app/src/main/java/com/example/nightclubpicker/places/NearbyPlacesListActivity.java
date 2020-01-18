@@ -25,6 +25,9 @@ import com.example.nightclubpicker.common.list_items.ListItem;
 import com.example.nightclubpicker.common.list_items.SpinnerListItem;
 import com.example.nightclubpicker.common.list_items.SubHeaderListItem;
 import com.example.nightclubpicker.common.list_items.TopResultListItem;
+import com.example.nightclubpicker.onboarding_flow.models.DressCode;
+import com.example.nightclubpicker.onboarding_flow.models.MusicGenre;
+import com.example.nightclubpicker.onboarding_flow.models.VenueSize;
 import com.example.nightclubpicker.places.models.NearbySearchResponse;
 import com.example.nightclubpicker.places.models.PlaceType;
 import com.example.nightclubpicker.places.models.SearchResult;
@@ -39,7 +42,26 @@ import butterknife.ButterKnife;
 
 public class NearbyPlacesListActivity extends BaseActivity implements LocationListener {
     public static final String BUNDLE_KEY_SEARCH_RESULT = "bundleKeySearchResult";
+    private static final String BUNDLE_KEY_RADIUS = "bundleKeyRadius";
+    private static final String BUNDLE_KEY_DRESS_CODE = "bundleKeyDressCode";
+    private static final String BUNDLE_KEY_MUSIC_GENRE = "bundleKeyMusicGenre";
+    private static final String BUNDLE_KEY_PLACE_TYPE = "bundleKeyPlaceType";
+    private static final String BUNDLE_KEY_VENUE_SIZE = "bundleKeyVenueSize";
     private static final int MAX_TOP_RESULTS = 3;
+
+    public static Bundle getNavBundle(int radius,
+                                      DressCode dressCode,
+                                      MusicGenre musicGenre,
+                                      com.example.nightclubpicker.onboarding_flow.models.PlaceType placeType,
+                                      VenueSize venueSize) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(BUNDLE_KEY_RADIUS, radius);
+        bundle.putInt(BUNDLE_KEY_DRESS_CODE, dressCode.ordinal());
+        bundle.putInt(BUNDLE_KEY_MUSIC_GENRE, musicGenre.ordinal());
+        bundle.putInt(BUNDLE_KEY_PLACE_TYPE, placeType.ordinal());
+        bundle.putInt(BUNDLE_KEY_VENUE_SIZE, venueSize.ordinal());
+        return bundle;
+    }
 
     @BindView(R.id.loadingSpinner)
     ProgressBar loadingSpinner;
@@ -51,9 +73,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
     private LocationManager locationManager;
     private String nextPageToken;
     private Location currentLocation;
-
     private PlacesService placesService = new PlacesService();
-
     private boolean isLoading = false;
 
     @Override
