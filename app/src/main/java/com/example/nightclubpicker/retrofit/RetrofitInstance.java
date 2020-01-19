@@ -7,24 +7,44 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitInstance {
 
-    private static Retrofit retrofit;
-    private static final String BASE_URL = "https://maps.googleapis.com/maps/api/place/";
+    private static Retrofit placesRetrofit;
+    private static Retrofit extendedPlacesRetrofit;
+    private static final String PLACES_BASE_URL = "https://maps.googleapis.com/maps/api/place/";
+    private static final String EXTENDED_PLACES_BASE_URL = "localhost:8080";
 
-    public static Retrofit getRetrofitInstance() {
-        if (retrofit == null) {
+    public static Retrofit getPlacesRetrofitInstance() {
+        if (placesRetrofit == null) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
             httpClient.addInterceptor(logging);
 
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
+            placesRetrofit = new Retrofit.Builder()
+                    .baseUrl(PLACES_BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(httpClient.build())
                     .build();
         }
 
-        return retrofit;
+        return placesRetrofit;
+    }
+
+    public static Retrofit getExtendedPlacesRetrofitInstance() {
+        if (placesRetrofit == null) {
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+            httpClient.addInterceptor(logging);
+
+            placesRetrofit = new Retrofit.Builder()
+                    .baseUrl(EXTENDED_PLACES_BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(httpClient.build())
+                    .build();
+        }
+
+        return placesRetrofit;
     }
 }

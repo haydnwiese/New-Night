@@ -18,7 +18,7 @@ import retrofit2.Response;
 public class PlacesService {
     private final String API_KEY = ResourceSingleton.getInstance().getString(R.string.places_api_key);
 
-    private PlacesAPI api = RetrofitInstance.getRetrofitInstance().create(PlacesAPI.class);
+    private PlacesAPI api = RetrofitInstance.getPlacesRetrofitInstance().create(PlacesAPI.class);
 
     public interface NearbySearchCallback {
         void onSuccess(NearbySearchResponse response);
