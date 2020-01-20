@@ -31,20 +31,20 @@ public class RetrofitInstance {
     }
 
     public static Retrofit getExtendedPlacesRetrofitInstance() {
-        if (placesRetrofit == null) {
+        if (extendedPlacesRetrofit == null) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
             httpClient.addInterceptor(logging);
 
-            placesRetrofit = new Retrofit.Builder()
+            extendedPlacesRetrofit = new Retrofit.Builder()
                     .baseUrl(EXTENDED_PLACES_BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(httpClient.build())
                     .build();
         }
 
-        return placesRetrofit;
+        return extendedPlacesRetrofit;
     }
 }
