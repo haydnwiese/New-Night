@@ -29,6 +29,9 @@
     <string name="small">Small</string>
     <string name="medium">Medium</string>
     <string name="large">Large</string>
+    <string name="small_venue">Small Venue</string>
+    <string name="medium_venue">Medium-sized Venue</string>
+    <string name="large_venue">Large Venue</string>
 
     <!-- Dress Codes -->
     <string name="casual">Casual</string>

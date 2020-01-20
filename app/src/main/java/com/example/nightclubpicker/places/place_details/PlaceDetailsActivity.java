@@ -27,9 +27,11 @@ import com.example.nightclubpicker.common.views.StarRatingView;
 import com.example.nightclubpicker.common.views.SubHeaderListItemWrapperView;
 import com.example.nightclubpicker.places.PlaceHelper;
 import com.example.nightclubpicker.places.models.DetailsResult;
+import com.example.nightclubpicker.places.models.ExtendedPlace;
 import com.example.nightclubpicker.places.models.Photo;
 import com.example.nightclubpicker.places.models.PlaceReview;
 import com.example.nightclubpicker.places.models.SearchResult;
+import com.example.nightclubpicker.places.service.ExtendedPlacesService;
 import com.example.nightclubpicker.places.service.PlacesService;
 import com.squareup.picasso.Picasso;
 
@@ -59,6 +61,10 @@ public class PlaceDetailsActivity extends BaseActivity {
     TextView dotSeparatorView;
     @BindView(R.id.priceIndicator)
     TextView priceLevelView;
+    @BindView(R.id.venueSize)
+    TextView venueSizeView;
+    @BindView(R.id.dressCode)
+    TextView dressCodeView;
     @BindView(R.id.musicGenre)
     PlaceAttributeView musicGenreView;
     @BindView(R.id.address)
@@ -79,6 +85,7 @@ public class PlaceDetailsActivity extends BaseActivity {
     private static final int MAX_REVIEWS = 3;
 
     private DetailsResult placeDetails;
+    private ExtendedPlace extendedPlaceDetails;
     private List<Photo> photos = new ArrayList<>();
     private List<ListItem> reviewItems;
 
@@ -100,7 +107,30 @@ public class PlaceDetailsActivity extends BaseActivity {
         if (intent.getParcelableExtra(BUNDLE_KEY_SEARCH_RESULT) != null) {
             SearchResult searchResult = intent.getParcelableExtra(BUNDLE_KEY_SEARCH_RESULT);
             fetchPlaceDetails(searchResult.getPlaceId());
+            fetchExtendedPlaceDetails(searchResult.getPlaceId());
         }
+    }
+
+    private void fetchExtendedPlaceDetails(String placeId) {
+        new ExtendedPlacesService().fetchExtendedPlaceById(placeId, new ExtendedPlacesService.ExtendedPlacesCallback() {
+            @Override
+            public void onSuccess(List<ExtendedPlace> extendedPlacesList) {
+
+            }
+
+            @Override
+            public void onSuccess(ExtendedPlace extendedPlace) {
+                if (extendedPlace != null) {
+                    extendedPlaceDetails = extendedPlace;
+                    updateExtendedPlaceDetails();
+                }
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
     }
 
     private void fetchPlaceDetails(String placeId) {
@@ -167,6 +197,27 @@ public class PlaceDetailsActivity extends BaseActivity {
         dots[current].setImageResource(R.drawable.indicator_dot_light);
     }
 
+    private void updateExtendedPlaceDetails() {
+        if (extendedPlaceDetails.getSize() != null) {
+            venueSizeView.setText(extendedPlaceDetails.getSize().getDetailsDisplayString());
+        }
+        if (extendedPlaceDetails.getDressCode() != null) {
+            dressCodeView.setText(extendedPlaceDetails.getDressCode().getDisplayString());
+        }
+        if (extendedPlaceDetails.getMusicGenres() != null) {
+            StringBuilder musicDescription = new StringBuilder();
+            for (int i = 0; i < extendedPlaceDetails.getMusicGenres().size(); i++) {
+                if (i == 0) {
+                    musicDescription.append(extendedPlaceDetails.getMusicGenres().get(i).getMusicGenre().getDisplayString());
+                } else {
+                    musicDescription.append(" • ")
+                            .append(extendedPlaceDetails.getMusicGenres().get(i).getMusicGenre().getDisplayString());
+                }
+            }
+            musicGenreView.setDescription(musicDescription.toString());
+        }
+    }
+
     private void updateRating() {
         reviewCountView.setText(getString(R.string.review_count, placeDetails.getUserRatingsTotal()));
         starRatingView.setRating(placeDetails.getRating());
@@ -179,8 +230,6 @@ public class PlaceDetailsActivity extends BaseActivity {
     }
 
     private void updateAttributes() {
-        // TODO: Update with real values
-        musicGenreView.setDescription("Hip-Hop/Rap");
         // TODO: Add map image
         addressView.setDescription(placeDetails.getFormattedAddress());
         loadStaticMap();

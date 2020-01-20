@@ -7,18 +7,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum VenueSize {
-    small(ResourceSingleton.getInstance().getString(R.string.small)),
-    medium(ResourceSingleton.getInstance().getString(R.string.medium)),
-    large(ResourceSingleton.getInstance().getString(R.string.large));
+    small(ResourceSingleton.getInstance().getString(R.string.small), ResourceSingleton.getInstance().getString(R.string.small_venue)),
+    medium(ResourceSingleton.getInstance().getString(R.string.medium), ResourceSingleton.getInstance().getString(R.string.medium_venue)),
+    large(ResourceSingleton.getInstance().getString(R.string.large), ResourceSingleton.getInstance().getString(R.string.large_venue));
 
     private String venueSize;
+    private String detailsDisplay;
 
-    VenueSize(String venueSize) {
+    VenueSize(String venueSize, String detailsDisplay) {
         this.venueSize = venueSize;
+        this.detailsDisplay = detailsDisplay;
     }
 
     public String getDisplayString() {
         return venueSize;
+    }
+
+    public String getDetailsDisplayString() {
+        return detailsDisplay;
     }
 
     public static List<String> getAllDisplayStrings() {
