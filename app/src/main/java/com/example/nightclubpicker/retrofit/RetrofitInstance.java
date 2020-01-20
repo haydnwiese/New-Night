@@ -10,7 +10,7 @@ public class RetrofitInstance {
     private static Retrofit placesRetrofit;
     private static Retrofit extendedPlacesRetrofit;
     private static final String PLACES_BASE_URL = "https://maps.googleapis.com/maps/api/place/";
-    private static final String EXTENDED_PLACES_BASE_URL = "localhost:8080";
+    private static final String EXTENDED_PLACES_BASE_URL = "http://10.0.2.2:8080/";
 
     public static Retrofit getPlacesRetrofitInstance() {
         if (placesRetrofit == null) {
