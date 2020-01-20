@@ -23,6 +23,12 @@ public class ExtendedPlacesService {
         void onFailure();
     }
 
+    public interface ExtendedPlacesPostCallback {
+        void onSuccess();
+
+        void onFailure();
+    }
+
     public interface SinglePlaceCallback {}
 
     public void fetchExtendedPlaces(ExtendedPlacesCallback callback) {
@@ -76,6 +82,26 @@ public class ExtendedPlacesService {
             public void onResponse(Call<ExtendedPlace> call, Response<ExtendedPlace> response) {
                 if (response.body() != null) {
                     callback.onSuccess(response.body());
+                } else {
+                    callback.onFailure();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ExtendedPlace> call, Throwable t) {
+                callback.onFailure();
+            }
+        });
+    }
+
+    public void postExtendedPlace(ExtendedPlace extendedPlace, ExtendedPlacesPostCallback callback) {
+        Call<ExtendedPlace> call = api.postExtendedPlace(extendedPlace);
+
+        call.enqueue(new Callback<ExtendedPlace>() {
+            @Override
+            public void onResponse(Call<ExtendedPlace> call, Response<ExtendedPlace> response) {
+                if (response.body() != null) {
+                    callback.onSuccess();
                 } else {
                     callback.onFailure();
                 }

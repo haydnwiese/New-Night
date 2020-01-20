@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum DressCode {
-    CASUAL(ResourceSingleton.getInstance().getString(R.string.casual)),
-    SEMI_FORMAL(ResourceSingleton.getInstance().getString(R.string.semi_formal)),
-    FORMAL(ResourceSingleton.getInstance().getString(R.string.formal));
+    casual(ResourceSingleton.getInstance().getString(R.string.casual)),
+    semiFormal(ResourceSingleton.getInstance().getString(R.string.semi_formal)),
+    formal(ResourceSingleton.getInstance().getString(R.string.formal));
 
     private String dressCode;
 

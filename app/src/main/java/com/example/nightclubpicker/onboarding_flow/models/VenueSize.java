@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum VenueSize {
-    SMALL(ResourceSingleton.getInstance().getString(R.string.small)),
-    MEDIUM(ResourceSingleton.getInstance().getString(R.string.medium)),
-    LARGE(ResourceSingleton.getInstance().getString(R.string.large));
+    small(ResourceSingleton.getInstance().getString(R.string.small)),
+    medium(ResourceSingleton.getInstance().getString(R.string.medium)),
+    large(ResourceSingleton.getInstance().getString(R.string.large));
 
     private String venueSize;
 

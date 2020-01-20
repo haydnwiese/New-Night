@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum MusicGenre {
-    COUNTRY(ResourceSingleton.getInstance().getString(R.string.country)),
-    DANCE(ResourceSingleton.getInstance().getString(R.string.dance)),
-    HIP_HOP(ResourceSingleton.getInstance().getString(R.string.hip_hop)),
-    ROCK(ResourceSingleton.getInstance().getString(R.string.rock));
+    country(ResourceSingleton.getInstance().getString(R.string.country)),
+    dance(ResourceSingleton.getInstance().getString(R.string.dance)),
+    hipHop(ResourceSingleton.getInstance().getString(R.string.hip_hop)),
+    rock(ResourceSingleton.getInstance().getString(R.string.rock));
 
     private String musicGenre;
 
