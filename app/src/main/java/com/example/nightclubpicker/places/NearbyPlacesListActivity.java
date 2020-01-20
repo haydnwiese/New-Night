@@ -20,6 +20,7 @@ import com.example.nightclubpicker.R;
 import com.example.nightclubpicker.common.BaseActivity;
 import com.example.nightclubpicker.common.ResourceSingleton;
 import com.example.nightclubpicker.common.adapters.CommonListItemAdapter;
+import com.example.nightclubpicker.common.adapters.DividerItemDecoration;
 import com.example.nightclubpicker.common.list_items.ExtraResultListItem;
 import com.example.nightclubpicker.common.list_items.ListItem;
 import com.example.nightclubpicker.common.list_items.SpinnerListItem;
@@ -28,13 +29,16 @@ import com.example.nightclubpicker.common.list_items.TopResultListItem;
 import com.example.nightclubpicker.onboarding_flow.models.DressCode;
 import com.example.nightclubpicker.onboarding_flow.models.MusicGenre;
 import com.example.nightclubpicker.onboarding_flow.models.VenueSize;
+import com.example.nightclubpicker.places.models.ExtendedPlace;
 import com.example.nightclubpicker.places.models.NearbySearchResponse;
 import com.example.nightclubpicker.places.models.PlaceType;
 import com.example.nightclubpicker.places.models.SearchResult;
 import com.example.nightclubpicker.places.place_details.PlaceDetailsActivity;
+import com.example.nightclubpicker.places.service.ExtendedPlacesService;
 import com.example.nightclubpicker.places.service.PlacesService;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import butterknife.BindView;
@@ -47,7 +51,10 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
     private static final String BUNDLE_KEY_MUSIC_GENRE = "bundleKeyMusicGenre";
     private static final String BUNDLE_KEY_PLACE_TYPE = "bundleKeyPlaceType";
     private static final String BUNDLE_KEY_VENUE_SIZE = "bundleKeyVenueSize";
+
     private static final int MAX_TOP_RESULTS = 3;
+    private static final int DEFAULT_SEARCH_RADIUS = 50;
+    private static final int KM_TO_M_CONVERSION_FACTOR = 1000;
 
     public static Bundle getNavBundle(int radius,
                                       DressCode dressCode,
@@ -69,11 +76,14 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
     RecyclerView recyclerView;
 
     private List<ListItem> listItems = new ArrayList<>();
+    private HashSet<String> extendedPlacesFiltered = new HashSet<>();
+
     private CommonListItemAdapter adapter;
     private LocationManager locationManager;
     private String nextPageToken;
     private Location currentLocation;
     private PlacesService placesService = new PlacesService();
+    private ExtendedPlacesService extendedPlacesService = new ExtendedPlacesService();
     private boolean isLoading = false;
 
     @Override
@@ -162,12 +172,50 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
     }
 
+    private void fetchExtendedPlaces() {
+        Intent filterData = getIntent();
+        MusicGenre musicGenre = MusicGenre.values()[filterData.getIntExtra(BUNDLE_KEY_MUSIC_GENRE, 0)];
+        VenueSize venueSize = VenueSize.values()[filterData.getIntExtra(BUNDLE_KEY_VENUE_SIZE, 0)];
+        DressCode dressCode = DressCode.values()[filterData.getIntExtra(BUNDLE_KEY_DRESS_CODE, 0)];
+
+        extendedPlacesService.fetchFilteredPlaces(dressCode,
+                musicGenre,
+                venueSize,
+                new ExtendedPlacesService.ExtendedPlacesCallback() {
+                    @Override
+                    public void onSuccess(List<ExtendedPlace> extendedPlacesList) {
+                        if (extendedPlacesList != null) {
+                            for (ExtendedPlace extendedPlace : extendedPlacesList) {
+                                if (extendedPlace != null && extendedPlace.getGoogleId() != null) {
+                                    extendedPlacesFiltered.add(extendedPlace.getGoogleId());
+                                }
+                            }
+                            fetchPlaces();
+                        }
+                    }
+
+                    @Override
+                    public void onSuccess(ExtendedPlace extendedPlace) {
+
+                    }
+
+                    @Override
+                    public void onFailure() {
+
+                    }
+                });
+    }
+
     private void fetchPlaces() {
+        Intent filterData = getIntent();
+        int radius = filterData.getIntExtra(BUNDLE_KEY_RADIUS, DEFAULT_SEARCH_RADIUS) * KM_TO_M_CONVERSION_FACTOR;
+        PlaceType placeType = PlaceType.values()[filterData.getIntExtra(BUNDLE_KEY_PLACE_TYPE, 0)];
+
         placesService.fetchNearbyPlaces(currentLocation.getLatitude(),
                 currentLocation.getLongitude(),
-                3000,
+                radius,
                 null,
-                PlaceType.night_club,
+                placeType,
                 new PlacesService.NearbySearchCallback() {
                     @Override
                     public void onSuccess(NearbySearchResponse response) {
@@ -195,7 +243,9 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
 
         for (int i = 0; i < searchResults.size(); i++) {
             SearchResult result = searchResults.get(i);
-            if (!result.isPermanentlyClosed() && result.getRating() != 0) {
+            if (extendedPlacesFiltered.contains(result.getPlaceId())
+                    && !result.isPermanentlyClosed()
+                    && result.getRating() != 0) {
                 if (i < MAX_TOP_RESULTS) {
                     String photoReference = null;
                     if (result.getPhotos() != null && result.getPhotos().get(0) != null) {
@@ -274,7 +324,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
         locationManager.removeUpdates(this);
         Toast.makeText(this, "Location Updated", Toast.LENGTH_SHORT).show();
         currentLocation = location;
-        fetchPlaces();
+        fetchExtendedPlaces();
     }
 
     @Override

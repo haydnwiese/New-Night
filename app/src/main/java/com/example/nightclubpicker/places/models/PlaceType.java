@@ -2,6 +2,7 @@ package com.example.nightclubpicker.places.models;
 
 public enum PlaceType {
     night_club("Night Club"),
+    bar("bar"),
     point_of_interest("Point of Interest"),
     establishment("Establishment");
 
