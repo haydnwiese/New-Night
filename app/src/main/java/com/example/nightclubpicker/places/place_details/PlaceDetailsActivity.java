@@ -114,11 +114,6 @@ public class PlaceDetailsActivity extends BaseActivity {
     private void fetchExtendedPlaceDetails(String placeId) {
         new ExtendedPlacesService().fetchExtendedPlaceById(placeId, new ExtendedPlacesService.ExtendedPlacesCallback() {
             @Override
-            public void onSuccess(List<ExtendedPlace> extendedPlacesList) {
-
-            }
-
-            @Override
             public void onSuccess(ExtendedPlace extendedPlace) {
                 if (extendedPlace != null) {
                     extendedPlaceDetails = extendedPlace;

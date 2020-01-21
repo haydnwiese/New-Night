@@ -15,9 +15,13 @@ import retrofit2.Response;
 public class ExtendedPlacesService {
     private ExtendedPlacesAPI api = RetrofitInstance.getExtendedPlacesRetrofitInstance().create(ExtendedPlacesAPI.class);
 
-    public interface ExtendedPlacesCallback {
+    public interface ExtendedPlacesListCallback {
         void onSuccess(List<ExtendedPlace> extendedPlacesList);
 
+        void onFailure();
+    }
+
+    public interface ExtendedPlacesCallback {
         void onSuccess(ExtendedPlace extendedPlace);
 
         void onFailure();
@@ -31,7 +35,7 @@ public class ExtendedPlacesService {
 
     public interface SinglePlaceCallback {}
 
-    public void fetchExtendedPlaces(ExtendedPlacesCallback callback) {
+    public void fetchExtendedPlaces(ExtendedPlacesListCallback callback) {
         Call<List<ExtendedPlace>> call = api.fetchExtendedPlaces();
 
         call.enqueue(new Callback<List<ExtendedPlace>>() {
@@ -54,7 +58,7 @@ public class ExtendedPlacesService {
     public void fetchFilteredPlaces(DressCode dressCode,
                                     MusicGenre musicGenre,
                                     VenueSize venueSize,
-                                    ExtendedPlacesCallback callback) {
+                                    ExtendedPlacesListCallback callback) {
         Call<List<ExtendedPlace>> call = api.fetchFilteredPlaces(dressCode, musicGenre, venueSize);
 
         call.enqueue(new Callback<List<ExtendedPlace>>() {

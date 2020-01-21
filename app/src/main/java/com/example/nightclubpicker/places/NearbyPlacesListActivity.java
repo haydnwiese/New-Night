@@ -180,7 +180,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
         extendedPlacesService.fetchFilteredPlaces(dressCode,
                 musicGenre,
                 venueSize,
-                new ExtendedPlacesService.ExtendedPlacesCallback() {
+                new ExtendedPlacesService.ExtendedPlacesListCallback() {
                     @Override
                     public void onSuccess(List<ExtendedPlace> extendedPlacesList) {
                         if (extendedPlacesList != null) {
@@ -191,11 +191,6 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
                             }
                             fetchPlaces();
                         }
-                    }
-
-                    @Override
-                    public void onSuccess(ExtendedPlace extendedPlace) {
-
                     }
 
                     @Override
