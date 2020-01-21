@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginStart="5dp"
-            android:text="0 km"
+            android:text="10 km"
             android:textColor="@color/white"
             android:textSize="14sp" />
 
@@ -82,9 +82,11 @@
             android:layout_marginHorizontal="-8dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
+            android:progress="10"
             android:thumbTint="@color/light_purple"
             android:progressTint="@color/light_purple"
             android:progressBackgroundTint="@color/faded_purple"
+            android:min="1"
             android:max="50" />
 
         <include

@@ -86,6 +86,7 @@ public class FilterSelectionActivity extends BaseActivity {
         setTitle(R.string.select_filters);
         ButterKnife.bind(this);
 
+        radius = distanceSlider.getProgress();
         distanceSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
