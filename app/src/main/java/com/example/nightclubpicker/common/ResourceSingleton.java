@@ -13,6 +13,10 @@ public class ResourceSingleton extends Application {
         mContext = this;
     }
 
+    public static Context getContext() {
+        return mContext;
+    }
+
     public static Resources getInstance() {
         return mContext.getResources();
     }

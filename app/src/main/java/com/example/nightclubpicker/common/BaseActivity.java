@@ -8,6 +8,7 @@ import androidx.annotation.StringRes;
 
 import com.example.nightclubpicker.onboarding_flow.FilterSelectionActivity;
 import com.example.nightclubpicker.R;
+import com.example.nightclubpicker.onboarding_flow.HomeActivity;
 
 public abstract class BaseActivity extends Activity {
     @Override
@@ -16,7 +17,9 @@ public abstract class BaseActivity extends Activity {
         getActionBar().setDisplayUseLogoEnabled(false);
         getActionBar().setIcon(R.color.transparent);
 
-        if (!(this instanceof FilterSelectionActivity)) {
+        if (this instanceof HomeActivity) {
+            getActionBar().hide();
+        } else {
             setAdditionalActionBarProperties();
         }
     }
