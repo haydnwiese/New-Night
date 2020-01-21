@@ -230,10 +230,9 @@ public class PlaceDetailsActivity extends BaseActivity {
     }
 
     private void updateAttributes() {
-        // TODO: Add map image
         addressView.setDescription(placeDetails.getFormattedAddress());
         loadStaticMap();
-        // TODO: Update with formatted value
+        // TODO: Add dropdown for weekly hours
         if (placeDetails.getOpeningHours() != null) {
             openHoursView.setDescription(placeDetails.getOpeningHours().isOpenNow() ? ResourceSingleton.getInstance().getString(R.string.open) : ResourceSingleton.getInstance().getString(R.string.closed));
         } else {
