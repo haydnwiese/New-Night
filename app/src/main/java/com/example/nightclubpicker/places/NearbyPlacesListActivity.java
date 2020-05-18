@@ -32,7 +32,7 @@ import com.example.nightclubpicker.places.models.ExtendedPlace;
 import com.example.nightclubpicker.places.models.NearbySearchResponse;
 import com.example.nightclubpicker.places.models.PlaceType;
 import com.example.nightclubpicker.places.models.SearchResult;
-import com.example.nightclubpicker.places.place_details.PlaceDetailsActivity;
+import com.example.nightclubpicker.place_details.PlaceDetailsActivity;
 import com.example.nightclubpicker.service.ExtendedPlacesService;
 import com.example.nightclubpicker.service.PlacesService;
 

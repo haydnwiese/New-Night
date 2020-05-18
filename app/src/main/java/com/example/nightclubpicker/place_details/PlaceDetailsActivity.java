@@ -1,4 +1,4 @@
-package com.example.nightclubpicker.places.place_details;
+package com.example.nightclubpicker.place_details;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;

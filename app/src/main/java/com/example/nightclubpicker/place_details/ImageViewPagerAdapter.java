@@ -1,4 +1,4 @@
-package com.example.nightclubpicker.places.place_details;
+package com.example.nightclubpicker.place_details;
 
 import android.content.Context;
 import android.net.Uri;
