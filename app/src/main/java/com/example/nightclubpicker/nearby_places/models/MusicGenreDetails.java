@@ -1,4 +1,4 @@
-package com.example.nightclubpicker.places.models;
+package com.example.nightclubpicker.nearby_places.models;
 
 import com.example.nightclubpicker.onboarding_flow.models.MusicGenre;
 

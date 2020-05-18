@@ -1,8 +1,8 @@
-package com.example.nightclubpicker.service;
+package com.example.nightclubpicker.nearby_places.service;
 
-import com.example.nightclubpicker.places.models.NearbySearchResponse;
-import com.example.nightclubpicker.places.models.PlaceDetailsResponse;
-import com.example.nightclubpicker.places.models.PlaceType;
+import com.example.nightclubpicker.nearby_places.models.NearbySearchResponse;
+import com.example.nightclubpicker.nearby_places.models.PlaceDetailsResponse;
+import com.example.nightclubpicker.nearby_places.models.PlaceType;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

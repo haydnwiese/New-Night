@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.nightclubpicker.R;
-import com.example.nightclubpicker.places.PlaceHelper;
-import com.example.nightclubpicker.places.models.Photo;
+import com.example.nightclubpicker.nearby_places.PlaceHelper;
+import com.example.nightclubpicker.nearby_places.models.Photo;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

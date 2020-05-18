@@ -25,14 +25,14 @@ import com.example.nightclubpicker.common.views.HeaderListItemWrapperView;
 import com.example.nightclubpicker.common.views.PlaceAttributeView;
 import com.example.nightclubpicker.common.views.StarRatingView;
 import com.example.nightclubpicker.common.views.SubHeaderListItemWrapperView;
-import com.example.nightclubpicker.places.PlaceHelper;
-import com.example.nightclubpicker.places.models.DetailsResult;
-import com.example.nightclubpicker.places.models.ExtendedPlace;
-import com.example.nightclubpicker.places.models.Photo;
-import com.example.nightclubpicker.places.models.PlaceReview;
-import com.example.nightclubpicker.places.models.SearchResult;
-import com.example.nightclubpicker.service.ExtendedPlacesService;
-import com.example.nightclubpicker.service.PlacesService;
+import com.example.nightclubpicker.nearby_places.PlaceHelper;
+import com.example.nightclubpicker.nearby_places.models.DetailsResult;
+import com.example.nightclubpicker.nearby_places.models.ExtendedPlace;
+import com.example.nightclubpicker.nearby_places.models.Photo;
+import com.example.nightclubpicker.nearby_places.models.PlaceReview;
+import com.example.nightclubpicker.nearby_places.models.SearchResult;
+import com.example.nightclubpicker.nearby_places.service.ExtendedPlacesService;
+import com.example.nightclubpicker.nearby_places.service.PlacesService;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.nightclubpicker.places.NearbyPlacesListActivity.BUNDLE_KEY_SEARCH_RESULT;
+import static com.example.nightclubpicker.nearby_places.NearbyPlacesActivity.BUNDLE_KEY_SEARCH_RESULT;
 
 public class PlaceDetailsActivity extends BaseActivity {
 

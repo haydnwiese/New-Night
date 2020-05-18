@@ -1,4 +1,4 @@
-package com.example.nightclubpicker.places;
+package com.example.nightclubpicker.nearby_places;
 
 import android.Manifest;
 import android.content.Context;
@@ -28,13 +28,13 @@ import com.example.nightclubpicker.common.list_items.TopResultListItem;
 import com.example.nightclubpicker.onboarding_flow.models.DressCode;
 import com.example.nightclubpicker.onboarding_flow.models.MusicGenre;
 import com.example.nightclubpicker.onboarding_flow.models.VenueSize;
-import com.example.nightclubpicker.places.models.ExtendedPlace;
-import com.example.nightclubpicker.places.models.NearbySearchResponse;
-import com.example.nightclubpicker.places.models.PlaceType;
-import com.example.nightclubpicker.places.models.SearchResult;
+import com.example.nightclubpicker.nearby_places.models.ExtendedPlace;
+import com.example.nightclubpicker.nearby_places.models.NearbySearchResponse;
+import com.example.nightclubpicker.nearby_places.models.PlaceType;
+import com.example.nightclubpicker.nearby_places.models.SearchResult;
 import com.example.nightclubpicker.place_details.PlaceDetailsActivity;
-import com.example.nightclubpicker.service.ExtendedPlacesService;
-import com.example.nightclubpicker.service.PlacesService;
+import com.example.nightclubpicker.nearby_places.service.ExtendedPlacesService;
+import com.example.nightclubpicker.nearby_places.service.PlacesService;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -43,7 +43,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class NearbyPlacesListActivity extends BaseActivity implements LocationListener {
+public class NearbyPlacesActivity extends BaseActivity implements LocationListener, PlacesContract.View {
     public static final String BUNDLE_KEY_SEARCH_RESULT = "bundleKeySearchResult";
     private static final String BUNDLE_KEY_RADIUS = "bundleKeyRadius";
     private static final String BUNDLE_KEY_DRESS_CODE = "bundleKeyDressCode";
@@ -77,6 +77,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
     private List<ListItem> listItems = new ArrayList<>();
     private HashSet<String> extendedPlacesFiltered = new HashSet<>();
 
+    private PlacesContract.Presenter presenter;
     private CommonListItemAdapter adapter;
     private LocationManager locationManager;
     private String nextPageToken;
@@ -95,6 +96,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CommonListItemAdapter(new ArrayList<>());
         recyclerView.setAdapter(adapter);
+        presenter = new NearbyPlacesPresenter(this);
 
         initScrollListener();
 
@@ -221,7 +223,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
 
                     @Override
                     public void onFailure() {
-                        Toast.makeText(NearbyPlacesListActivity.this, "Failed", Toast.LENGTH_SHORT)
+                        Toast.makeText(NearbyPlacesActivity.this, "Failed", Toast.LENGTH_SHORT)
                                 .show();
                     }
                 });
@@ -265,7 +267,7 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
                     .build());
         }
 
-        Toast.makeText(NearbyPlacesListActivity.this, "Success", Toast.LENGTH_SHORT)
+        Toast.makeText(NearbyPlacesActivity.this, "Success", Toast.LENGTH_SHORT)
                 .show();
 
         adapter.setListItems(listItems);

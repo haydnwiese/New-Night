@@ -13,11 +13,9 @@ import com.example.nightclubpicker.R;
 import com.example.nightclubpicker.common.ResourceSingleton;
 import com.example.nightclubpicker.common.list_items.ResultListItem;
 import com.example.nightclubpicker.common.views.StarRatingView;
-import com.example.nightclubpicker.places.PlaceHelper;
+import com.example.nightclubpicker.nearby_places.PlaceHelper;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-
-import com.example.nightclubpicker.places.PlaceHelper;
 
 public class ResultItemViewHolder extends RecyclerView.ViewHolder {
     private ImageView placeImageView;

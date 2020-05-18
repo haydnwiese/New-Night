@@ -2,9 +2,6 @@ package com.example.nightclubpicker.onboarding_flow;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,14 +15,13 @@ import com.example.nightclubpicker.common.BaseActivity;
 import com.example.nightclubpicker.common.ResourceSingleton;
 import com.example.nightclubpicker.common.list_items.SubHeaderListItem;
 import com.example.nightclubpicker.common.views.SubHeaderListItemWrapperView;
+import com.example.nightclubpicker.nearby_places.NearbyPlacesActivity;
 import com.example.nightclubpicker.onboarding_flow.models.DressCode;
 import com.example.nightclubpicker.onboarding_flow.models.MusicGenre;
 import com.example.nightclubpicker.onboarding_flow.models.PlaceType;
 import com.example.nightclubpicker.onboarding_flow.models.VenueSize;
-import com.example.nightclubpicker.places.NearbyPlacesListActivity;
 
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -157,8 +153,8 @@ public class FilterSelectionActivity extends BaseActivity {
 
     @OnClick(R.id.seeResultsButton)
     public void navigateToResults(View view) {
-        Intent intent = new Intent(this, NearbyPlacesListActivity.class);
-        intent.putExtras(NearbyPlacesListActivity.getNavBundle(radius, dressCode, musicGenre, placeType, venueSize));
+        Intent intent = new Intent(this, NearbyPlacesActivity.class);
+        intent.putExtras(NearbyPlacesActivity.getNavBundle(radius, dressCode, musicGenre, placeType, venueSize));
         startActivity(intent);
     }
 }

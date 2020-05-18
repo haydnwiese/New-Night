@@ -1,9 +1,9 @@
-package com.example.nightclubpicker.service;
+package com.example.nightclubpicker.nearby_places.service;
 
 import com.example.nightclubpicker.onboarding_flow.models.DressCode;
 import com.example.nightclubpicker.onboarding_flow.models.MusicGenre;
 import com.example.nightclubpicker.onboarding_flow.models.VenueSize;
-import com.example.nightclubpicker.places.models.ExtendedPlace;
+import com.example.nightclubpicker.nearby_places.models.ExtendedPlace;
 import com.example.nightclubpicker.retrofit.RetrofitInstance;
 
 import java.util.List;

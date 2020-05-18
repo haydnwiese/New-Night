@@ -27,7 +27,7 @@
         <activity
             android:name=".place_details.PlaceDetailsActivity"
             android:theme="@android:style/Theme.Material" />
-        <activity android:name=".places.NearbyPlacesListActivity" />
+        <activity android:name=".nearby_places.NearbyPlacesActivity" />
         <activity
             android:name=".onboarding_flow.FilterSelectionActivity"
             android:theme="@android:style/Theme.Material">
