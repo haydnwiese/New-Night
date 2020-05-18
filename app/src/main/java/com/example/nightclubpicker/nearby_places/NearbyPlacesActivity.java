@@ -25,6 +25,7 @@ import com.example.nightclubpicker.common.list_items.ListItem;
 import com.example.nightclubpicker.common.list_items.SpinnerListItem;
 import com.example.nightclubpicker.common.list_items.SubHeaderListItem;
 import com.example.nightclubpicker.common.list_items.TopResultListItem;
+import com.example.nightclubpicker.nearby_places.service.LocationService;
 import com.example.nightclubpicker.onboarding_flow.models.DressCode;
 import com.example.nightclubpicker.onboarding_flow.models.MusicGenre;
 import com.example.nightclubpicker.onboarding_flow.models.VenueSize;
@@ -43,7 +44,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class NearbyPlacesActivity extends BaseActivity implements LocationListener, PlacesContract.View {
+public class NearbyPlacesActivity extends BaseActivity implements PlacesContract.View {
     public static final String BUNDLE_KEY_SEARCH_RESULT = "bundleKeySearchResult";
     private static final String BUNDLE_KEY_RADIUS = "bundleKeyRadius";
     private static final String BUNDLE_KEY_DRESS_CODE = "bundleKeyDressCode";
@@ -169,7 +170,7 @@ public class NearbyPlacesActivity extends BaseActivity implements LocationListen
             // for Activity#requestPermissions for more details.
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        new LocationService(locationManager, this::onLocationChanged).fetchLocation();
     }
 
     private void fetchExtendedPlaces() {
@@ -314,26 +315,9 @@ public class NearbyPlacesActivity extends BaseActivity implements LocationListen
         listItems.remove(listItems.size() - 1);
     }
 
-    @Override
     public void onLocationChanged(Location location) {
-        locationManager.removeUpdates(this);
         Toast.makeText(this, "Location Updated", Toast.LENGTH_SHORT).show();
         currentLocation = location;
         fetchExtendedPlaces();
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
     }
 }
