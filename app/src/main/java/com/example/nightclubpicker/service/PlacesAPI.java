@@ -1,4 +1,4 @@
-package com.example.nightclubpicker.places.service;
+package com.example.nightclubpicker.service;
 
 import com.example.nightclubpicker.places.models.NearbySearchResponse;
 import com.example.nightclubpicker.places.models.PlaceDetailsResponse;

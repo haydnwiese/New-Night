@@ -1,4 +1,4 @@
-package com.example.nightclubpicker.places.service;
+package com.example.nightclubpicker.service;
 
 import com.example.nightclubpicker.onboarding_flow.models.DressCode;
 import com.example.nightclubpicker.onboarding_flow.models.MusicGenre;

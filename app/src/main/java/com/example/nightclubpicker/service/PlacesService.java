@@ -1,14 +1,11 @@
-package com.example.nightclubpicker.places.service;
+package com.example.nightclubpicker.service;
 
 import com.example.nightclubpicker.R;
 import com.example.nightclubpicker.places.models.DetailsResult;
 import com.example.nightclubpicker.places.models.NearbySearchResponse;
 import com.example.nightclubpicker.places.models.PlaceDetailsResponse;
 import com.example.nightclubpicker.places.models.PlaceType;
-import com.example.nightclubpicker.places.models.SearchResult;
 import com.example.nightclubpicker.retrofit.RetrofitInstance;
-
-import java.util.List;
 
 import com.example.nightclubpicker.common.ResourceSingleton;
 import retrofit2.Call;

@@ -20,7 +20,6 @@ import com.example.nightclubpicker.R;
 import com.example.nightclubpicker.common.BaseActivity;
 import com.example.nightclubpicker.common.ResourceSingleton;
 import com.example.nightclubpicker.common.adapters.CommonListItemAdapter;
-import com.example.nightclubpicker.common.adapters.DividerItemDecoration;
 import com.example.nightclubpicker.common.list_items.ExtraResultListItem;
 import com.example.nightclubpicker.common.list_items.ListItem;
 import com.example.nightclubpicker.common.list_items.SpinnerListItem;
@@ -34,8 +33,8 @@ import com.example.nightclubpicker.places.models.NearbySearchResponse;
 import com.example.nightclubpicker.places.models.PlaceType;
 import com.example.nightclubpicker.places.models.SearchResult;
 import com.example.nightclubpicker.places.place_details.PlaceDetailsActivity;
-import com.example.nightclubpicker.places.service.ExtendedPlacesService;
-import com.example.nightclubpicker.places.service.PlacesService;
+import com.example.nightclubpicker.service.ExtendedPlacesService;
+import com.example.nightclubpicker.service.PlacesService;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -237,8 +236,8 @@ public class NearbyPlacesListActivity extends BaseActivity implements LocationLi
 
         for (int i = 0; i < searchResults.size(); i++) {
             SearchResult result = searchResults.get(i);
-            if (extendedPlacesFiltered.contains(result.getPlaceId())
-                    && !result.isPermanentlyClosed()
+            if (
+                     !result.isPermanentlyClosed()
                     && result.getRating() != 0) {
                 if (i < MAX_TOP_RESULTS) {
                     String photoReference = null;

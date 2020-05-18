@@ -31,8 +31,8 @@ import com.example.nightclubpicker.places.models.ExtendedPlace;
 import com.example.nightclubpicker.places.models.Photo;
 import com.example.nightclubpicker.places.models.PlaceReview;
 import com.example.nightclubpicker.places.models.SearchResult;
-import com.example.nightclubpicker.places.service.ExtendedPlacesService;
-import com.example.nightclubpicker.places.service.PlacesService;
+import com.example.nightclubpicker.service.ExtendedPlacesService;
+import com.example.nightclubpicker.service.PlacesService;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
