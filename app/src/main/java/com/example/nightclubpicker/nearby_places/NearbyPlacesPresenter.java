@@ -25,10 +25,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class NearbyPlacesPresenter implements PlacesContract.Presenter {
+public class NearbyPlacesPresenter implements NearbyPlacesContract.Presenter {
+
     private static final int MAX_TOP_RESULTS = 3;
 
-    private PlacesContract.View view;
+    private NearbyPlacesContract.View view;
     private LocationManager locationManager;
     private ExtendedPlacesService extendedPlacesService = new ExtendedPlacesService();
     private PlacesService placesService = new PlacesService();
@@ -43,8 +44,9 @@ public class NearbyPlacesPresenter implements PlacesContract.Presenter {
     private int radius;
     private PlaceType placeType;
     private String nextPageToken;
+    private boolean isLoading = false;
 
-    public NearbyPlacesPresenter(PlacesContract.View view,
+    NearbyPlacesPresenter(NearbyPlacesContract.View view,
                                  LocationManager locationManager,
                                  MusicGenre musicGenre,
                                  VenueSize venueSize,
@@ -61,12 +63,11 @@ public class NearbyPlacesPresenter implements PlacesContract.Presenter {
     }
 
     @Override
-    public void onStart() {
+    public void onViewCreated() {
         fetchLocation();
     }
 
-    @Override
-    public void fetchLocation() {
+    private void fetchLocation() {
         if (view.hasLocationPermission()) {
             new LocationService(locationManager, (location) -> {
                 currentLocation = location;
@@ -180,8 +181,7 @@ public class NearbyPlacesPresenter implements PlacesContract.Presenter {
                 .build();
     }
 
-    @Override
-    public void loadMoreResults() {
+    private void loadMoreResults() {
         listItems.add(new SpinnerListItem());
         view.notifyListInsertion(listItems.size() - 1);
 
@@ -192,7 +192,7 @@ public class NearbyPlacesPresenter implements PlacesContract.Presenter {
                     nextPageToken = response.getNextPageToken();
                     if (response.getResults() != null) {
                         addResultsToList(response.getResults());
-                        view.setLoading(false);
+                        isLoading = false;
                     } else {
                         removeSpinnerListItem();
                     }
@@ -227,8 +227,11 @@ public class NearbyPlacesPresenter implements PlacesContract.Presenter {
     }
 
     @Override
-    public int getListSize() {
-        return listItems.size();
+    public void updateResults(int lastVisibleItemPosition) {
+        if (!isLoading && lastVisibleItemPosition == listItems.size() - 1) {
+            isLoading = true;
+            loadMoreResults();
+        }
     }
 
     private float getDistanceToTarget(SearchResult result) {

@@ -30,7 +30,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class NearbyPlacesActivity extends BaseActivity implements PlacesContract.View {
+public class NearbyPlacesActivity extends BaseActivity implements NearbyPlacesContract.View {
     public static final String BUNDLE_KEY_SEARCH_RESULT = "bundleKeySearchResult";
     private static final String BUNDLE_KEY_RADIUS = "bundleKeyRadius";
     private static final String BUNDLE_KEY_DRESS_CODE = "bundleKeyDressCode";
@@ -60,10 +60,8 @@ public class NearbyPlacesActivity extends BaseActivity implements PlacesContract
     @BindView(R.id.resultsRecyclerView)
     RecyclerView recyclerView;
 
-
-    private PlacesContract.Presenter presenter;
+    private NearbyPlacesContract.Presenter presenter;
     private CommonListItemAdapter adapter;
-    private boolean isLoading = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,10 +88,10 @@ public class NearbyPlacesActivity extends BaseActivity implements PlacesContract
                 dressCode,
                 radius,
                 placeType);
+        // TODO: Replace with better implementation strategy
+        presenter.onViewCreated();
 
         initScrollListener();
-
-        presenter.onStart();
     }
 
     private void initScrollListener() {
@@ -108,9 +106,8 @@ public class NearbyPlacesActivity extends BaseActivity implements PlacesContract
                 super.onScrolled(recyclerView, dx, dy);
 
                 LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                if (!isLoading && linearLayoutManager != null && linearLayoutManager.findLastVisibleItemPosition() == presenter.getListSize() - 1) {
-                    isLoading = true;
-                    presenter.loadMoreResults();
+                if (linearLayoutManager != null) {
+                    presenter.updateResults(linearLayoutManager.findLastVisibleItemPosition());
                 }
             }
         });
@@ -153,10 +150,5 @@ public class NearbyPlacesActivity extends BaseActivity implements PlacesContract
     @Override
     public void setLoadingSpinnerVisibility(boolean isVisible) {
         loadingSpinner.setVisibility(isVisible ? View.VISIBLE : View.GONE);
-    }
-
-    @Override
-    public void setLoading(boolean isLoading) {
-        this.isLoading = isLoading;
     }
 }

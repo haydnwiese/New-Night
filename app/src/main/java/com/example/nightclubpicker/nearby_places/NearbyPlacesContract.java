@@ -1,11 +1,12 @@
 package com.example.nightclubpicker.nearby_places;
 
+import com.example.nightclubpicker.common.BasePresenter;
 import com.example.nightclubpicker.common.list_items.ListItem;
 import com.example.nightclubpicker.nearby_places.models.SearchResult;
 
 import java.util.List;
 
-public interface PlacesContract {
+public interface NearbyPlacesContract {
     interface View {
         void updateListItems(List<ListItem> listItems);
 
@@ -16,18 +17,9 @@ public interface PlacesContract {
         boolean hasLocationPermission();
 
         void setLoadingSpinnerVisibility(boolean isVisible);
-
-        void setLoading(boolean isLoading);
     }
 
-    interface Presenter {
-
-        void onStart();
-
-        void fetchLocation();
-
-        void loadMoreResults();
-
-        int getListSize();
+    interface Presenter extends BasePresenter {
+        void updateResults(int lastVisibleItemPosition);
     }
 }

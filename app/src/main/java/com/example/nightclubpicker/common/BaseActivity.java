@@ -6,7 +6,6 @@ import android.view.MenuItem;
 
 import androidx.annotation.StringRes;
 
-import com.example.nightclubpicker.onboarding_flow.FilterSelectionActivity;
 import com.example.nightclubpicker.R;
 import com.example.nightclubpicker.onboarding_flow.HomeActivity;
 
