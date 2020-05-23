@@ -43,7 +43,7 @@ import butterknife.ButterKnife;
 
 import static com.example.nightclubpicker.nearby_places.NearbyPlacesActivity.BUNDLE_KEY_SEARCH_RESULT;
 
-public class PlaceDetailsActivity extends BaseActivity {
+public class PlaceDetailsActivity extends BaseActivity implements PlaceDetailsContract.View {
 
     @BindView(R.id.viewPager)
     ViewPager viewPager;
@@ -82,12 +82,7 @@ public class PlaceDetailsActivity extends BaseActivity {
     @BindView(R.id.reviewsRecyclerView)
     RecyclerView reviewsRecyclerView;
 
-    private static final int MAX_REVIEWS = 3;
-
-    private DetailsResult placeDetails;
-    private ExtendedPlace extendedPlaceDetails;
-    private List<Photo> photos = new ArrayList<>();
-    private List<ListItem> reviewItems;
+    PlaceDetailsContract.Presenter presenter;
 
     ImageViewPagerAdapter viewPagerAdapter;
     CommonListItemAdapter recyclerViewAdapter;
@@ -106,71 +101,35 @@ public class PlaceDetailsActivity extends BaseActivity {
         Intent intent = getIntent();
         if (intent.getParcelableExtra(BUNDLE_KEY_SEARCH_RESULT) != null) {
             SearchResult searchResult = intent.getParcelableExtra(BUNDLE_KEY_SEARCH_RESULT);
-            fetchPlaceDetails(searchResult.getPlaceId());
-            fetchExtendedPlaceDetails(searchResult.getPlaceId());
+            presenter = new PlaceDetailsPresenter(this, searchResult);
+            presenter.onViewCreated();
         }
     }
 
-    private void fetchExtendedPlaceDetails(String placeId) {
-        new ExtendedPlacesService().fetchExtendedPlaceById(placeId, new ExtendedPlacesService.ExtendedPlacesCallback() {
-            @Override
-            public void onSuccess(ExtendedPlace extendedPlace) {
-                if (extendedPlace != null) {
-                    extendedPlaceDetails = extendedPlace;
-                    updateExtendedPlaceDetails();
+    @Override
+    public void initViewPager(List<Photo> photos) {
+        if (photos != null) {
+            photos = photos.subList(0, Math.min(photos.size(), 4));
+            viewPagerAdapter = new ImageViewPagerAdapter(PlaceDetailsActivity.this, photos);
+            viewPager.setAdapter(viewPagerAdapter);
+            addViewPagerDots(viewPagerAdapter.getCount(), 0);
+            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 }
-            }
 
-            @Override
-            public void onFailure() {
-
-            }
-        });
-    }
-
-    private void fetchPlaceDetails(String placeId) {
-        new PlacesService().fetchPlaceDetails(placeId, new PlacesService.PlaceDetailsCallback() {
-            @Override
-            public void onSuccess(DetailsResult response) {
-                if (response != null) {
-                    placeDetails = response;
-                    if (response.getPhotos() != null) {
-                        photos = response.getPhotos().subList(0, Math.min(response.getPhotos().size(), 4));
-                        viewPagerAdapter = new ImageViewPagerAdapter(PlaceDetailsActivity.this, photos);
-                        viewPager.setAdapter(viewPagerAdapter);
-                        addViewPagerDots(viewPagerAdapter.getCount(), 0);
-                        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                            @Override
-                            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                            }
-
-                            @Override
-                            public void onPageSelected(int position) {
-                                addViewPagerDots(viewPagerAdapter.getCount(), position);
-                            }
-
-                            @Override
-                            public void onPageScrollStateChanged(int state) {
-                            }
-                        });
-                    } else {
-                        viewPager.setVisibility(View.GONE);
-                    }
-
-                    headerWrapperView.setItems(new HeaderListItem(response.getName()));
-                    recentReviewsHeaderView.setItems(new SubHeaderListItem(getString(R.string.recentReviewsHeader)));
-                    updateRating();
-                    updatePriceLevel();
-                    updateAttributes();
-                    generateReviewsSection();
+                @Override
+                public void onPageSelected(int position) {
+                    addViewPagerDots(viewPagerAdapter.getCount(), position);
                 }
-            }
 
-            @Override
-            public void onFailure() {
-
-            }
-        });
+                @Override
+                public void onPageScrollStateChanged(int state) {
+                }
+            });
+        } else {
+            viewPager.setVisibility(View.GONE);
+        }
     }
 
     private void addViewPagerDots(int size, int current) {
@@ -192,89 +151,86 @@ public class PlaceDetailsActivity extends BaseActivity {
         dots[current].setImageResource(R.drawable.indicator_dot_light);
     }
 
-    private void updateExtendedPlaceDetails() {
-        if (extendedPlaceDetails.getSize() != null) {
-            venueSizeView.setText(extendedPlaceDetails.getSize().getDetailsDisplayString());
-        }
-        if (extendedPlaceDetails.getDressCode() != null) {
-            dressCodeView.setText(extendedPlaceDetails.getDressCode().getDisplayString());
-        }
-        if (extendedPlaceDetails.getMusicGenres() != null) {
-            StringBuilder musicDescription = new StringBuilder();
-            for (int i = 0; i < extendedPlaceDetails.getMusicGenres().size(); i++) {
-                if (i == 0) {
-                    musicDescription.append(extendedPlaceDetails.getMusicGenres().get(i).getMusicGenre().getDisplayString());
-                } else {
-                    musicDescription.append(" • ")
-                            .append(extendedPlaceDetails.getMusicGenres().get(i).getMusicGenre().getDisplayString());
-                }
-            }
-            musicGenreView.setDescription(musicDescription.toString());
-        }
-    }
-
-    private void updateRating() {
-        reviewCountView.setText(getString(R.string.review_count, placeDetails.getUserRatingsTotal()));
-        starRatingView.setRating(placeDetails.getRating());
-        exactRatingView.setText(Double.toString(placeDetails.getRating()));
-    }
-
-    private void updatePriceLevel() {
-        dotSeparatorView.setVisibility(placeDetails.getPriceLevel() == 0 ? View.GONE : View.VISIBLE);
-        priceLevelView.setText(PlaceHelper.generatePriceLevelString(placeDetails.getPriceLevel()));
-    }
-
-    private void updateAttributes() {
-        addressView.setDescription(placeDetails.getFormattedAddress());
-        loadStaticMap();
-        // TODO: Add dropdown for weekly hours
-        if (placeDetails.getOpeningHours() != null) {
-            openHoursView.setDescription(placeDetails.getOpeningHours().isOpenNow() ? ResourceSingleton.getInstance().getString(R.string.open) : ResourceSingleton.getInstance().getString(R.string.closed));
-        } else {
-            openHoursView.setVisibility(View.GONE);
-        }
-        if (placeDetails.getFormattedPhoneNumber() != null) {
-            phoneNumberView.setDescription(placeDetails.getFormattedPhoneNumber());
-        } else {
-            phoneNumberView.setVisibility(View.GONE);
-        }
-        if (placeDetails.getWebsiteUrl() != null) {
-            websiteView.setDescription(placeDetails.getWebsiteUrl());
-        } else {
-            websiteView.setVisibility(View.GONE);
-        }
-    }
-
-    private void loadStaticMap() {
-        Uri url = PlaceHelper.createUrlForStaticMap(placeDetails.getGeometry().getLocation().getLatitude(), placeDetails.getGeometry().getLocation().getLongitude());
+    @Override
+    public void loadStaticMap(Uri url) {
         Picasso.get()
                 .load(url)
                 .fit()
                 .into(staticMapView);
     }
 
-    private void generateReviewsSection() {
-        if (placeDetails.getReviews() == null) {
-            return;
-        }
-
-        reviewItems = new ArrayList<>();
-        ReviewListItem.Builder builder = new ReviewListItem.Builder();
-
-        int reviewNum = Math.min(MAX_REVIEWS, placeDetails.getReviews().size());
-        for (int i = 0; i < reviewNum; i++) {
-            PlaceReview placeReview = placeDetails.getReviews().get(i);
-            if (placeReview != null) {
-                reviewItems.add(builder.setProfilePictureUrl(placeReview.getProfilePhotoUrl())
-                        .setName(placeReview.getAuthorName())
-                        .setRating(placeReview.getRating())
-                        .setRelativeTime(placeReview.getRelativeTimeDescription())
-                        .setContent(placeReview.getText())
-                        .build());
-            }
-        }
-
-        recyclerViewAdapter.setListItems(reviewItems);
+    @Override
+    public void updateReviewListItems(List<ListItem> items) {
+        recyclerViewAdapter.setListItems(items);
         recyclerViewAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setHeaderWrapperView(HeaderListItem headerListItem) {
+        headerWrapperView.setItems(headerListItem);
+    }
+
+    @Override
+    public void setStarRating(double rating, int ratingsCount) {
+        starRatingView.setRating(rating);
+        exactRatingView.setText(String.valueOf(rating));
+        reviewCountView.setText(String.valueOf(ratingsCount));
+    }
+
+    @Override
+    public void setPriceLevel(int priceLevel, String label) {
+        dotSeparatorView.setVisibility(priceLevel == 0 ? View.INVISIBLE : View.VISIBLE);
+        priceLevelView.setText(label);
+    }
+    @Override
+    public void setVenueSizeView(String venueSizeText) {
+        venueSizeView.setText(venueSizeText);
+    }
+
+    @Override
+    public void setDressCodeView(String dressCodeText) {
+        dressCodeView.setText(dressCodeText);
+    }
+
+    @Override
+    public void setMusicGenreView(String musicGenreText) {
+        musicGenreView.setDescription(musicGenreText);
+    }
+
+    @Override
+    public void setAddressView(String address) {
+        addressView.setDescription(address);
+    }
+
+    @Override
+    public void setOpenHoursView(String openStatus) {
+        if (openStatus.isEmpty()) {
+            openHoursView.setVisibility(View.INVISIBLE);
+        } else {
+            openHoursView.setDescription(openStatus);
+        }
+    }
+
+    @Override
+    public void setPhoneNumberView(String phoneNumber) {
+        if (phoneNumber.isEmpty()) {
+            phoneNumberView.setVisibility(View.GONE);
+        } else {
+            phoneNumberView.setDescription(phoneNumber);
+        }
+    }
+
+    @Override
+    public void setWebsiteView(String websiteUrl) {
+        if (websiteUrl.isEmpty()) {
+            websiteView.setVisibility(View.GONE);
+        } else {
+            websiteView.setDescription(websiteUrl);
+        }
+    }
+
+    @Override
+    public void setRecentReviewsHeaderView(SubHeaderListItem subHeaderListItem) {
+        recentReviewsHeaderView.setItems(subHeaderListItem);
     }
 }
