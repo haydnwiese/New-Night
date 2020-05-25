@@ -1,4 +1,4 @@
-package com.example.nightclubpicker.nearby_places.models;
+package com.example.nightclubpicker.models;
 
 public enum PlaceType {
     night_club("Night Club"),

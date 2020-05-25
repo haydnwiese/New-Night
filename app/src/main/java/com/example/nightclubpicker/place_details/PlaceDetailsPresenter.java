@@ -9,12 +9,12 @@ import com.example.nightclubpicker.common.list_items.ListItem;
 import com.example.nightclubpicker.common.list_items.ReviewListItem;
 import com.example.nightclubpicker.common.list_items.SubHeaderListItem;
 import com.example.nightclubpicker.nearby_places.PlaceHelper;
-import com.example.nightclubpicker.nearby_places.models.DetailsResult;
-import com.example.nightclubpicker.nearby_places.models.ExtendedPlace;
-import com.example.nightclubpicker.nearby_places.models.PlaceReview;
-import com.example.nightclubpicker.nearby_places.models.SearchResult;
-import com.example.nightclubpicker.nearby_places.service.ExtendedPlacesService;
-import com.example.nightclubpicker.nearby_places.service.PlacesService;
+import com.example.nightclubpicker.models.DetailsResult;
+import com.example.nightclubpicker.models.ExtendedPlace;
+import com.example.nightclubpicker.models.PlaceReview;
+import com.example.nightclubpicker.models.SearchResult;
+import com.example.nightclubpicker.service.ExtendedPlacesService;
+import com.example.nightclubpicker.service.PlacesService;
 
 import java.util.ArrayList;
 import java.util.List;

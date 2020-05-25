@@ -1,10 +1,10 @@
-package com.example.nightclubpicker.nearby_places.service;
+package com.example.nightclubpicker.service;
 
 import com.example.nightclubpicker.R;
-import com.example.nightclubpicker.nearby_places.models.DetailsResult;
-import com.example.nightclubpicker.nearby_places.models.NearbySearchResponse;
-import com.example.nightclubpicker.nearby_places.models.PlaceDetailsResponse;
-import com.example.nightclubpicker.nearby_places.models.PlaceType;
+import com.example.nightclubpicker.models.DetailsResult;
+import com.example.nightclubpicker.models.NearbySearchResponse;
+import com.example.nightclubpicker.models.PlaceDetailsResponse;
+import com.example.nightclubpicker.models.PlaceType;
 import com.example.nightclubpicker.retrofit.RetrofitInstance;
 
 import com.example.nightclubpicker.common.ResourceSingleton;

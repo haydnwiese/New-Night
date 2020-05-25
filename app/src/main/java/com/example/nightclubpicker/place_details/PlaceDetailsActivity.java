@@ -15,24 +15,16 @@ import android.widget.TextView;
 
 import com.example.nightclubpicker.R;
 import com.example.nightclubpicker.common.BaseActivity;
-import com.example.nightclubpicker.common.ResourceSingleton;
 import com.example.nightclubpicker.common.adapters.CommonListItemAdapter;
 import com.example.nightclubpicker.common.list_items.HeaderListItem;
 import com.example.nightclubpicker.common.list_items.ListItem;
-import com.example.nightclubpicker.common.list_items.ReviewListItem;
 import com.example.nightclubpicker.common.list_items.SubHeaderListItem;
 import com.example.nightclubpicker.common.views.HeaderListItemWrapperView;
 import com.example.nightclubpicker.common.views.PlaceAttributeView;
 import com.example.nightclubpicker.common.views.StarRatingView;
 import com.example.nightclubpicker.common.views.SubHeaderListItemWrapperView;
-import com.example.nightclubpicker.nearby_places.PlaceHelper;
-import com.example.nightclubpicker.nearby_places.models.DetailsResult;
-import com.example.nightclubpicker.nearby_places.models.ExtendedPlace;
-import com.example.nightclubpicker.nearby_places.models.Photo;
-import com.example.nightclubpicker.nearby_places.models.PlaceReview;
-import com.example.nightclubpicker.nearby_places.models.SearchResult;
-import com.example.nightclubpicker.nearby_places.service.ExtendedPlacesService;
-import com.example.nightclubpicker.nearby_places.service.PlacesService;
+import com.example.nightclubpicker.models.Photo;
+import com.example.nightclubpicker.models.SearchResult;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

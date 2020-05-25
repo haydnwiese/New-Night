@@ -2,7 +2,7 @@ package com.example.nightclubpicker.nearby_places;
 
 import com.example.nightclubpicker.common.BasePresenter;
 import com.example.nightclubpicker.common.list_items.ListItem;
-import com.example.nightclubpicker.nearby_places.models.SearchResult;
+import com.example.nightclubpicker.models.SearchResult;
 
 import java.util.List;
 

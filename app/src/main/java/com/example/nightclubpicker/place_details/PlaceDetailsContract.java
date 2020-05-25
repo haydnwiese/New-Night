@@ -6,7 +6,7 @@ import com.example.nightclubpicker.common.BasePresenter;
 import com.example.nightclubpicker.common.list_items.HeaderListItem;
 import com.example.nightclubpicker.common.list_items.ListItem;
 import com.example.nightclubpicker.common.list_items.SubHeaderListItem;
-import com.example.nightclubpicker.nearby_places.models.Photo;
+import com.example.nightclubpicker.models.Photo;
 
 import java.util.List;
 

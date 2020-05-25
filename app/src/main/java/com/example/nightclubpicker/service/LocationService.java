@@ -1,4 +1,4 @@
-package com.example.nightclubpicker.nearby_places.service;
+package com.example.nightclubpicker.service;
 
 import android.annotation.SuppressLint;
 import android.location.Location;

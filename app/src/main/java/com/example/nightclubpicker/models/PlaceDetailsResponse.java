@@ -1,4 +1,4 @@
-package com.example.nightclubpicker.nearby_places.models;
+package com.example.nightclubpicker.models;
 
 import java.io.Serializable;
 
