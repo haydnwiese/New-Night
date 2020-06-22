@@ -118,4 +118,11 @@
         app:layout_constraintStart_toEndOf="@+id/dot"
         app:layout_constraintTop_toTopOf="@+id/distance" />
 
+    <include
+        layout="@layout/divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/resultName" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

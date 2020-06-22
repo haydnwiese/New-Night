@@ -71,7 +71,8 @@ public class NearbyPlacesPresenter implements NearbyPlacesContract.Presenter {
         if (view.hasLocationPermission()) {
             new LocationService(locationManager, (location) -> {
                 currentLocation = location;
-                fetchExtendedPlaces();
+                //fetchExtendedPlaces();
+                fetchPlaces();
             }).fetchLocation();
         }
     }
