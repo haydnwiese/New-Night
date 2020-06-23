@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/divider1"
+        layout="@layout/divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.example.nightclubpicker.common.views.PlaceAttributeView
+        android:id="@+id/attributeView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:description="228 Albert St Waterloo"
+        app:imageSrc="@drawable/ic_map_pin" />
+
+    <ImageView
+        android:id="@+id/staticMap"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginBottom="10dp"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
+    <include
+        android:id="@+id/divider2"
+        layout="@layout/divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

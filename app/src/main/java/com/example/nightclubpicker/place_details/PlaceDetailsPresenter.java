@@ -6,6 +6,7 @@ import com.example.nightclubpicker.R;
 import com.example.nightclubpicker.common.ResourceSingleton;
 import com.example.nightclubpicker.common.list_items.HeaderListItem;
 import com.example.nightclubpicker.common.list_items.ListItem;
+import com.example.nightclubpicker.common.list_items.PlaceAttributeListItem;
 import com.example.nightclubpicker.common.list_items.ReviewListItem;
 import com.example.nightclubpicker.common.list_items.SubHeaderListItem;
 import com.example.nightclubpicker.nearby_places.PlaceHelper;
@@ -28,7 +29,7 @@ public class PlaceDetailsPresenter implements PlaceDetailsContract.Presenter {
 
     private DetailsResult placeDetails;
     private ExtendedPlace extendedPlaceDetails;
-    private List<ListItem> reviewItems;
+    private List<ListItem> listItems;
 
     PlaceDetailsPresenter(PlaceDetailsContract.View view, SearchResult searchResult) {
         this.view = view;
@@ -70,7 +71,8 @@ public class PlaceDetailsPresenter implements PlaceDetailsContract.Presenter {
                     view.setRecentReviewsHeaderView(new SubHeaderListItem(ResourceSingleton.getInstance().getString(R.string.recentReviewsHeader)));
                     updateRating();
                     updatePriceLevel();
-                    updateAttributes();
+//                    updateAttributes();
+                    generateAttributesSection();
                     generateReviewsSection();
                 }
             }
@@ -89,7 +91,24 @@ public class PlaceDetailsPresenter implements PlaceDetailsContract.Presenter {
         if (extendedPlaceDetails.getDressCode() != null) {
             view.setDressCodeView(extendedPlaceDetails.getDressCode().getDisplayString());
         }
-        if (extendedPlaceDetails.getMusicGenres() != null) {
+//        if (extendedPlaceDetails.getMusicGenres() != null) {
+//            StringBuilder musicDescription = new StringBuilder();
+//            for (int i = 0; i < extendedPlaceDetails.getMusicGenres().size(); i++) {
+//                if (i == 0) {
+//                    musicDescription.append(extendedPlaceDetails.getMusicGenres().get(i).getMusicGenre().getDisplayString());
+//                } else {
+//                    musicDescription.append(" • ")
+//                            .append(extendedPlaceDetails.getMusicGenres().get(i).getMusicGenre().getDisplayString());
+//                }
+//            }
+//            view.setMusicGenreView(musicDescription.toString());
+//        }
+    }
+
+    private void generateAttributesSection() {
+        listItems = new ArrayList<>();
+
+        if (extendedPlaceDetails != null && extendedPlaceDetails.getMusicGenres() != null) {
             StringBuilder musicDescription = new StringBuilder();
             for (int i = 0; i < extendedPlaceDetails.getMusicGenres().size(); i++) {
                 if (i == 0) {
@@ -99,8 +118,36 @@ public class PlaceDetailsPresenter implements PlaceDetailsContract.Presenter {
                             .append(extendedPlaceDetails.getMusicGenres().get(i).getMusicGenre().getDisplayString());
                 }
             }
-            view.setMusicGenreView(musicDescription.toString());
+
+            listItems.add(new PlaceAttributeListItem.Builder()
+                    .setFirstItem(true)
+                    .setLabel(musicDescription.toString())
+                    .setIcon(ResourceSingleton.getInstance().getDrawable(R.drawable.ic_music_note))
+                    .build());
         }
+
+        listItems.add(new PlaceAttributeListItem.Builder()
+                .setLabel(placeDetails.getFormattedAddress())
+                .setIcon(ResourceSingleton.getInstance().getDrawable(R.drawable.ic_map_pin))
+                .setMapUrl(PlaceHelper.createUrlForStaticMap(
+                        placeDetails.getGeometry().getLocation().getLatitude(),
+                        placeDetails.getGeometry().getLocation().getLongitude()))
+                .build());
+
+        listItems.add(new PlaceAttributeListItem.Builder()
+                .setLabel(placeDetails.getOpeningHours().isOpenNow() ? ResourceSingleton.getInstance().getString(R.string.open) : ResourceSingleton.getInstance().getString(R.string.closed))
+                .setIcon(ResourceSingleton.getInstance().getDrawable(R.drawable.ic_clock))
+                .build());
+
+        listItems.add(new PlaceAttributeListItem.Builder()
+                .setLabel(placeDetails.getFormattedPhoneNumber())
+                .setIcon(ResourceSingleton.getInstance().getDrawable(R.drawable.ic_phone))
+                .build());
+
+        listItems.add(new PlaceAttributeListItem.Builder()
+                .setLabel(placeDetails.getWebsiteUrl())
+                .setIcon(ResourceSingleton.getInstance().getDrawable(R.drawable.ic_web))
+                .build());
     }
 
     private void generateReviewsSection() {
@@ -108,14 +155,13 @@ public class PlaceDetailsPresenter implements PlaceDetailsContract.Presenter {
             return;
         }
 
-        reviewItems = new ArrayList<>();
         ReviewListItem.Builder builder = new ReviewListItem.Builder();
 
         int reviewNum = Math.min(MAX_REVIEWS, placeDetails.getReviews().size());
         for (int i = 0; i < reviewNum; i++) {
             PlaceReview placeReview = placeDetails.getReviews().get(i);
             if (placeReview != null) {
-                reviewItems.add(builder.setProfilePictureUrl(placeReview.getProfilePhotoUrl())
+                listItems.add(builder.setProfilePictureUrl(placeReview.getProfilePhotoUrl())
                         .setName(placeReview.getAuthorName())
                         .setRating(placeReview.getRating())
                         .setRelativeTime(placeReview.getRelativeTimeDescription())
@@ -124,7 +170,7 @@ public class PlaceDetailsPresenter implements PlaceDetailsContract.Presenter {
             }
         }
 
-        view.updateReviewListItems(reviewItems);
+        view.updateListItems(listItems);
     }
 
     private void updateRating() {

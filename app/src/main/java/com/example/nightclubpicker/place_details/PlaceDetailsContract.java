@@ -17,7 +17,7 @@ public interface PlaceDetailsContract {
 
         void loadStaticMap(Uri url);
 
-        void updateReviewListItems(List<ListItem> items);
+        void updateListItems(List<ListItem> items);
 
         void setHeaderWrapperView(HeaderListItem headerListItem);
 

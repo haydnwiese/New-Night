@@ -71,7 +71,7 @@ public class PlaceDetailsActivity extends BaseActivity implements PlaceDetailsCo
     PlaceAttributeView websiteView;
     @BindView(R.id.recentReviewsHeader)
     SubHeaderListItemWrapperView recentReviewsHeaderView;
-    @BindView(R.id.reviewsRecyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView reviewsRecyclerView;
 
     PlaceDetailsContract.Presenter presenter;
@@ -152,7 +152,7 @@ public class PlaceDetailsActivity extends BaseActivity implements PlaceDetailsCo
     }
 
     @Override
-    public void updateReviewListItems(List<ListItem> items) {
+    public void updateListItems(List<ListItem> items) {
         recyclerViewAdapter.setListItems(items);
         recyclerViewAdapter.notifyDataSetChanged();
     }

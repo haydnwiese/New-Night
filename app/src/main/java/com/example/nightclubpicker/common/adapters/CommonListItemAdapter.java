@@ -10,14 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nightclubpicker.common.list_items.HeaderListItem;
 import com.example.nightclubpicker.common.list_items.ListItem;
+import com.example.nightclubpicker.common.list_items.PlaceAttributeListItem;
 import com.example.nightclubpicker.common.list_items.ResultListItem;
 import com.example.nightclubpicker.common.list_items.ReviewListItem;
 import com.example.nightclubpicker.common.list_items.SubHeaderListItem;
 import com.example.nightclubpicker.common.list_items.TopResultListItem;
 import com.example.nightclubpicker.common.view_holders.HeaderListItemViewHolder;
+import com.example.nightclubpicker.common.view_holders.PlaceAttributeViewHolder;
 import com.example.nightclubpicker.common.view_holders.ResultItemViewHolder;
 import com.example.nightclubpicker.common.view_holders.ReviewListItemViewHolder;
 import com.example.nightclubpicker.common.view_holders.SpinnerListItemViewHolder;
+import com.example.nightclubpicker.common.views.PlaceAttributeView;
 
 import java.util.List;
 
@@ -48,6 +51,8 @@ public class CommonListItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 return new ReviewListItemViewHolder(inflate(parent, type.getLayout()));
             case SPINNER_LIST_ITEM:
                 return new SpinnerListItemViewHolder(inflate(parent, type.getLayout()));
+            case PLACE_ATTRIBUTE_LIST_ITEM:
+                return new PlaceAttributeViewHolder(inflate(parent, type.getLayout()));
         }
         return null;
     }
@@ -74,6 +79,9 @@ public class CommonListItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 ((ReviewListItemViewHolder) holder).setItems((ReviewListItem) listItem);
                 break;
             case SPINNER_LIST_ITEM:
+                break;
+            case PLACE_ATTRIBUTE_LIST_ITEM:
+                ((PlaceAttributeViewHolder) holder).setItems((PlaceAttributeListItem) listItem);
                 break;
         }
     }
