@@ -68,7 +68,6 @@ public class PlaceDetailsPresenter implements PlaceDetailsContract.Presenter {
                     view.initViewPager(response.getPhotos());
 
                     view.setHeaderWrapperView(new HeaderListItem(response.getName()));
-                    view.setRecentReviewsHeaderView(new SubHeaderListItem(ResourceSingleton.getInstance().getString(R.string.recentReviewsHeader)));
                     updateRating();
                     updatePriceLevel();
 //                    updateAttributes();
@@ -179,19 +178,5 @@ public class PlaceDetailsPresenter implements PlaceDetailsContract.Presenter {
 
     private void updatePriceLevel() {
         view.setPriceLevel(placeDetails.getPriceLevel(), PlaceHelper.generatePriceLevelString(placeDetails.getPriceLevel()));
-    }
-
-    private void updateAttributes() {
-        view.setAddressView(placeDetails.getFormattedAddress());
-        loadStaticMap();
-        // TODO: Add dropdown for weekly hours
-        view.setOpenHoursView(placeDetails.getOpeningHours().isOpenNow() ? ResourceSingleton.getInstance().getString(R.string.open) : ResourceSingleton.getInstance().getString(R.string.closed));
-        view.setPhoneNumberView(placeDetails.getFormattedPhoneNumber());
-        view.setWebsiteView(placeDetails.getWebsiteUrl());
-    }
-
-    private void loadStaticMap() {
-        Uri url = PlaceHelper.createUrlForStaticMap(placeDetails.getGeometry().getLocation().getLatitude(), placeDetails.getGeometry().getLocation().getLongitude());
-        view.loadStaticMap(url);
     }
 }

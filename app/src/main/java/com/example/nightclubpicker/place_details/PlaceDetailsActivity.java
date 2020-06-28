@@ -57,20 +57,6 @@ public class PlaceDetailsActivity extends BaseActivity implements PlaceDetailsCo
     TextView venueSizeView;
     @BindView(R.id.dressCode)
     TextView dressCodeView;
-    @BindView(R.id.musicGenre)
-    PlaceAttributeView musicGenreView;
-    @BindView(R.id.address)
-    PlaceAttributeView addressView;
-    @BindView(R.id.staticMap)
-    ImageView staticMapView;
-    @BindView(R.id.openHours)
-    PlaceAttributeView openHoursView;
-    @BindView(R.id.phoneNumber)
-    PlaceAttributeView phoneNumberView;
-    @BindView(R.id.website)
-    PlaceAttributeView websiteView;
-    @BindView(R.id.recentReviewsHeader)
-    SubHeaderListItemWrapperView recentReviewsHeaderView;
     @BindView(R.id.recyclerView)
     RecyclerView reviewsRecyclerView;
 
@@ -144,14 +130,6 @@ public class PlaceDetailsActivity extends BaseActivity implements PlaceDetailsCo
     }
 
     @Override
-    public void loadStaticMap(Uri url) {
-        Picasso.get()
-                .load(url)
-                .fit()
-                .into(staticMapView);
-    }
-
-    @Override
     public void updateListItems(List<ListItem> items) {
         recyclerViewAdapter.setListItems(items);
         recyclerViewAdapter.notifyDataSetChanged();
@@ -174,6 +152,7 @@ public class PlaceDetailsActivity extends BaseActivity implements PlaceDetailsCo
         dotSeparatorView.setVisibility(priceLevel == 0 ? View.INVISIBLE : View.VISIBLE);
         priceLevelView.setText(label);
     }
+
     @Override
     public void setVenueSizeView(String venueSizeText) {
         venueSizeView.setText(venueSizeText);
@@ -184,45 +163,4 @@ public class PlaceDetailsActivity extends BaseActivity implements PlaceDetailsCo
         dressCodeView.setText(dressCodeText);
     }
 
-    @Override
-    public void setMusicGenreView(String musicGenreText) {
-        musicGenreView.setDescription(musicGenreText);
-    }
-
-    @Override
-    public void setAddressView(String address) {
-        addressView.setDescription(address);
-    }
-
-    @Override
-    public void setOpenHoursView(String openStatus) {
-        if (openStatus.isEmpty()) {
-            openHoursView.setVisibility(View.INVISIBLE);
-        } else {
-            openHoursView.setDescription(openStatus);
-        }
-    }
-
-    @Override
-    public void setPhoneNumberView(String phoneNumber) {
-        if (phoneNumber.isEmpty()) {
-            phoneNumberView.setVisibility(View.GONE);
-        } else {
-            phoneNumberView.setDescription(phoneNumber);
-        }
-    }
-
-    @Override
-    public void setWebsiteView(String websiteUrl) {
-        if (websiteUrl.isEmpty()) {
-            websiteView.setVisibility(View.GONE);
-        } else {
-            websiteView.setDescription(websiteUrl);
-        }
-    }
-
-    @Override
-    public void setRecentReviewsHeaderView(SubHeaderListItem subHeaderListItem) {
-        recentReviewsHeaderView.setItems(subHeaderListItem);
-    }
 }

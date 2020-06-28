@@ -15,8 +15,6 @@ public interface PlaceDetailsContract {
 
         void initViewPager(List<Photo> photos);
 
-        void loadStaticMap(Uri url);
-
         void updateListItems(List<ListItem> items);
 
         void setHeaderWrapperView(HeaderListItem headerListItem);
@@ -28,18 +26,6 @@ public interface PlaceDetailsContract {
         void setVenueSizeView(String venueSizeText);
 
         void setDressCodeView(String dressCodeText);
-
-        void setMusicGenreView(String musicGenreText);
-
-        void setAddressView(String address);
-
-        void setOpenHoursView(String openStatus);
-
-        void setPhoneNumberView(String phoneNumber);
-
-        void setWebsiteView(String websiteUrl);
-
-        void setRecentReviewsHeaderView(SubHeaderListItem subHeaderListItem);
     }
 
     interface Presenter extends BasePresenter {
