@@ -70,7 +70,6 @@ public class PlaceDetailsPresenter implements PlaceDetailsContract.Presenter {
                     view.setHeaderWrapperView(new HeaderListItem(response.getName()));
                     updateRating();
                     updatePriceLevel();
-//                    updateAttributes();
                     generateAttributesSection();
                     generateReviewsSection();
                 }
@@ -90,18 +89,6 @@ public class PlaceDetailsPresenter implements PlaceDetailsContract.Presenter {
         if (extendedPlaceDetails.getDressCode() != null) {
             view.setDressCodeView(extendedPlaceDetails.getDressCode().getDisplayString());
         }
-//        if (extendedPlaceDetails.getMusicGenres() != null) {
-//            StringBuilder musicDescription = new StringBuilder();
-//            for (int i = 0; i < extendedPlaceDetails.getMusicGenres().size(); i++) {
-//                if (i == 0) {
-//                    musicDescription.append(extendedPlaceDetails.getMusicGenres().get(i).getMusicGenre().getDisplayString());
-//                } else {
-//                    musicDescription.append(" • ")
-//                            .append(extendedPlaceDetails.getMusicGenres().get(i).getMusicGenre().getDisplayString());
-//                }
-//            }
-//            view.setMusicGenreView(musicDescription.toString());
-//        }
     }
 
     private void generateAttributesSection() {
@@ -124,6 +111,13 @@ public class PlaceDetailsPresenter implements PlaceDetailsContract.Presenter {
                     .setIcon(ResourceSingleton.getInstance().getDrawable(R.drawable.ic_music_note))
                     .build());
         }
+
+        // TODO: Remove when using extended places api
+        listItems.add(new PlaceAttributeListItem.Builder()
+                .setFirstItem(true)
+                .setLabel("Dance")
+                .setIcon(ResourceSingleton.getInstance().getDrawable(R.drawable.ic_music_note))
+                .build());
 
         listItems.add(new PlaceAttributeListItem.Builder()
                 .setLabel(placeDetails.getFormattedAddress())
@@ -153,6 +147,11 @@ public class PlaceDetailsPresenter implements PlaceDetailsContract.Presenter {
         if (placeDetails.getReviews() == null) {
             return;
         }
+
+        listItems.add(new SubHeaderListItem.Builder()
+                .setSubHeader(ResourceSingleton.getInstance().getString(R.string.recentReviewsHeader))
+                .setHasLeftMargin(false)
+                .build());
 
         ReviewListItem.Builder builder = new ReviewListItem.Builder();
 

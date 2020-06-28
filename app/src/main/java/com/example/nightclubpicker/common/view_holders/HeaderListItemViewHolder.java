@@ -1,9 +1,12 @@
 package com.example.nightclubpicker.common.view_holders;
 
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nightclubpicker.R;
@@ -25,5 +28,11 @@ public class HeaderListItemViewHolder extends RecyclerView.ViewHolder {
 
     public void setItems(SubHeaderListItem listItem) {
         headerTextView.setText(listItem.getSubHeader());
+        // TODO: add calculation for dp and set on results screen
+        if (!listItem.getHasLeftMargin()) {
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) headerTextView.getLayoutParams();
+            params.setMarginStart(0);
+            headerTextView.setLayoutParams(params);
+        }
     }
 }

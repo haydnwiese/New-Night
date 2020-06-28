@@ -62,6 +62,7 @@ public class PlaceAttributeView extends ConstraintLayout {
 
     public void setImageSrc(Drawable imageSrc) {
         this.imageSrc = imageSrc;
+        iconView.setImageDrawable(imageSrc);
     }
 
     public String getDescription() {
