@@ -136,6 +136,11 @@ public class PlaceDetailsActivity extends BaseActivity implements PlaceDetailsCo
     }
 
     @Override
+    public void navigate(Intent intent) {
+        startActivity(intent);
+    }
+
+    @Override
     public void setHeaderWrapperView(HeaderListItem headerListItem) {
         headerWrapperView.setItems(headerListItem);
     }

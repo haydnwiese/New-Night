@@ -1,5 +1,6 @@
 package com.example.nightclubpicker.place_details;
 
+import android.content.Intent;
 import android.net.Uri;
 
 import com.example.nightclubpicker.R;
@@ -17,6 +18,7 @@ import com.example.nightclubpicker.models.SearchResult;
 import com.example.nightclubpicker.service.ExtendedPlacesService;
 import com.example.nightclubpicker.service.PlacesService;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,6 +127,10 @@ public class PlaceDetailsPresenter implements PlaceDetailsContract.Presenter {
                 .setMapUrl(PlaceHelper.createUrlForStaticMap(
                         placeDetails.getGeometry().getLocation().getLatitude(),
                         placeDetails.getGeometry().getLocation().getLongitude()))
+                .setClickListener(() -> {
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("geo:0,0?q=%s", URLEncoder.encode(placeDetails.getFormattedAddress()))));
+                    view.navigate(mapIntent);
+                })
                 .build());
 
         listItems.add(new PlaceAttributeListItem.Builder()
@@ -135,11 +141,19 @@ public class PlaceDetailsPresenter implements PlaceDetailsContract.Presenter {
         listItems.add(new PlaceAttributeListItem.Builder()
                 .setLabel(placeDetails.getFormattedPhoneNumber())
                 .setIcon(ResourceSingleton.getInstance().getDrawable(R.drawable.ic_phone))
+                .setClickListener(() -> {
+                    Intent phoneIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + placeDetails.getFormattedPhoneNumber()));
+                    view.navigate(phoneIntent);
+                })
                 .build());
 
         listItems.add(new PlaceAttributeListItem.Builder()
                 .setLabel(placeDetails.getWebsiteUrl())
                 .setIcon(ResourceSingleton.getInstance().getDrawable(R.drawable.ic_web))
+                .setClickListener(() -> {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(placeDetails.getWebsiteUrl()));
+                    view.navigate(browserIntent);
+                })
                 .build());
     }
 

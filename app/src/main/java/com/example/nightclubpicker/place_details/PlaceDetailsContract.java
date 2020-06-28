@@ -1,5 +1,6 @@
 package com.example.nightclubpicker.place_details;
 
+import android.content.Intent;
 import android.net.Uri;
 
 import com.example.nightclubpicker.common.BasePresenter;
@@ -16,6 +17,8 @@ public interface PlaceDetailsContract {
         void initViewPager(List<Photo> photos);
 
         void updateListItems(List<ListItem> items);
+
+        void navigate(Intent intent);
 
         void setHeaderWrapperView(HeaderListItem headerListItem);
 

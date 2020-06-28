@@ -11,6 +11,7 @@ public class PlaceAttributeListItem implements ListItem {
     private Drawable icon;
     private Uri mapUrl;
     private boolean isFirstItem = false;
+    OnItemClickListener clickListener;
 
     public String getLabel() {
         return label;
@@ -28,6 +29,10 @@ public class PlaceAttributeListItem implements ListItem {
         return isFirstItem;
     }
 
+    public OnItemClickListener getClickListener() {
+        return clickListener;
+    }
+
     @Override
     public Type getType() {
         return Type.PLACE_ATTRIBUTE_LIST_ITEM;
@@ -38,6 +43,7 @@ public class PlaceAttributeListItem implements ListItem {
         private Drawable icon;
         private Uri mapUrl;
         private boolean isFirstItem;
+        private OnItemClickListener clickListener;
 
         public Builder setLabel(String label) {
             this.label = label;
@@ -59,12 +65,18 @@ public class PlaceAttributeListItem implements ListItem {
             return this;
         }
 
+        public Builder setClickListener(OnItemClickListener clickListener) {
+            this.clickListener = clickListener;
+            return this;
+        }
+
         public PlaceAttributeListItem build() {
             PlaceAttributeListItem listItem = new PlaceAttributeListItem();
             listItem.label = label;
             listItem.icon = icon;
             listItem.mapUrl = mapUrl;
             listItem.isFirstItem = isFirstItem;
+            listItem.clickListener = clickListener;
             return listItem;
         }
     }

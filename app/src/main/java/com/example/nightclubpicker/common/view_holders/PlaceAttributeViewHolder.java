@@ -40,5 +40,7 @@ public class PlaceAttributeViewHolder extends RecyclerView.ViewHolder {
         }
 
         divider1.setVisibility(listItem.isFirstItem() ? View.VISIBLE : View.INVISIBLE);
+
+        itemView.setOnClickListener(v -> listItem.getClickListener().onItemClick());
     }
 }
