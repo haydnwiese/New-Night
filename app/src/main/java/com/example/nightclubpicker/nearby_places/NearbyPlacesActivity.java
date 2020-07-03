@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
@@ -37,6 +38,7 @@ public class NearbyPlacesActivity extends BaseActivity implements NearbyPlacesCo
     private static final String BUNDLE_KEY_MUSIC_GENRE = "bundleKeyMusicGenre";
     private static final String BUNDLE_KEY_PLACE_TYPE = "bundleKeyPlaceType";
     private static final String BUNDLE_KEY_VENUE_SIZE = "bundleKeyVenueSize";
+    private static final String BUNDLE_KEY_LOCATION = "bundleKeyLocation";
 
     private static final int DEFAULT_SEARCH_RADIUS = 50;
     private static final int KM_TO_M_CONVERSION_FACTOR = 1000;
@@ -45,13 +47,15 @@ public class NearbyPlacesActivity extends BaseActivity implements NearbyPlacesCo
                                       DressCode dressCode,
                                       MusicGenre musicGenre,
                                       com.example.nightclubpicker.onboarding_flow.models.PlaceType placeType,
-                                      VenueSize venueSize) {
+                                      VenueSize venueSize,
+                                      Location location) {
         Bundle bundle = new Bundle();
         bundle.putInt(BUNDLE_KEY_RADIUS, radius);
         bundle.putInt(BUNDLE_KEY_DRESS_CODE, dressCode.ordinal());
         bundle.putInt(BUNDLE_KEY_MUSIC_GENRE, musicGenre.ordinal());
         bundle.putInt(BUNDLE_KEY_PLACE_TYPE, placeType.ordinal());
         bundle.putInt(BUNDLE_KEY_VENUE_SIZE, venueSize.ordinal());
+        bundle.putParcelable(BUNDLE_KEY_LOCATION, location);
         return bundle;
     }
 
@@ -80,9 +84,10 @@ public class NearbyPlacesActivity extends BaseActivity implements NearbyPlacesCo
         DressCode dressCode = DressCode.values()[filterData.getIntExtra(BUNDLE_KEY_DRESS_CODE, 0)];
         int radius = filterData.getIntExtra(BUNDLE_KEY_RADIUS, DEFAULT_SEARCH_RADIUS) * KM_TO_M_CONVERSION_FACTOR;
         PlaceType placeType = PlaceType.values()[filterData.getIntExtra(BUNDLE_KEY_PLACE_TYPE, 0)];
+        Location location = filterData.getParcelableExtra(BUNDLE_KEY_LOCATION);
 
         presenter = new NearbyPlacesPresenter(this,
-                (LocationManager) getSystemService(Context.LOCATION_SERVICE),
+                location,
                 musicGenre,
                 venueSize,
                 dressCode,
@@ -129,22 +134,6 @@ public class NearbyPlacesActivity extends BaseActivity implements NearbyPlacesCo
         Intent intent = new Intent(this, PlaceDetailsActivity.class);
         intent.putExtra(BUNDLE_KEY_SEARCH_RESULT, result);
         startActivity(intent);
-    }
-
-    @Override
-    public boolean hasLocationPermission() {
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    Activity#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for Activity#requestPermissions for more details.
-            return false;
-        } else {
-            return true;
-        }
     }
 
     @Override

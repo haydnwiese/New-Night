@@ -1,7 +1,12 @@
 package com.example.nightclubpicker.onboarding_flow;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,6 +25,7 @@ import com.example.nightclubpicker.onboarding_flow.models.DressCode;
 import com.example.nightclubpicker.onboarding_flow.models.MusicGenre;
 import com.example.nightclubpicker.onboarding_flow.models.PlaceType;
 import com.example.nightclubpicker.onboarding_flow.models.VenueSize;
+import com.example.nightclubpicker.service.LocationService;
 
 import java.util.List;
 
@@ -74,6 +80,7 @@ public class FilterSelectionActivity extends BaseActivity {
     private MusicGenre musicGenre;
     private PlaceType placeType;
     private VenueSize venueSize;
+    private Location location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +88,8 @@ public class FilterSelectionActivity extends BaseActivity {
         setContentView(R.layout.activity_filter_selection);
         setTitle(R.string.select_filters);
         ButterKnife.bind(this);
+
+        fetchLocation();
 
         radius = distanceSlider.getProgress();
         distanceSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -151,10 +160,32 @@ public class FilterSelectionActivity extends BaseActivity {
         dressCodeHeaderView.setItems(new SubHeaderListItem(getString(R.string.dress_code)));
     }
 
-    @OnClick(R.id.seeResultsButton)
-    public void navigateToResults(View view) {
+    private void fetchLocation() {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        new LocationService(locationManager, (location) -> {
+            this.location = location;
+            seeResultsImageButton.setOnClickListener(v -> navigateToResults());
+        }).fetchLocation();
+    }
+
+    private boolean hasLocationPermission() {
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    Activity#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for Activity#requestPermissions for more details.
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void navigateToResults() {
         Intent intent = new Intent(this, NearbyPlacesActivity.class);
-        intent.putExtras(NearbyPlacesActivity.getNavBundle(radius, dressCode, musicGenre, placeType, venueSize));
+        intent.putExtras(NearbyPlacesActivity.getNavBundle(radius, dressCode, musicGenre, placeType, venueSize, location));
         startActivity(intent);
     }
 }

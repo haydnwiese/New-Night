@@ -14,8 +14,6 @@ public interface NearbyPlacesContract {
 
         void navigateToPlaceDetails(SearchResult result);
 
-        boolean hasLocationPermission();
-
         void setLoadingSpinnerVisibility(boolean isVisible);
     }
 

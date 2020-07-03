@@ -142,6 +142,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/ic_seeresultsbutton"
+                android:clickable="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

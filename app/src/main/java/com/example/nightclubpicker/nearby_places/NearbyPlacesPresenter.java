@@ -47,14 +47,14 @@ public class NearbyPlacesPresenter implements NearbyPlacesContract.Presenter {
     private boolean isLoading = false;
 
     NearbyPlacesPresenter(NearbyPlacesContract.View view,
-                                 LocationManager locationManager,
+                                 Location currentLocation,
                                  MusicGenre musicGenre,
                                  VenueSize venueSize,
                                  DressCode dressCode,
                                  int radius,
                                  PlaceType placeType) {
         this.view = view;
-        this.locationManager = locationManager;
+        this.currentLocation = currentLocation;
         this.musicGenre = musicGenre;
         this.venueSize = venueSize;
         this.dressCode = dressCode;
@@ -64,17 +64,7 @@ public class NearbyPlacesPresenter implements NearbyPlacesContract.Presenter {
 
     @Override
     public void onViewCreated() {
-        fetchLocation();
-    }
-
-    private void fetchLocation() {
-        if (view.hasLocationPermission()) {
-            new LocationService(locationManager, (location) -> {
-                currentLocation = location;
-                //fetchExtendedPlaces();
-                fetchPlaces();
-            }).fetchLocation();
-        }
+        fetchPlaces();
     }
 
     private void fetchExtendedPlaces() {
