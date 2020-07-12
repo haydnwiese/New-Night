@@ -7,6 +7,7 @@ import com.example.nightclubpicker.R;
 import com.example.nightclubpicker.common.ResourceSingleton;
 import com.example.nightclubpicker.common.list_items.HeaderListItem;
 import com.example.nightclubpicker.common.list_items.ListItem;
+import com.example.nightclubpicker.common.list_items.OpenHoursListItem;
 import com.example.nightclubpicker.common.list_items.PlaceAttributeListItem;
 import com.example.nightclubpicker.common.list_items.ReviewListItem;
 import com.example.nightclubpicker.common.list_items.SubHeaderListItem;
@@ -133,10 +134,14 @@ public class PlaceDetailsPresenter implements PlaceDetailsContract.Presenter {
                 })
                 .build());
 
-        listItems.add(new PlaceAttributeListItem.Builder()
-                .setLabel(placeDetails.getOpeningHours().isOpenNow() ? ResourceSingleton.getInstance().getString(R.string.open) : ResourceSingleton.getInstance().getString(R.string.closed))
-                .setIcon(ResourceSingleton.getInstance().getDrawable(R.drawable.ic_clock))
-                .build());
+        if (placeDetails.getOpeningHours() != null && placeDetails.getOpeningHours().getWeekdayText() != null) {
+            String[] weekdayText = new String[placeDetails.getOpeningHours().getWeekdayText().size()];
+            placeDetails.getOpeningHours().getWeekdayText().toArray(weekdayText);
+            listItems.add(new OpenHoursListItem.Builder()
+                    .setOpen(placeDetails.getOpeningHours().isOpenNow())
+                    .setWeekdayText(weekdayText)
+                    .build());
+        }
 
         listItems.add(new PlaceAttributeListItem.Builder()
                 .setLabel(placeDetails.getFormattedPhoneNumber())

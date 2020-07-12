@@ -3,5 +3,5 @@
     <dimen name="smallStar">12dp</dimen>
     <dimen name="largeStar">20dp</dimen>
     <dimen name="detailsText">12sp</dimen>
-    <dimen name="hoursSpacing">5dp</dimen>
+    <dimen name="hoursSpacing">8dp</dimen>
 </resources>

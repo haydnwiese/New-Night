@@ -3,20 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground">
 
     <com.example.nightclubpicker.common.views.PlaceAttributeView
         android:id="@+id/attributeView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:description="228 Albert St Waterloo"
+        app:description="Closed"
         app:imageSrc="@drawable/ic_clock" />
 
     <LinearLayout
+        android:id="@+id/subItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginStart="34.4dp">
+        android:visibility="gone"
+        android:layout_marginStart="35dp">
 
         <TextView
             android:id="@+id/monday"
@@ -88,9 +91,16 @@
             android:id="@+id/sunday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:text="Monday: 5:00 PM – 12:00 AM"
             android:textSize="@dimen/detailsText"/>
 
     </LinearLayout>
+
+    <include
+        android:id="@+id/divider2"
+        layout="@layout/divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
