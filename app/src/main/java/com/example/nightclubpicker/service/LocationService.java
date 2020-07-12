@@ -5,6 +5,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 
 public class LocationService implements LocationListener {
 
@@ -22,11 +23,13 @@ public class LocationService implements LocationListener {
 
     @SuppressLint("MissingPermission")
     public void fetchLocation() {
+        Log.d("LocationService", "Fetching Location");
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
     }
 
     @Override
     public void onLocationChanged(Location location) {
+        Log.d("LocationService", "Location updated");
         callback.onLocationUpdated(location);
         locationManager.removeUpdates(this);
     }

@@ -68,7 +68,7 @@
                     android:fontFamily="@font/roboto_light"
                     android:includeFontPadding="false"
                     android:text="3.0"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/detailsText"
                     app:layout_constraintBottom_toBottomOf="@+id/starRatingView"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/starRatingView"
@@ -82,7 +82,7 @@
                     android:fontFamily="@font/roboto_light"
                     android:includeFontPadding="false"
                     android:text="(39)"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/detailsText"
                     app:layout_constraintBottom_toBottomOf="@+id/starRatingView"
                     app:layout_constraintStart_toEndOf="@+id/starRatingView"
                     app:layout_constraintTop_toTopOf="@+id/starRatingView" />
@@ -94,7 +94,7 @@
                     android:layout_marginStart="6dp"
                     android:fontFamily="@font/roboto_light"
                     android:text="•"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/detailsText"
                     app:layout_constraintBottom_toBottomOf="@id/numberOfReviews"
                     app:layout_constraintStart_toEndOf="@id/numberOfReviews"
                     app:layout_constraintTop_toTopOf="@id/numberOfReviews" />
@@ -106,7 +106,7 @@
                     android:layout_marginStart="6dp"
                     android:fontFamily="@font/roboto_light"
                     android:text="$$"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/detailsText"
                     app:layout_constraintBottom_toBottomOf="@id/numberOfReviews"
                     app:layout_constraintStart_toEndOf="@+id/dot"
                     app:layout_constraintTop_toTopOf="@id/numberOfReviews" />
@@ -117,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="Small Venue"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/detailsText"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/exactStarRating" />
 
@@ -128,7 +128,7 @@
                     android:layout_marginStart="6dp"
                     android:fontFamily="@font/roboto_light"
                     android:text="•"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/detailsText"
                     app:layout_constraintStart_toEndOf="@id/venueSize"
                     app:layout_constraintTop_toTopOf="@id/venueSize" />
 
@@ -138,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:text="Semi-Formal"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/detailsText"
                     app:layout_constraintStart_toEndOf="@id/dot2"
                     app:layout_constraintTop_toTopOf="@id/venueSize" />
 

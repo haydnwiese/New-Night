@@ -61,7 +61,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto_light"
         android:text="99 km away"
-        android:textSize="12sp"
+        android:textSize="@dimen/detailsText"
         app:layout_constraintStart_toStartOf="@+id/exactStarRating"
         app:layout_constraintTop_toBottomOf="@+id/exactStarRating" />
 
@@ -72,7 +72,7 @@
         android:layout_marginStart="4dp"
         android:fontFamily="@font/roboto_light"
         android:text="•"
-        android:textSize="12sp"
+        android:textSize="@dimen/detailsText"
         app:layout_constraintStart_toEndOf="@+id/distance"
         app:layout_constraintTop_toTopOf="@+id/distance" />
 
@@ -83,7 +83,7 @@
         android:layout_marginStart="4dp"
         android:fontFamily="@font/roboto_light"
         android:text="$$"
-        android:textSize="12sp"
+        android:textSize="@dimen/detailsText"
         app:layout_constraintStart_toEndOf="@+id/dot"
         app:layout_constraintTop_toTopOf="@+id/distance" />
 
@@ -105,7 +105,7 @@
         android:fontFamily="@font/roboto_light"
         android:includeFontPadding="false"
         android:text="3.0"
-        android:textSize="12sp"
+        android:textSize="@dimen/detailsText"
         app:layout_constraintStart_toStartOf="@+id/resultName"
         app:layout_constraintTop_toBottomOf="@+id/resultName"
         tools:text="3.0" />

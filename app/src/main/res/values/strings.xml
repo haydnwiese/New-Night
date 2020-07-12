@@ -16,6 +16,15 @@
     <string name="open">Open</string>
     <string name="closed">Closed</string>
 
+    <!-- Days of week -->
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+
     <!-- Venue Types -->
     <string name="night_club">Night Club</string>
     <string name="bar">Bar</string>
