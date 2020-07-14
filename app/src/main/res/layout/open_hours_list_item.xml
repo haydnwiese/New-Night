@@ -6,12 +6,40 @@
     android:layout_height="wrap_content"
     android:foreground="?android:attr/selectableItemBackground">
 
-    <com.example.nightclubpicker.common.views.PlaceAttributeView
-        android:id="@+id/attributeView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:description="Closed"
-        app:imageSrc="@drawable/ic_clock" />
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="5dp">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_clock"/>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textSize="@dimen/detailsText"
+            android:text="Open"
+            app:layout_constraintBottom_toBottomOf="@id/icon"
+            app:layout_constraintStart_toEndOf="@id/icon"
+            app:layout_constraintTop_toTopOf="@id/icon" />
+
+        <ImageView
+            android:id="@+id/expandArrow"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="7dp"
+            android:src="@drawable/ic_expand_arrow"
+            app:layout_constraintStart_toEndOf="@id/description"
+            app:layout_constraintTop_toTopOf="@id/description"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/subItem"

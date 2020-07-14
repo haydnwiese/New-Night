@@ -1,6 +1,7 @@
 package com.example.nightclubpicker.common.view_holders;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,14 +15,15 @@ import com.example.nightclubpicker.common.views.PlaceAttributeView;
 
 public class OpenHoursListItemViewHolder extends RecyclerView.ViewHolder {
 
-    private PlaceAttributeView placeAttributeView;
+    private TextView openStatusView;
     private TextView[] weekdayTextViews;
     private LinearLayout subItem;
+    private ImageView expandArrow;
 
     public OpenHoursListItemViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        placeAttributeView = itemView.findViewById(R.id.attributeView);
+        openStatusView = itemView.findViewById(R.id.description);
         weekdayTextViews = new TextView[]{
                 itemView.findViewById(R.id.monday),
                 itemView.findViewById(R.id.tuesday),
@@ -32,15 +34,22 @@ public class OpenHoursListItemViewHolder extends RecyclerView.ViewHolder {
                 itemView.findViewById(R.id.sunday),
         };
         subItem = itemView.findViewById(R.id.subItem);
+        expandArrow = itemView.findViewById(R.id.expandArrow);
     }
 
     public void setItems(OpenHoursListItem listItem) {
-        placeAttributeView.setDescription(listItem.isOpen()
+        openStatusView.setText(listItem.isOpen()
                 ? ResourceSingleton.getInstance().getString(R.string.open)
                 : ResourceSingleton.getInstance().getString(R.string.closed));
         for (int i = 0; i < weekdayTextViews.length; i++) {
             weekdayTextViews[i].setText(listItem.getWeekdayText()[i]);
         }
         subItem.setVisibility(listItem.isExpanded() ? View.VISIBLE : View.GONE);
+
+        if (listItem.isExpanded()) {
+            expandArrow.animate().setDuration(200).rotation(180);
+        } else {
+            expandArrow.animate().setDuration(200).rotation(0);
+        }
     }
 }
