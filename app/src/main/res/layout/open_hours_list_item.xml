@@ -47,7 +47,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone"
-        android:layout_marginStart="35dp">
+        android:layout_marginStart="35dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="15dp">
 
         <TextView
             android:id="@+id/monday"
@@ -119,7 +121,6 @@
             android:id="@+id/sunday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:text="Monday: 5:00 PM – 12:00 AM"
             android:textSize="@dimen/detailsText"/>
 
