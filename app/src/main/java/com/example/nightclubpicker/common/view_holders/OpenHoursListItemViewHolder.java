@@ -13,6 +13,8 @@ import com.example.nightclubpicker.common.ResourceSingleton;
 import com.example.nightclubpicker.common.list_items.OpenHoursListItem;
 import com.example.nightclubpicker.common.views.PlaceAttributeView;
 
+import java.util.regex.Pattern;
+
 public class OpenHoursListItemViewHolder extends RecyclerView.ViewHolder {
 
     private TextView openStatusView;
@@ -41,8 +43,13 @@ public class OpenHoursListItemViewHolder extends RecyclerView.ViewHolder {
         openStatusView.setText(listItem.isOpen()
                 ? ResourceSingleton.getInstance().getString(R.string.open)
                 : ResourceSingleton.getInstance().getString(R.string.closed));
+
+        // Create the open times dropdown
         for (int i = 0; i < weekdayTextViews.length; i++) {
-            weekdayTextViews[i].setText(listItem.getWeekdayText()[i]);
+            String weekdayText = listItem.getWeekdayText()[i];
+            weekdayTextViews[i].setText(Pattern.compile("[0-9]").matcher(weekdayText).find()
+                    ? weekdayText.replaceFirst(".+?(?=\\d)", "")
+                    : weekdayText.substring(weekdayText.lastIndexOf(" ") + 1));
         }
         subItem.setVisibility(listItem.isExpanded() ? View.VISIBLE : View.GONE);
 
