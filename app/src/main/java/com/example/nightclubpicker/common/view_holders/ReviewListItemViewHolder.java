@@ -1,6 +1,9 @@
 package com.example.nightclubpicker.common.view_holders;
 
+import android.text.Layout;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,5 +41,13 @@ public class ReviewListItemViewHolder extends RecyclerView.ViewHolder {
         starRatingView.setRating(listItem.getRating());
         relativeTimeView.setText(listItem.getRelativeTime());
         contentView.setText(listItem.getContent());
+//        contentView.post(() -> {
+//            if (contentView.getLineCount() > 1) {
+//                if (!contentView.getLayout().getText().toString().equalsIgnoreCase(listItem.getContent())) {
+//                    Log.d("Review", "ellipse");
+//                }
+//            }
+//        });
+        contentView.setMaxLines(listItem.isExpanded() ? 50 : 5);
     }
 }

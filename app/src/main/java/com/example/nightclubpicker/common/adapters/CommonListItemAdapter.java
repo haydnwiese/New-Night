@@ -81,6 +81,11 @@ public class CommonListItemAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 break;
             case REVIEW_LIST_ITEM:
                 ((ReviewListItemViewHolder) holder).setItems((ReviewListItem) listItem);
+                ReviewListItem reviewListItem = (ReviewListItem) listItem;
+                holder.itemView.setOnClickListener(view -> {
+                    reviewListItem.setExpanded(!reviewListItem.isExpanded());
+                    notifyItemChanged(position);
+                });
                 break;
             case SPINNER_LIST_ITEM:
                 break;

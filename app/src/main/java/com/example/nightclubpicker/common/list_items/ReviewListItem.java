@@ -9,6 +9,7 @@ public class ReviewListItem implements ListItem {
     private int rating;
     private String relativeTime;
     private String content;
+    private boolean isExpanded;
 
     @Override
     public Type getType() {
@@ -33,6 +34,14 @@ public class ReviewListItem implements ListItem {
 
     public String getContent() {
         return content;
+    }
+
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        isExpanded = expanded;
     }
 
     public static class Builder {
