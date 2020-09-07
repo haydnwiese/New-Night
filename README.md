@@ -18,5 +18,5 @@ This allowed us to extend the filters available with the Places API to include o
   <img src="https://github.com/haydnwiese/Personal-Website/blob/master/src/resources/projects/new_night/newNightDetails2.png" height="300">
 </p>
 
-<h3>Live Demo</h3>
+<h3>Demo</h3>
 <img src="https://github.com/haydnwiese/Personal-Website/blob/master/src/resources/projects/new_night/demo.gif" height="500">
