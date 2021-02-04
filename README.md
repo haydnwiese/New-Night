@@ -10,11 +10,11 @@ The Spring Boot app connects to a MySQL database containing additional details a
 This allowed us to extend the filters available with the Places API to include options such as music genre, venue size and dress code.
 
 <p align="left">
-  <img src="https://github.com/haydnwiese/Personal-Website/blob/master/src/resources/projects/new_night/newNightWelcome.png" height="300">
-  <img src="https://github.com/haydnwiese/Personal-Website/blob/master/src/resources/projects/new_night/newNightFilters1.png" height="300">
-  <img src="https://github.com/haydnwiese/Personal-Website/blob/master/src/resources/projects/new_night/newNightResults.png" height="300">
-  <img src="https://github.com/haydnwiese/Personal-Website/blob/master/src/resources/projects/new_night/newNightDetails1.png" height="300">
-  <img src="https://github.com/haydnwiese/Personal-Website/blob/master/src/resources/projects/new_night/newNightDetails2.png" height="300">
+  <img src="https://github.com/haydnwiese/Personal-Website/blob/master/src/resources/projects/new_night/newNightWelcome.png" height="380">
+  <img src="https://github.com/haydnwiese/Personal-Website/blob/master/src/resources/projects/new_night/newNightFilters1.png" height="380">
+  <img src="https://github.com/haydnwiese/Personal-Website/blob/master/src/resources/projects/new_night/newNightResults.png" height="380">
+  <img src="https://github.com/haydnwiese/Personal-Website/blob/master/src/resources/projects/new_night/newNightDetails1.png" height="380">
+  <img src="https://github.com/haydnwiese/Personal-Website/blob/master/src/resources/projects/new_night/newNightDetails2.png" height="380">
 </p>
 
 <h3>Demo</h3>
